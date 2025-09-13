@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "docusaurus start docs-site",
-    "build": "docusaurus build docs-site",
+    "build": "docusaurus build",
     "serve": "docusaurus serve docs-site",
     "openapi:validate": "swagger-cli validate openapi/envoyou-api.yaml",
     "md:lint": "markdownlint-cli2 'docs/**/*.md' 'docs/**/*.mdx'",
