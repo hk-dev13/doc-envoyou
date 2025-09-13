@@ -1,0 +1,24 @@
+{
+  "id": "guides/pagination",
+  "title": "Pagination & Cursors",
+  "description": "EnvoyOU list endpoints use opaque forward cursor headers for consistent, low-latency traversal of large datasets.",
+  "source": "@site/../docs/guides/pagination.md",
+  "sourceDirName": "guides",
+  "slug": "/guides/pagination",
+  "permalink": "/docs/guides/pagination",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/guides/pagination.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Observability & Tracing",
+    "permalink": "/docs/guides/observability"
+  },
+  "next": {
+    "title": "Webhooks Integration Guide",
+    "permalink": "/docs/guides/webhooks"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "contributing-docs",
+  "title": "Contributing to EnvoyOU Documentation",
+  "description": "This guide explains how to add or update documentation content.",
+  "source": "@site/../docs/contributing-docs.md",
+  "sourceDirName": ".",
+  "slug": "/contributing-docs",
+  "permalink": "/docs/contributing-docs",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/contributing-docs.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Documentation Style Guide",
+    "permalink": "/docs/style-guide"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "automation-plan",
+  "title": "Documentation Automation Plan",
+  "description": "Goals",
+  "source": "@site/../docs/automation-plan.md",
+  "sourceDirName": ".",
+  "slug": "/automation-plan",
+  "permalink": "/docs/automation-plan",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/automation-plan.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

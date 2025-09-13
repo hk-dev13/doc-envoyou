@@ -1,0 +1,24 @@
+{
+  "id": "data-model/overview",
+  "title": "Data Model Overview",
+  "description": "This section describes the core data entities exposed by the EnvoyOU API.",
+  "source": "@site/../docs/data-model/overview.md",
+  "sourceDirName": "data-model",
+  "slug": "/data-model/overview",
+  "permalink": "/docs/data-model/overview",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/data-model/overview.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "User Applications: From Raw Data to Actionable Intelligence",
+    "permalink": "/docs/guides/user-applications"
+  },
+  "next": {
+    "title": "Frequently Asked Questions (FAQ)",
+    "permalink": "/docs/faq"
+  }
+}

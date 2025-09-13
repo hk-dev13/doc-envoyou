@@ -1,0 +1,59 @@
+name: Deploy Docs (Netlify)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/**'
+      - 'docs-site/**'
+      - 'openapi/**'
+      - '.github/workflows/deploy-docs.yml'
+      - 'package.json'
+      - 'package-lock.json'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      # Provided via repository secrets
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: doc-envoyou
+
+      - name: Build docs
+        run: npm run build
+        working-directory: doc-envoyou
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v2.1.0
+        with:
+          publish-dir: doc-envoyou/docs-site/build
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Docs build: ${{ github.sha }}"
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: Summary
+        run: |
+          echo "Deployment triggered to Netlify site: $NETLIFY_SITE_ID" >> $GITHUB_STEP_SUMMARY

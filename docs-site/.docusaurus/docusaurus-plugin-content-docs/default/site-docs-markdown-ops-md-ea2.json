@@ -1,0 +1,15 @@
+{
+  "id": "markdown-ops",
+  "title": "Markdown Operations Helpers",
+  "description": "These helper scripts reduce noise and enable incremental cleanup without breaking builds.",
+  "source": "@site/../docs/markdown-ops.md",
+  "sourceDirName": ".",
+  "slug": "/markdown-ops",
+  "permalink": "/docs/markdown-ops",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/markdown-ops.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

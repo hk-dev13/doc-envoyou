@@ -1,0 +1,23 @@
+{
+  "id": "api-reference",
+  "title": "API Reference Index",
+  "description": "This page serves as a quick index and gateway to the full OpenAPI spec rendering.",
+  "source": "@site/../docs/api-reference.md",
+  "sourceDirName": ".",
+  "slug": "/api-reference",
+  "permalink": "/docs/api-reference",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/api-reference.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "api-reference",
+    "title": "API Reference Index",
+    "slug": "/api-reference",
+    "aliases": [
+      "/docs/api-reference",
+      "/docs/docs/api-reference"
+    ]
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "intro",
+          "docs": [
+            {
+              "id": "api-reference",
+              "path": "/docs/api-reference"
+            },
+            {
+              "id": "api/api-reference",
+              "path": "/docs/api/api-reference",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "api/authentication",
+              "path": "/docs/api/authentication",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "api/openapi-plan",
+              "path": "/docs/api/openapi-plan"
+            },
+            {
+              "id": "automation-plan",
+              "path": "/docs/automation-plan"
+            },
+            {
+              "id": "changelog",
+              "path": "/docs/changelog",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "contributing-docs",
+              "path": "/docs/contributing-docs",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "data-model/overview",
+              "path": "/docs/data-model/overview",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "faq",
+              "path": "/docs/faq",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "getting-started",
+              "path": "/docs/getting-started",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "guides/error-catalog",
+              "path": "/docs/guides/error-catalog",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "guides/error-handling",
+              "path": "/docs/guides/error-handling",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "guides/observability",
+              "path": "/docs/guides/observability",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "guides/pagination",
+              "path": "/docs/guides/pagination",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "guides/rate-limiting",
+              "path": "/docs/guides/rate-limiting",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "guides/sdks-libraries",
+              "path": "/docs/guides/sdks-libraries",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "guides/supabase-integration",
+              "path": "/docs/guides/supabase-integration"
+            },
+            {
+              "id": "guides/user-applications",
+              "path": "/docs/guides/user-applications",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "guides/webhooks",
+              "path": "/docs/guides/webhooks",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "intro",
+              "path": "/docs/intro",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "introduction",
+              "path": "/docs/introduction",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "markdown-lint-cleanup-plan",
+              "path": "/docs/markdown-lint-cleanup-plan"
+            },
+            {
+              "id": "markdown-ops",
+              "path": "/docs/markdown-ops"
+            },
+            {
+              "id": "migration-map",
+              "path": "/docs/migration-map"
+            },
+            {
+              "id": "README-Docs",
+              "path": "/docs/README-Docs"
+            },
+            {
+              "id": "redirect-plan",
+              "path": "/docs/redirect-plan"
+            },
+            {
+              "id": "style-guide",
+              "path": "/docs/style-guide",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/docs/intro",
+                "label": "intro"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

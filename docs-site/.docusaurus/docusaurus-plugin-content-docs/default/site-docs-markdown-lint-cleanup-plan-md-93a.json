@@ -1,0 +1,15 @@
+{
+  "id": "markdown-lint-cleanup-plan",
+  "title": "Markdown Lint Phased Cleanup Plan",
+  "description": "Goal: Move from relaxed temporary configuration to fully enforced documentation quality without blocking current development velocity.",
+  "source": "@site/../docs/markdown-lint-cleanup-plan.md",
+  "sourceDirName": ".",
+  "slug": "/markdown-lint-cleanup-plan",
+  "permalink": "/docs/markdown-lint-cleanup-plan",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/markdown-lint-cleanup-plan.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

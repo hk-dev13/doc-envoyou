@@ -1,0 +1,24 @@
+{
+  "id": "guides/error-catalog",
+  "title": "API Error Catalog",
+  "description": "Centralized reference of standardized error responses exposed by the EnvoyOU API.",
+  "source": "@site/../docs/guides/error-catalog.md",
+  "sourceDirName": "guides",
+  "slug": "/guides/error-catalog",
+  "permalink": "/docs/guides/error-catalog",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/guides/error-catalog.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Error Handling Guide",
+    "permalink": "/docs/guides/error-handling"
+  },
+  "next": {
+    "title": "Rate Limiting Guide",
+    "permalink": "/docs/guides/rate-limiting"
+  }
+}

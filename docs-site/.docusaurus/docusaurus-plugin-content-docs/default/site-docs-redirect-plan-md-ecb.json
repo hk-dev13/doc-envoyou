@@ -1,0 +1,15 @@
+{
+  "id": "redirect-plan",
+  "title": "Redirect Plan",
+  "description": "Purpose//docs.envoyou.com.",
+  "source": "@site/../docs/redirect-plan.md",
+  "sourceDirName": ".",
+  "slug": "/redirect-plan",
+  "permalink": "/docs/redirect-plan",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/redirect-plan.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

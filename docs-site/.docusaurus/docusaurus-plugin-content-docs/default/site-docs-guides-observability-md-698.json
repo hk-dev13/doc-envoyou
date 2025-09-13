@@ -1,0 +1,24 @@
+{
+  "id": "guides/observability",
+  "title": "Observability & Tracing",
+  "description": "This guide explains how to correlate API calls with logs, metrics, and traces for effective debugging and SLO tracking.",
+  "source": "@site/../docs/guides/observability.md",
+  "sourceDirName": "guides",
+  "slug": "/guides/observability",
+  "permalink": "/docs/guides/observability",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/guides/observability.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Rate Limiting Guide",
+    "permalink": "/docs/guides/rate-limiting"
+  },
+  "next": {
+    "title": "Pagination & Cursors",
+    "permalink": "/docs/guides/pagination"
+  }
+}

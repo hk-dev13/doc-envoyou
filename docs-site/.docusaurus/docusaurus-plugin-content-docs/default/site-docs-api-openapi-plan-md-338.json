@@ -1,0 +1,15 @@
+{
+  "id": "api/openapi-plan",
+  "title": "OpenAPI Integration Plan",
+  "description": "Current State",
+  "source": "@site/../docs/api/openapi-plan.md",
+  "sourceDirName": "api",
+  "slug": "/api/openapi-plan",
+  "permalink": "/docs/api/openapi-plan",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/api/openapi-plan.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

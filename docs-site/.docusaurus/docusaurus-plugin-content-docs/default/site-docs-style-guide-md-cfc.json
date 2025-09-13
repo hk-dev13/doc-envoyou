@@ -1,0 +1,24 @@
+{
+  "id": "style-guide",
+  "title": "Documentation Style Guide",
+  "description": "This guide defines the writing and formatting standards for EnvoyOU documentation.",
+  "source": "@site/../docs/style-guide.md",
+  "sourceDirName": ".",
+  "slug": "/style-guide",
+  "permalink": "/docs/style-guide",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/style-guide.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Changelog",
+    "permalink": "/docs/changelog"
+  },
+  "next": {
+    "title": "Contributing to EnvoyOU Documentation",
+    "permalink": "/docs/contributing-docs"
+  }
+}

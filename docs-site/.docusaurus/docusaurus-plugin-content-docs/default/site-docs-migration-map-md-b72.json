@@ -1,0 +1,15 @@
+{
+  "id": "migration-map",
+  "title": "Documentation Migration Map",
+  "description": "This file tracks the migration of legacy markdown documents into the unified Docusaurus portal.",
+  "source": "@site/../docs/migration-map.md",
+  "sourceDirName": ".",
+  "slug": "/migration-map",
+  "permalink": "/docs/migration-map",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/migration-map.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

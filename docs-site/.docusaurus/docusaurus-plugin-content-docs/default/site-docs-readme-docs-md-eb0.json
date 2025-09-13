@@ -1,0 +1,15 @@
+{
+  "id": "README-Docs",
+  "title": "EnvoyOU Documentation Developer Guide",
+  "description": "Prerequisites",
+  "source": "@site/../docs/README-Docs.md",
+  "sourceDirName": ".",
+  "slug": "/README-Docs",
+  "permalink": "/docs/README-Docs",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/README-Docs.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

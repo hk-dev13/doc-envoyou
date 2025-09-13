@@ -1,0 +1,28 @@
+{
+  "name": "envoyou-docs",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "docusaurus start docs-site",
+    "build": "docusaurus build docs-site",
+    "serve": "docusaurus serve docs-site",
+    "openapi:validate": "swagger-cli validate openapi/envoyou-api.yaml",
+    "md:lint": "markdownlint-cli2 'docs/**/*.md' 'docs/**/*.mdx'",
+    "md:lint:fix": "markdownlint-cli2 --fix 'docs/**/*.md' 'docs/**/*.mdx'",
+    "md:fences:check": "grep -R '^```$' docs || true",
+    "md:fences:label": "grep -Rrl '^```$' docs | xargs -r perl -0777 -i -pe 's/^```$/```text/gm'"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^3.8.1",
+    "@docusaurus/preset-classic": "^3.8.1",
+    "@docusaurus/theme-classic": "^3.8.1",
+    "redocusaurus": "2.5.0"
+  },
+  "devDependencies": {
+    "@docusaurus/module-type-aliases": "^3.8.1",
+    "@docusaurus/types": "^3.8.1",
+    "markdownlint": "^0.32.1",
+    "markdownlint-cli2": "^0.15.0",
+    "swagger-cli": "^4.0.4"
+  }
+}

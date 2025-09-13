@@ -1,0 +1,29 @@
+{
+  "id": "guides/user-applications",
+  "title": "User Applications: From Raw Data to Actionable Intelligence",
+  "description": "High-level application layer concepts built atop Envoyou ESG & environmental data APIs.",
+  "source": "@site/../docs/guides/user-applications.mdx",
+  "sourceDirName": "guides",
+  "slug": "/guides/user-applications",
+  "permalink": "/docs/guides/user-applications",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/../docs/guides/user-applications.mdx",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "user-applications",
+    "title": "User Applications: From Raw Data to Actionable Intelligence",
+    "description": "High-level application layer concepts built atop Envoyou ESG & environmental data APIs.",
+    "slug": "/guides/user-applications"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "SDK and Libraries Guide",
+    "permalink": "/docs/guides/sdks-libraries"
+  },
+  "next": {
+    "title": "Data Model Overview",
+    "permalink": "/docs/data-model/overview"
+  }
+}

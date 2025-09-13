@@ -1,0 +1,3 @@
+:root { --ifm-color-primary: #0B5CCC; }
+body { font-feature-settings: 'liga' 1, 'calt' 1; }
+.redoc-wrap { background: #fff; }
