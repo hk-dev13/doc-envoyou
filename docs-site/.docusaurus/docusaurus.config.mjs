@@ -10,7 +10,7 @@ export default {
   "url": "https://docs.envoyou.com",
   "baseUrl": "/",
   "organizationName": "hk-dev13",
-  "projectName": "doc-envoyou",
+  "projectName": "docs-envoyou",
   "onBrokenLinks": "warn",
   "onBrokenMarkdownLinks": "warn",
   "i18n": {
@@ -27,7 +27,7 @@ export default {
       {
         "docs": {
           "sidebarPath": "./sidebars.js",
-          "editUrl": "https://github.com/hk-dev13/doc-envoyou/tree/master/",
+          "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/",
           "path": "../docs"
         },
         "blog": false,

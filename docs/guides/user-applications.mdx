@@ -1,7 +1,7 @@
 ---
 id: user-applications
 title: "User Applications: From Raw Data to Actionable Intelligence"
-description: "High-level application layer concepts built atop Envoyou ESG & environmental data APIs."
+description: "High-level application layer concepts plus concrete registration, keys, scopes, and security guidance."
 slug: /guides/user-applications
 ---
 
@@ -10,15 +10,18 @@ import TabItem from '@theme/TabItem';
 
 > Transform raw environmental & ESG signals into business, compliance, and investment decisions.
 
-This page outlines flagship user-facing application patterns you can build (or we may offer natively) on top of the Envoyou platform. These patterns accelerate time-to-value by turning **data exhaust** into **operational and strategic intelligence**.
+This page outlines flagship user-facing application patterns you can build (or we may offer natively) on top of the Envoyou platform **and** the concrete lifecycle of registering an application, provisioning secure API credentials, enforcing scopes, and operating reliably.
 
-## Overview
+## Core Concepts
 
-| Application Pillar | Primary Users | Core Value | Typical Data Sources |
-| ------------------ | ------------- | ---------- | -------------------- |
-| Monitoring & Alerts | Sustainability managers, compliance teams | Real-time situational awareness & proactive risk mitigation | Emissions metrics, regulation feeds, facility telemetry |
-| Portfolio & Impact Analytics | Investors, strategy, board reporting | Capital allocation insight & ESG risk optimization | Company ESG scores, sector benchmarks, portfolio holdings |
-| Reporting & Disclosure Automation | ESG reporting teams, enterprise sustainability leads | Faster GRI / SASB / CSRD aligned output | Normalized KPI store, historical baselines, taxonomy mappings |
+| Concept | Purpose | Notes |
+| ------- | ------- | ----- |
+| Application Registration | Establish identity & ownership | Produces `appId`, initial key pair |
+| API Key (Server) | Server-to-server auth & rate scope | Rotatable; never expose client-side |
+| Public Client ID | Identify browser / mobile client | Paired with PKCE or limited-scope token exchange |
+| Scopes | Principle of least privilege | Example: `metrics.read`, `alerts.write` |
+| Rotation | Limit blast radius | Dual-key overlap window recommended (e.g., 24h) |
+| Revocation | Immediate risk mitigation | Invalidate compromised key + audit trail |
 
 ---
 
@@ -188,6 +191,155 @@ X-Signature: t=1694592100,v1=3c5bd...
 - Sign all webhook payloads (HMAC SHA-256 w/ secret per destination).
 - Allow replay protection via timestamp + nonce.
 - Maintain version graph of taxonomy mappings; expose diff endpoint.
+
+---
+
+## 4. Application Registration Workflow
+A minimal, opinionated flow to onboard a new application consuming Envoyou APIs.
+
+```mermaid
+sequenceDiagram
+  participant U as User (Org Admin)
+  participant C as Console
+  participant A as Auth Service
+  participant K as Key Vault
+  U->>C: Create Application (name, description)
+  C->>A: POST /apps {metadata}
+  A->>K: Generate key material
+  K-->>A: keyId + secretHash
+  A-->>C: appId + key (secret once)
+  C-->>U: Display + copy secret (one-time)
+```
+
+### Steps
+1. Admin navigates to "Developer > Applications" and submits metadata.
+2. Backend creates record (`apps` table) with status `active`.
+3. Key service mints `keyId` + random 32+ byte secret; stores hash (HMAC-SHA256) + creation timestamp.
+4. Plain secret returned once; UI enforces copy + acknowledges not stored in recoverable form.
+5. Admin optionally assigns initial scopes (defaults: `metrics.read`).
+6. Audit event `app.created` emitted.
+
+### Suggested Table Schemas (Excerpt)
+```sql
+CREATE TABLE apps (
+  id UUID PRIMARY KEY,
+  owner_org UUID NOT NULL,
+  name TEXT NOT NULL,
+  description TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  status TEXT NOT NULL CHECK (status IN ('active','suspended','deleted'))
+);
+CREATE TABLE app_keys (
+  id UUID PRIMARY KEY,
+  app_id UUID REFERENCES apps(id) ON DELETE CASCADE,
+  key_id TEXT NOT NULL, -- short identifier prefix
+  secret_hash TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  expires_at TIMESTAMPTZ,
+  last_used_at TIMESTAMPTZ,
+  revoked_at TIMESTAMPTZ
+);
+CREATE TABLE app_scopes (
+  app_id UUID REFERENCES apps(id) ON DELETE CASCADE,
+  scope TEXT NOT NULL,
+  granted_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  PRIMARY KEY (app_id, scope)
+);
+```
+
+---
+
+## 5. API Keys & Rotation Strategy
+
+| Scenario | Action | Notes |
+| -------- | ------ | ----- |
+| Scheduled rotation | Create new key (A2) keep old (A1) valid | Overlap window (e.g., 24h) |
+| Compromise suspected | Mint new key + revoke all old | Document incident reference |
+| Least-privilege tightening | Remove unused scopes | Emit `scope.revoked` event |
+| Decommission app | Revoke keys + mark app deleted | Retain 90d metadata for audit |
+
+### Rotation Example
+```http
+# Create new key
+POST /apps/{appId}/keys
+Authorization: Bearer <admin_token>
+
+201 Created {"keyId":"k_9f3","secret":"env_live_a2..."}
+
+# Revoke old key
+DELETE /apps/{appId}/keys/k_8d1
+```
+
+### Implementation Tips
+- Store only secret hash; compare using constant-time function.
+- Prefix keys (e.g., `env_live_`) to simplify environment parsing.
+- Log last 10 usages (timestamp + endpoint) for forensics; avoid full request body storage.
+
+---
+
+## 6. Scopes & Permissions
+
+| Scope | Description | Typical Assignee |
+| ----- | ----------- | ---------------- |
+| metrics.read | Read measurement & benchmark metrics | Dashboards, analytics services |
+| alerts.read | List & view alert definitions & events | Monitoring dashboard |
+| alerts.write | Create/update/delete alert rules | Backoffice automation service |
+| exports.read | Download reporting bundles | Reporting portal |
+| exports.generate | Trigger new export generation | Reporting orchestrator |
+| companies.read | Access company profile & facility list | Portfolio analytics |
+
+### Evaluating Scopes
+```pseudo
+function authorize(app, requiredScopes):
+  granted = fetchScopes(app.id)
+  return all(scope in granted for scope in requiredScopes)
+```
+
+---
+
+## 7. End-to-End Example Flow
+Example: Dashboard server fetching metrics then creating an alert.
+
+```bash
+# 1. Fetch composite score
+curl -H "Authorization: ApiKey env_live_a2X..." \
+  https://api.envoyou.com/companies/123/cevs-score
+
+# 2. List existing alerts
+curl -H "Authorization: ApiKey env_live_a2X..." \
+  https://api.envoyou.com/alerts
+
+# 3. Create alert (requires alerts.write)
+curl -X POST -H "Authorization: ApiKey env_live_a2X..." \
+  -H "Content-Type: application/json" \
+  -d '{"metric":"cevs_score","operator":"drop_percent","threshold":5,"window":"24h"}' \
+  https://api.envoyou.com/alerts
+```
+
+Tokenless browser usage should proxy through your server; never embed full server key client-side. For public widgets use ephemeral signed tokens with narrow scope + TTL.
+
+---
+
+## 8. Security & Compliance Checklist
+- [ ] Key secrets hashed (HMAC SHA-256 or Argon2id for long-term keys)
+- [ ] Dual-key rotation supported
+- [ ] Scope review automated (job flags unused >30d)
+- [ ] All admin mutations emit audit events
+- [ ] Webhook signatures validated with replay guard
+- [ ] Rate limits per key + global fail-safe circuit
+- [ ] Time-synchronized (NTP) infrastructure for consistent expiry
+- [ ] Secrets never logged or shown after creation
+
+---
+
+## 9. Troubleshooting
+| Symptom | Possible Cause | Resolution |
+| ------- | -------------- | ---------- |
+| 401 Unauthorized | Missing/invalid header | Ensure `Authorization: ApiKey <key>` sent |
+| 403 Forbidden | Scope missing | Add required scope in console, retry |
+| 429 Too Many Requests | Burst above rate limit | Implement client backoff + jitter |
+| 410 Gone (key) | Key revoked | Mint new key and update deployments |
+| Stale data | Cache not invalidated | Check cache TTL, purge after rotation |
 
 ---
 

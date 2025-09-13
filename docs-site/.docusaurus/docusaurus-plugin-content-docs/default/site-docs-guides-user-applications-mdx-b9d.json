@@ -1,7 +1,7 @@
 {
   "id": "guides/user-applications",
   "title": "User Applications: From Raw Data to Actionable Intelligence",
-  "description": "High-level application layer concepts built atop Envoyou ESG & environmental data APIs.",
+  "description": "High-level application layer concepts plus concrete registration, keys, scopes, and security guidance.",
   "source": "@site/../docs/guides/user-applications.mdx",
   "sourceDirName": "guides",
   "slug": "/guides/user-applications",
@@ -14,7 +14,7 @@
   "frontMatter": {
     "id": "user-applications",
     "title": "User Applications: From Raw Data to Actionable Intelligence",
-    "description": "High-level application layer concepts built atop Envoyou ESG & environmental data APIs.",
+    "description": "High-level application layer concepts plus concrete registration, keys, scopes, and security guidance.",
     "slug": "/guides/user-applications"
   },
   "sidebar": "tutorialSidebar",
