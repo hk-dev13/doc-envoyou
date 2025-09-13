@@ -10,7 +10,7 @@ export default {
   "url": "https://docs.envoyou.com",
   "baseUrl": "/",
   "organizationName": "hk-dev13",
-  "projectName": "docs-envoyou",
+  "projectName": "doc-envoyou",
   "onBrokenLinks": "warn",
   "onBrokenMarkdownLinks": "warn",
   "i18n": {
@@ -27,7 +27,7 @@ export default {
       {
         "docs": {
           "sidebarPath": "./sidebars.js",
-          "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/",
+          "editUrl": "https://github.com/hk-dev13/doc-envoyou/tree/master/",
           "path": "../docs"
         },
         "blog": false,
@@ -44,7 +44,7 @@ export default {
       "title": "EnvoyOU API Docs",
       "logo": {
         "alt": "EnvoyOU Logo",
-        "src": "img/logo.svg"
+        "src": "https://cdn.envoyou.com/logo-envoyou/svg/logo-icon.nb.svg"
       },
       "items": [
         {
@@ -69,7 +69,7 @@ export default {
           "position": "right"
         },
         {
-          "href": "https://github.com/hk-dev13/docs-envoyou",
+          "href": "https://github.com/hk-dev13/doc-envoyou",
           "label": "GitHub",
           "position": "right"
         }
@@ -105,7 +105,7 @@ export default {
             },
             {
               "label": "GitHub",
-              "href": "https://github.com/hk-dev13/docs-envoyou"
+              "href": "https://github.com/hk-dev13/doc-envoyou"
             }
           ]
         },
@@ -330,7 +330,7 @@ export default {
       ]
     },
     "colorMode": {
-      "defaultMode": "light",
+      "defaultMode": "dark",
       "disableSwitch": false,
       "respectPrefersColorScheme": false
     },

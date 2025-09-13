@@ -1,3 +1,84 @@
-:root { --ifm-color-primary: #0B5CCC; }
-body { font-feature-settings: 'liga' 1, 'calt' 1; }
-.redoc-wrap { background: #fff; }
+/* Brand Color Tokens */
+:root {
+	--brand-bg: #0D1117;
+	--brand-bg-alt: #111823;
+	--brand-primary: #2ECC71;
+	--brand-primary-hover: #27AE60;
+	--brand-text: #FFFFFF;
+	--brand-text-muted: #95A5A6;
+	--brand-border: #2C3E50;
+	--ifm-color-primary: var(--brand-primary);
+	--ifm-color-primary-dark: var(--brand-primary-hover);
+	--ifm-color-primary-darker: var(--brand-primary-hover);
+	--ifm-color-primary-light: var(--brand-primary);
+	--ifm-color-primary-lighter: var(--brand-primary);
+	--ifm-background-color: var(--brand-bg);
+	--ifm-navbar-background-color: var(--brand-bg-alt);
+	--ifm-footer-background-color: #0B141C;
+	--ifm-table-stripe-background: #121c26;
+	--ifm-code-font-size: 0.85rem;
+	--ifm-menu-color: var(--brand-text-muted);
+	--ifm-menu-color-active: var(--brand-primary);
+	--ifm-link-color: var(--brand-primary);
+	--ifm-breadcrumb-color-active: var(--brand-text);
+	--docusaurus-highlighted-code-line-bg: #18212b;
+}
+
+html[data-theme='dark'] body, body {
+	background: var(--brand-bg);
+	color: var(--brand-text);
+	font-feature-settings: 'liga' 1, 'calt' 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Typography tweaks */
+p, li, .markdown h4, .markdown h5, .markdown h6 { color: var(--brand-text-muted); }
+h1, h2, h3 { font-weight: 600; letter-spacing: .5px; }
+
+/* Navbar */
+.navbar { border-bottom: 1px solid var(--brand-border); box-shadow: none; }
+.navbar__item, .navbar__brand { color: var(--brand-text-muted) !important; }
+.navbar__item:hover, .navbar__brand:hover { color: var(--brand-text) !important; }
+
+/* Sidebar */
+.menu__link { border-radius: 4px; transition: background .15s, color .15s; }
+.menu__link:hover { background: #132029; color: var(--brand-text); }
+.menu__link--active { background: #132b1d; color: var(--brand-primary) !important; font-weight: 600; }
+
+/* Links */
+a { transition: color .15s; }
+a:hover { color: var(--brand-primary-hover); }
+
+/* Buttons */
+.button { font-weight: 600; letter-spacing:.3px; }
+.button.button--primary { background: var(--brand-primary); border-color: var(--brand-primary); }
+.button.button--primary:hover { background: var(--brand-primary-hover); border-color: var(--brand-primary-hover); }
+
+/* Code blocks */
+pre, code { border-radius: 6px; }
+pre { border: 1px solid #1d2a33; background:#111b24; }
+
+/* Tables */
+table { border:1px solid var(--brand-border); }
+table th, table td { border:1px solid #1e2b35; }
+thead { background:#132029; }
+
+/* Footer */
+footer.footer { border-top:1px solid var(--brand-border); }
+footer a:hover { color: var(--brand-primary-hover); }
+
+/* Redoc fallback page */
+#redoc-container { background: #111b24; border-top:1px solid var(--brand-border); }
+#redoc-container h1, #redoc-container h2, #redoc-container h3 { color: var(--brand-text); }
+
+/* Utility */
+.brand-callout { background:#132029; border:1px solid #1e2b35; padding:1rem 1.25rem; border-radius:6px; }
+
+/* Scrollbar (webkit) */
+*::-webkit-scrollbar { width:10px; }
+*::-webkit-scrollbar-track { background:#0D1117; }
+*::-webkit-scrollbar-thumb { background:#1e2b35; border-radius:6px; }
+*::-webkit-scrollbar-thumb:hover { background:#274655; }
+
+/* Legacy white background overrides */
+.redoc-wrap { background: transparent; }

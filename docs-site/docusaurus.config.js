@@ -35,13 +35,13 @@ const config = {
     image: 'img/envoyou-social-card.jpg',
     navbar: {
       title: 'EnvoyOU API Docs',
-      logo: { alt: 'EnvoyOU Logo', src: 'img/logo.svg' },
+      logo: { alt: 'EnvoyOU Logo', src: 'https://cdn.envoyou.com/logo-envoyou/svg/logo-icon.nb.svg' },
       items: [
         { type: 'docSidebar', sidebarId: 'tutorialSidebar', position: 'left', label: 'Documentation' },
         { href: '/api-spec/', label: 'API Spec', position: 'left' },
         { href: 'https://api.envoyou.com/docs', label: 'Interactive API', position: 'left' },
         { href: 'https://app.envoyou.com', label: 'Web App', position: 'right' },
-        { href: 'https://github.com/hk-dev13/docs-envoyou', label: 'GitHub', position: 'right' }
+        { href: 'https://github.com/hk-dev13/doc-envoyou', label: 'GitHub', position: 'right' }
       ]
     },
     footer: {
@@ -59,7 +59,7 @@ const config = {
           title: 'Community',
           items: [
             { label: 'Support', href: 'mailto:support@envoyou.com' },
-            { label: 'GitHub', href: 'https://github.com/hk-dev13/docs-envoyou' }
+            { label: 'GitHub', href: 'https://github.com/hk-dev13/doc-envoyou' }
           ]
         },
         {
@@ -72,7 +72,12 @@ const config = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} EnvoyOU. Built with Docusaurus.`
     },
-    prism: { theme: lightTheme, darkTheme }
+    prism: { theme: lightTheme, darkTheme },
+    colorMode: {
+      defaultMode: 'dark',
+      disableSwitch: false,
+      respectPrefersColorScheme: false
+    }
   })
 };
 
