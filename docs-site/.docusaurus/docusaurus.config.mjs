@@ -27,7 +27,7 @@ export default {
       {
         "docs": {
           "sidebarPath": "./sidebars.js",
-          "editUrl": "https://github.com/hk-dev13/docs-envoyou/tree/main/",
+          "editUrl": "https://github.com/hk-dev13/doc-envoyou/tree/main/",
           "path": "../docs"
         },
         "blog": false,

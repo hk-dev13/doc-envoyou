@@ -70,6 +70,16 @@ footer a:hover { color: var(--brand-primary-hover); }
 /* Redoc fallback page */
 #redoc-container { background: #111b24; border-top:1px solid var(--brand-border); }
 #redoc-container h1, #redoc-container h2, #redoc-container h3 { color: var(--brand-text); }
+#redoc-container, #redoc-container .redoc-wrap { color: #e2e8f0; }
+#redoc-container p, #redoc-container li { color: #94a3b8; }
+#redoc-container a { color: var(--brand-primary); }
+#redoc-container a:hover { color: var(--brand-primary-hover); }
+#redoc-container code { background:#111b24; color:#f1f5f9; }
+#redoc-container table { background: #0f1720; }
+#redoc-container table th { background:#132029; color:#e2e8f0; }
+#redoc-container table td { color:#cbd5e1; }
+#redoc-container .http-verb { font-weight:600; }
+#redoc-container .operation-type { text-transform:uppercase; font-size:11px; letter-spacing:.5px; }
 
 /* Utility */
 .brand-callout { background:#132029; border:1px solid #1e2b35; padding:1rem 1.25rem; border-radius:6px; }
