@@ -86,6 +86,32 @@ footer a:hover { color: var(--brand-primary-hover); }
 #redoc-container .param-name { font-weight:600; color:#e2e8f0; }
 .brand-callout { background:#132029; border:1px solid #1e2b35; padding:1rem 1.25rem; border-radius:6px; }
 
+/* Redoc specific component refinements */
+#redoc-container .menu-content .search-input { background:#132029; color:var(--brand-text); border:1px solid #1e2b35; }
+#redoc-container .menu-content .search-input::placeholder { color: var(--brand-text-muted); }
+#redoc-container .menu-content a { color: var(--brand-text-muted); }
+#redoc-container .menu-content a:hover { color: var(--brand-text); }
+#redoc-container .menu-content .active > a, #redoc-container .menu-content a.active { color: var(--brand-primary); font-weight:600; }
+
+/* HTTP verb badges */
+#redoc-container .http-verb { font-size: .65rem; font-weight:600; letter-spacing:.5px; padding:4px 8px; border-radius:4px; }
+#redoc-container .http-verb.get { background:#1e3d29; color:#2ECC71; }
+#redoc-container .http-verb.post { background:#102a54; color:#3b82f6; }
+#redoc-container .http-verb.put { background:#4d3612; color:#f59e0b; }
+#redoc-container .http-verb.delete { background:#4a1f21; color:#ef4444; }
+#redoc-container .http-verb.patch { background:#43325e; color:#a855f7; }
+#redoc-container .http-verb.options { background:#2f3e46; color:#93c5fd; }
+#redoc-container .http-verb.head { background:#2f3e46; color:#ffffff; }
+
+/* Download button */
+#redoc-container button[title*='Download'],
+#redoc-container button:has(svg[data-icon*='download']) { background:var(--brand-primary); color:#0D1117; border:1px solid var(--brand-primary); font-weight:600; border-radius:4px; padding:4px 10px; }
+#redoc-container button[title*='Download']:hover,
+#redoc-container button:has(svg[data-icon*='download']):hover { background:var(--brand-primary-hover); border-color:var(--brand-primary-hover); }
+
+/* Table header text ensure contrast */
+#redoc-container table th { color:#d9e2ea; font-weight:600; }
+
 /* Scrollbar (webkit) */
 *::-webkit-scrollbar { width:10px; }
 *::-webkit-scrollbar-track { background:#0D1117; }
