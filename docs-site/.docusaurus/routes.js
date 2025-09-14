@@ -39,7 +39,7 @@ export default [
   },
   {
     path: '/api-spec/',
-    component: ComponentCreator('/api-spec/', '932'),
+    component: ComponentCreator('/api-spec/', '6cc'),
     exact: true
   },
   {

@@ -35,6 +35,21 @@ export default {
           "customCss": "./docusaurus-theme/css/custom.css"
         }
       }
+    ],
+    [
+      "/home/husni/PROJECT-ENVOYOU-API/doc-envoyou/node_modules/redocusaurus/dist/index.js",
+      {
+        "specs": [
+          {
+            "id": "envoyou-api",
+            "spec": "./openapi/envoyou-api.yaml",
+            "route": "/api-spec/"
+          }
+        ],
+        "theme": {
+          "primaryColor": "#2ECC71"
+        }
+      }
     ]
   ],
   "plugins": [],

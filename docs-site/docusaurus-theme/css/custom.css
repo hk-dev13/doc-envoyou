@@ -1,170 +1,128 @@
-/* Dark-only theme CSS */
-/* Brand Tokens */
+/**
+ * Docusaurus custom CSS :: Template Tema Gelap (Dark Mode Only)
+ *
+ * Catatan: Template ini mengasumsikan Anda sudah mengatur
+ * 'defaultMode: "dark"' dan 'disableSwitch: true' di docusaurus.config.js
+ */
+
 :root {
-  --brand-bg: #0D1117;
-  --brand-bg-alt: #111823;
-  --brand-primary: #2ECC71;
-  --brand-primary-hover: #27AE60;
-  --brand-text: #FFFFFF;
-  --brand-text-muted: #95A5A6;
-  --brand-text-faint: #6b7a86;
-  --brand-border: #2C3E50;
+  /* ========================================================================== */
+  /* === 1. VARIABEL WARNA UTAMA (Sesuaikan warna brand Anda di sini) === */
+  /* ========================================================================== */
+  --brand-primary: #25c2a0;
+  --brand-primary-dark: #20a084;
+  --brand-primary-darker: #1a8068;
+  --brand-primary-darkest: #15604c;
+  --brand-primary-light: #4ccaa8;
+  --brand-primary-lighter: #72d4b6;
+  --brand-primary-lightest: #99e0c4;
+  --brand-success: #3ddc84;
+  --brand-warning: #ffcf56;
+  --brand-danger: #ff6961;
+  --brand-info: #52c8ff;
+
+  /* Warna dasar untuk Teks & Latar Belakang */
+  --brand-deep-dark: #0f0f0f;   /* Paling gelap, untuk bg utama */
+  --brand-dark: #121212;
+  --brand-mid-dark: #161617;    /* Sedikit lebih terang, untuk bg elemen */
+  --brand-light: #282828;
+  --brand-border: #2c2c2e;     /* Warna border/garis pemisah */
+
+  /* Warna dasar untuk Teks */
+  --brand-text: #f5f5f7;          /* Teks utama, putih gading */
+  --brand-text-light: #a1a1a6;    /* Teks sekunder/abu-abu */
+  --brand-text-inverse: #000000;  /* Teks untuk di atas background terang */
+
+
+  /* ========================================================================== */
+  /* === 2. PENGATURAN UMUM DOCUSAURUS (Menggunakan variabel di atas) === */
+  /* ========================================================================== */
   --ifm-color-primary: var(--brand-primary);
-  --ifm-color-primary-dark: var(--brand-primary-hover);
-  --ifm-color-primary-darker: var(--brand-primary-hover);
-  --ifm-color-primary-light: var(--brand-primary);
-  --ifm-color-primary-lighter: var(--brand-primary);
-  --ifm-background-color: var(--brand-bg);
-  --ifm-navbar-background-color: var(--brand-bg-alt);
-  --ifm-footer-background-color: #0B141C;
-  --ifm-table-stripe-background: #121c26;
-  --ifm-code-font-size: 0.85rem;
-  --ifm-menu-color: var(--brand-text-muted);
-  --ifm-menu-color-active: var(--brand-primary);
-  --ifm-link-color: var(--brand-primary);
-  --ifm-breadcrumb-color-active: var(--brand-text);
-  --docusaurus-highlighted-code-line-bg: #18212b;
+  --ifm-color-primary-dark: var(--brand-primary-dark);
+  --ifm-color-primary-darker: var(--brand-primary-darker);
+  --ifm-color-primary-darkest: var(--brand-primary-darkest);
+  --ifm-color-primary-light: var(--brand-primary-light);
+  --ifm-color-primary-lighter: var(--brand-primary-lighter);
+  --ifm-color-primary-lightest: var(--brand-primary-lightest);
+
+  /* Warna Teks */
+  --ifm-font-color-base: var(--brand-text);
+  --ifm-font-color-secondary: var(--brand-text-light);
+  --ifm-link-color: var(--brand-primary-light);
+
+  /* Warna Latar Belakang */
+  --ifm-background-color: var(--brand-deep-dark);
+  --ifm-background-surface-color: var(--brand-mid-dark);
+
+  /* Warna Blok Kode */
+  --ifm-code-background: var(--brand-mid-dark);
+  --ifm-pre-background: var(--brand-mid-dark);
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+
+  /* Lainnya */
+  --ifm-hr-border-color: var(--brand-border);
+  --ifm-table-border-color: var(--brand-border);
+  --ifm-table-stripe-background: rgba(255, 255, 255, 0.05);
+
+
+  /* ========================================================================== */
+  /* === 3. PENGATURAN KHUSUS REDOCUSARUS (Paling Penting!) === */
+  /* ========================================================================== */
+  --redoc-theme-background-color: var(--brand-dark) !important;
+  --redoc-theme-sidebar-background-color: var(--brand-deep-dark) !important;
+  --redoc-theme-text-color: var(--brand-text) !important;
+  --redoc-theme-secondary-text-color: var(--brand-text-light) !important;
+  --redoc-theme-code-block-background-color: var(--brand-deep-dark) !important;
+  --redoc-theme-border-color: var(--brand-border) !important;
+  --redoc-theme-link-color: var(--brand-primary-light) !important;
+  --redoc-theme-link-hover-color: var(--brand-primary) !important;
+  --redoc-theme-code-color: var(--brand-text) !important;
+  --redoc-theme-color-main: var(--brand-primary) !important;
+  --redoc-theme-color-success: var(--brand-success) !important;
+  --redoc-theme-color-warning: var(--brand-warning) !important;
+  --redoc-theme-color-error: var(--brand-danger) !important;
+  --redoc-theme-code-sample-background: var(--brand-deep-dark) !important;
+  --redoc-theme-response-area-background-color: #1a1a1a !important;
+  --redoc-theme-menu-item-active-background-color: var(--brand-mid-dark) !important;
+  --redoc-theme-menu-item-active-text-color: var(--brand-primary) !important;
 }
 
-body {
-  background: var(--brand-bg);
-  color: var(--brand-text);
-  font-feature-settings: 'liga' 1, 'calt' 1;
-  -webkit-font-smoothing: antialiased;
+
+/* ========================================================================== */
+/* === 4. STYLE KOMPONEN KUSTOM ANDA (Opsional) === */
+/* ========================================================================== */
+html {
+  /* Scrollbar lebih gelap agar sesuai tema */
+  scrollbar-color: var(--brand-light) var(--brand-dark);
+  scrollbar-width: thin;
 }
 
-/* Typography */
-p, li, .markdown h4, .markdown h5, .markdown h6 { color: var(--brand-text-muted); }
-small, .footer__copyright, .docItemContainer time { color: #88949d; }
-h1, h2, h3 { font-weight: 600; letter-spacing: .5px; }
-
-/* Navbar */
-.navbar { border-bottom:1px solid var(--brand-border); background: var(--ifm-navbar-background-color); box-shadow:0 2px 4px -2px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.15); backdrop-filter:blur(4px); }
-.navbar__item, .navbar__brand { color: var(--brand-text-muted) !important; }
-.navbar__item:hover, .navbar__brand:hover { color: var(--brand-text) !important; }
-
-/* Sidebar */
-.theme-doc-sidebar-container { background: var(--brand-bg); }
-.menu__link { border-radius:4px; transition:background .15s, color .15s; color: #aab7c1; }
-.menu__link:hover { background:#132029; color: var(--brand-text); }
-.menu__link--active { background:#132b1d; color:var(--brand-primary) !important; font-weight:600; }
-
-/* Links */
-a { transition: color .15s; }
-a:hover { color: var(--brand-primary-hover); }
-
-/* Buttons */
-.button { font-weight:600; letter-spacing:.3px; }
-.button.button--primary { background: var(--brand-primary); border-color: var(--brand-primary); }
-.button.button--primary:hover { background: var(--brand-primary-hover); border-color: var(--brand-primary-hover); }
-
-/* Code */
-pre, code { border-radius:6px; }
-pre { border:1px solid #1d2a33; background:#111b24; }
-code:not(pre code) { padding:2px 4px; }
-
-/* Tables */
-table { border:1px solid var(--brand-border); }
-table th, table td { border:1px solid #1e2b35; }
-thead { background:#132029; }
-
-/* Footer */
-footer.footer { border-top:1px solid var(--brand-border); position:relative; }
-footer.footer::before { content:""; position:absolute; top:-60px; left:0; right:0; height:60px; background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%); pointer-events:none; }
-footer a:hover { color: var(--brand-primary-hover); }
-
-/* Redoc */
-#redoc-container { background:#111b24; border-top:1px solid var(--brand-border); }
-#redoc-container, #redoc-container .redoc-wrap { color:#e2e8f0; }
-#redoc-container h1, #redoc-container h2, #redoc-container h3 { color:#ffffff; }
-#redoc-container .api-content { max-width:1200px; margin:0 auto; }
-#redoc-container .api-content > div { background:rgba(255,255,255,0.02); }
-#redoc-container .operation-type, #redoc-container .operation-summary-path, #redoc-container .deprecated { border-radius:4px; }
-#redoc-container .api-content .operation { background:#0f1720; border:1px solid #1e2b35; border-radius:8px; padding:12px 18px; margin-bottom:16px; }
-#redoc-container .menu-content { background:#0D1117 !important; border-right:1px solid #1e2b35; }
-#redoc-container p, #redoc-container li, #redoc-container td, #redoc-container th, #redoc-container .description { color:#d3dbe2; }
-#redoc-container .param-name { font-weight:600; color:#ffffff; }
-.brand-callout { background:#132029; border:1px solid #1e2b35; padding:1rem 1.25rem; border-radius:6px; }
-
-/* Redoc specific component refinements */
-#redoc-container .menu-content .search-input { background:#132029; color:var(--brand-text); border:1px solid #1e2b35; }
-#redoc-container .menu-content .search-input::placeholder { color: var(--brand-text-muted); }
-#redoc-container .menu-content a { color: var(--brand-text-muted); }
-#redoc-container .menu-content a:hover { color: var(--brand-text); }
-#redoc-container .menu-content .active > a, #redoc-container .menu-content a.active { color: var(--brand-primary); font-weight:600; }
-
-/* HTTP verb badges */
-#redoc-container .http-verb { font-size: .65rem; font-weight:600; letter-spacing:.5px; padding:4px 8px; border-radius:4px; }
-#redoc-container .http-verb.get { background:#1e3d29; color:#2ECC71; }
-#redoc-container .http-verb.post { background:#102a54; color:#3b82f6; }
-#redoc-container .http-verb.put { background:#4d3612; color:#f59e0b; }
-#redoc-container .http-verb.delete { background:#4a1f21; color:#ef4444; }
-#redoc-container .http-verb.patch { background:#43325e; color:#a855f7; }
-#redoc-container .http-verb.options { background:#2f3e46; color:#93c5fd; }
-#redoc-container .http-verb.head { background:#2f3e46; color:#ffffff; }
-
-/* Download button */
-#redoc-container button[title*='Download'],
-#redoc-container button:has(svg[data-icon*='download']) { background:var(--brand-primary); color:#0D1117; border:1px solid var(--brand-primary); font-weight:600; border-radius:4px; padding:4px 10px; }
-#redoc-container button[title*='Download']:hover,
-#redoc-container button:has(svg[data-icon*='download']):hover { background:var(--brand-primary-hover); border-color:var(--brand-primary-hover); }
-
-/* Table header text ensure contrast */
-#redoc-container table th { color:#d9e2ea; font-weight:600; }
-
-/* Scrollbar (webkit) */
-*::-webkit-scrollbar { width:10px; }
-*::-webkit-scrollbar-track { background:#0D1117; }
-*::-webkit-scrollbar-thumb { background:#1e2b35; border-radius:6px; }
-*::-webkit-scrollbar-thumb:hover { background:#274655; }
-
-/* Layered backgrounds transparency */
-#redoc-container .redoc-wrap, #redoc-container .redoc-wrap > div, #redoc-container .api-content { background:transparent !important; }
-
-/* React Tabs */
-.react-tabs__tab-list { border-bottom:1px solid var(--brand-border); margin:0 0 0.75rem; padding:0; display:flex; gap:.25rem; flex-wrap:wrap; }
-.react-tabs__tab { list-style:none; cursor:pointer; font-size:.8rem; font-weight:500; padding:4px 10px; border:1px solid transparent; border-radius:14px; line-height:1.2; background:rgba(255,255,255,0.05); color:var(--brand-text-muted); transition:.15s background, .15s color, .15s border-color; }
-.react-tabs__tab:hover:not(.react-tabs__tab--selected) { background:rgba(255,255,255,0.12); color:var(--brand-text); }
-.react-tabs__tab--selected { background:var(--brand-primary); color:#0D1117; border-color:var(--brand-primary); font-weight:600; position:relative; box-shadow:0 0 0 1px rgba(255,255,255,0.05) inset; }
-.react-tabs__tab--selected::after { content:""; position:absolute; left:8px; right:8px; bottom:-4px; height:3px; border-radius:2px; background:linear-gradient(90deg,var(--brand-primary),var(--brand-primary-hover)); }
-.react-tabs__tab:focus-visible { outline:2px solid var(--brand-primary); outline-offset:2px; }
-
-/* Transitions */
-html { transition: background .25s, color .25s; }
-
-/* Override: ensure Redoc sidebar stays dark (some internal inline styles force white) */
-#redoc-container .menu-content,
-#redoc-container .menu-content .scrollbar-container,
-#redoc-container .menu-content .menu-content,
-#redoc-container .menu-content [class*='sc-'] { background:#0D1117 !important; }
-#redoc-container .menu-content { border-right:1px solid #1e2b35; }
-
-/* Remove previous blanket transparency for menu-content (kept for others) */
-#redoc-container .redoc-wrap, #redoc-container .redoc-wrap > div, #redoc-container .api-content { background:transparent !important; }
-/* Fallback: strip any residual inline white backgrounds inside menu-content */
-#redoc-container .menu-content [style*='background:#fff'],
-#redoc-container .menu-content [style*='background: #fff'],
-#redoc-container .menu-content [style*='background-color:#fff'],
-#redoc-container .menu-content [style*='background-color: #fff'],
-#redoc-container .menu-content [style*='background:#FFFFFF'],
-#redoc-container .menu-content [style*='background: #FFFFFF'],
-#redoc-container .menu-content [style*='background-color:#FFFFFF'],
-#redoc-container .menu-content [style*='background-color: #FFFFFF'] {
-  background:#0D1117 !important;
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--brand-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--brand-light);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
-/* === Redoc Text Layer (Selective) === */
-/* Base body / menus already styled above. Add selective intensifiers & status blocks. */
-#redoc-container .menu-item-heading { color:#ffffff; }
-#redoc-container .operation-summary-path, #redoc-container .operation-type { color:#ffffff; }
-#redoc-container .deprecated { color:#ffb347; }
-#redoc-container .warning { background:#4d3612; color:#ffd07a; }
-#redoc-container .error { background:#4a1f21; color:#ffb3b8; }
-#redoc-container .info { background:#123247; color:#8bd3ff; }
-#redoc-container .hint, #redoc-container .meta { color:#b6c2cc; }
-/* Sidebar links */
-#redoc-container .menu-content a { color:#c7d1d8; }
-#redoc-container .menu-content a:hover { color: var(--brand-primary); }
-#redoc-container .menu-content .active > a, #redoc-container .menu-content a.active { color: var(--brand-primary); font-weight:600; }
-/* Placeholder tweak */
-#redoc-container .menu-content .search-input::placeholder { color:rgba(255,255,255,.55); }
+/* Style Navbar dari file Anda sebelumnya */
+.navbar {
+  border-bottom: 1px solid var(--brand-border);
+  background: rgba(15, 15, 15, 0.85); /* Background transparan dengan blur */
+  box-shadow: 0 2px 4px -2px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Style Footer dari file Anda sebelumnya */
+.footer {
+  border-top: 1px solid var(--brand-border);
+}

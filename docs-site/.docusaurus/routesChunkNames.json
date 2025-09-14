@@ -42,12 +42,13 @@
       "plugin": "plugin---docusaurus-debugb-38-ad3"
     }
   },
-  "/api-spec/-932": {
-    "__comp": "__comp---site-src-pages-api-spec-index-jsxeda-f25",
+  "/api-spec/-6cc": {
+    "__comp": "__comp---theme-api-docf-0-a-77e",
     "__context": {
-      "plugin": "plugin---api-spec-a-74-16d"
+      "plugin": "plugin---api-spec-72-e-d7e"
     },
-    "config": "config---api-spec-5-e-9-637"
+    "specProps": "specProps---api-spec-ca-5-4cc",
+    "layoutProps": "layoutProps---api-spec-c-5-a-e75"
   },
   "/docs-77c": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
@@ -173,8 +174,8 @@
   "/-070": {
     "__comp": "__comp---site-src-pages-index-jsx-9-dd-cb1",
     "__context": {
-      "plugin": "plugin---api-spec-a-74-16d"
+      "plugin": "plugin---a-74-9d6"
     },
-    "config": "config---api-spec-5-e-9-637"
+    "config": "config---5-e-9-4f3"
   }
 }

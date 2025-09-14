@@ -28,6 +28,19 @@ const config = {
         blog: false,
         theme: { customCss: './docusaurus-theme/css/custom.css' }
       })
+    ],
+    [
+      require.resolve('redocusaurus'),
+      {
+        specs: [
+          {
+            id: 'envoyou-api',
+            spec: './openapi/envoyou-api.yaml',
+            route: '/api-spec/'
+          }
+        ],
+        theme: { primaryColor: '#2ECC71' }
+      }
     ]
   ],
   plugins: [],
