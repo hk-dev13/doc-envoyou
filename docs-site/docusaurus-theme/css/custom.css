@@ -32,6 +32,12 @@ html[data-theme='dark'] body, body {
 	-webkit-font-smoothing: antialiased;
 }
 
+/* Pre-define light variables early (some build CSS may set defaults before body block) */
+html[data-theme='light'] {
+	--ifm-background-color: #f8f9fa !important;
+	--ifm-background-surface-color: #ffffff !important;
+}
+
 /* Light theme overrides */
 html[data-theme='light'] body {
 	--brand-bg: #f8f9fa; /* adjusted from pure white for softer contrast */
@@ -40,7 +46,9 @@ html[data-theme='light'] body {
 	--brand-text-muted: #4a5b68;
 	--brand-text-faint: #7a8b96;
 	--brand-border: #d8e0e6;
-	--ifm-background-color: var(--brand-bg);
+	/* Force Light Mode base backgrounds (avoid fallback #1b1b1d) */
+	--ifm-background-color: #f8f9fa !important;
+	--ifm-background-surface-color: #ffffff !important;
 	--ifm-navbar-background-color: var(--brand-bg-alt);
 	--ifm-footer-background-color: #f0f4f7;
 	--ifm-table-stripe-background: #f2f6f9;
