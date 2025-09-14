@@ -34,7 +34,7 @@ html[data-theme='dark'] body, body {
 
 /* Light theme overrides */
 html[data-theme='light'] body {
-	--brand-bg: #ffffff;
+	--brand-bg: #f8f9fa; /* adjusted from pure white for softer contrast */
 	--brand-bg-alt: #f5f7fa;
 	--brand-text: #1b2733;
 	--brand-text-muted: #4a5b68;
@@ -113,6 +113,14 @@ html[data-theme='light'] footer.footer { background:#f0f4f7; }
 
 /* Light mode Redoc adjustments */
 html[data-theme='light'] #redoc-container { background:#ffffff; }
+/* Light mode Redoc container card enhancement */
+html[data-theme='light'] #redoc-container {
+	background: #ffffff;
+	border: 1px solid #d8e0e6;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px -2px rgba(0,0,0,0.06), 0 2px 4px -1px rgba(0,0,0,0.04);
+	padding: 12px 18px;
+}
 html[data-theme='light'] #redoc-container h1, html[data-theme='light'] #redoc-container h2, html[data-theme='light'] #redoc-container h3 { color:#1b2733; }
 html[data-theme='light'] #redoc-container, html[data-theme='light'] #redoc-container .redoc-wrap { color:#24323d; }
 html[data-theme='light'] #redoc-container p, html[data-theme='light'] #redoc-container li { color:#3d4f5a; }
@@ -170,14 +178,14 @@ html[data-theme='light'] #redoc-container .menu-content, html[data-theme='light'
 	background: #ffffff !important;
 }
 
-/* Ensure page root containers follow token backgrounds */
-.main-wrapper, .container, .theme-doc-markdown, .theme-doc-sidebar-container {
+/* Ensure page root containers follow token backgrounds (disabled to allow background layering around docs) */
+/* .main-wrapper, .container, .theme-doc-markdown, .theme-doc-sidebar-container {
 	background: var(--brand-bg) !important;
 }
 html[data-theme='light'] .main-wrapper, html[data-theme='light'] .container,
 html[data-theme='light'] .theme-doc-markdown, html[data-theme='light'] .theme-doc-sidebar-container {
 	background: var(--brand-bg) !important;
-}
+} */
 
 /* Smooth transition for theme switch (optional enhancement) */
 html { transition: background .25s, color .25s; }
