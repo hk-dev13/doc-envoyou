@@ -1,247 +1,89 @@
-/* Brand Color Tokens */
+/* Dark-only theme CSS */
+/* Brand Tokens */
 :root {
-	--brand-bg: #0D1117;
-	--brand-bg-alt: #111823;
-	--brand-primary: #2ECC71;
-	--brand-primary-hover: #27AE60;
-	--brand-text: #FFFFFF;
-	--brand-text-muted: #a6b2ba; /* slightly brighter for readability */
-	--brand-text-faint: #6b7a86;
-	--brand-border: #2C3E50;
-	--ifm-color-primary: var(--brand-primary);
-	--ifm-color-primary-dark: var(--brand-primary-hover);
-	--ifm-color-primary-darker: var(--brand-primary-hover);
-	--ifm-color-primary-light: var(--brand-primary);
-	--ifm-color-primary-lighter: var(--brand-primary);
-	--ifm-background-color: var(--brand-bg);
-	--ifm-navbar-background-color: var(--brand-bg-alt);
-	--ifm-footer-background-color: #0B141C;
-	--ifm-table-stripe-background: #121c26;
-	--ifm-code-font-size: 0.85rem;
-	--ifm-menu-color: var(--brand-text-muted);
-	--ifm-menu-color-active: var(--brand-primary);
-	--ifm-link-color: var(--brand-primary);
-	--ifm-breadcrumb-color-active: var(--brand-text);
-	--docusaurus-highlighted-code-line-bg: #18212b;
+  --brand-bg: #0D1117;
+  --brand-bg-alt: #111823;
+  --brand-primary: #2ECC71;
+  --brand-primary-hover: #27AE60;
+  --brand-text: #FFFFFF;
+  --brand-text-muted: #95A5A6;
+  --brand-text-faint: #6b7a86;
+  --brand-border: #2C3E50;
+  --ifm-color-primary: var(--brand-primary);
+  --ifm-color-primary-dark: var(--brand-primary-hover);
+  --ifm-color-primary-darker: var(--brand-primary-hover);
+  --ifm-color-primary-light: var(--brand-primary);
+  --ifm-color-primary-lighter: var(--brand-primary);
+  --ifm-background-color: var(--brand-bg);
+  --ifm-navbar-background-color: var(--brand-bg-alt);
+  --ifm-footer-background-color: #0B141C;
+  --ifm-table-stripe-background: #121c26;
+  --ifm-code-font-size: 0.85rem;
+  --ifm-menu-color: var(--brand-text-muted);
+  --ifm-menu-color-active: var(--brand-primary);
+  --ifm-link-color: var(--brand-primary);
+  --ifm-breadcrumb-color-active: var(--brand-text);
+  --docusaurus-highlighted-code-line-bg: #18212b;
 }
 
-html[data-theme='dark'] body, body {
-	background: var(--brand-bg);
-	color: var(--brand-text);
-	font-feature-settings: 'liga' 1, 'calt' 1;
-	-webkit-font-smoothing: antialiased;
+body {
+  background: var(--brand-bg);
+  color: var(--brand-text);
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Pre-define light variables early (some build CSS may set defaults before body block) */
-html[data-theme='light'] {
-	--ifm-background-color: #f8f9fa !important;
-	--ifm-background-surface-color: #ffffff !important;
-}
-
-/* Light theme overrides */
-html[data-theme='light'] body {
-	--brand-bg: #f8f9fa; /* adjusted from pure white for softer contrast */
-	--brand-bg-alt: #f5f7fa;
-	--brand-text: #1b2733;
-	--brand-text-muted: #4a5b68;
-	--brand-text-faint: #7a8b96;
-	--brand-border: #d8e0e6;
-	/* Force Light Mode base backgrounds (avoid fallback #1b1b1d) */
-	--ifm-background-color: #f8f9fa !important;
-	--ifm-background-surface-color: #ffffff !important;
-	--ifm-navbar-background-color: var(--brand-bg-alt);
-	--ifm-footer-background-color: #f0f4f7;
-	--ifm-table-stripe-background: #f2f6f9;
-	--ifm-menu-color: #536675;
-	--ifm-menu-color-active: var(--brand-primary);
-	--docusaurus-highlighted-code-line-bg: #e3eef5;
-	background: var(--brand-bg);
-	color: var(--brand-text);
-}
-
-/* Typography tweaks */
+/* Typography */
 p, li, .markdown h4, .markdown h5, .markdown h6 { color: var(--brand-text-muted); }
-small, .footer__copyright, .docItemContainer time { color: var(--brand-text-faint); }
-/* Dark mode contrast bump for small/muted text */
-html[data-theme='dark'] small, html[data-theme='dark'] .footer__copyright, html[data-theme='dark'] .docItemContainer time {
-	color: #88949d;
-}
+small, .footer__copyright, .docItemContainer time { color: #88949d; }
 h1, h2, h3 { font-weight: 600; letter-spacing: .5px; }
 
 /* Navbar */
-.navbar { border-bottom: 1px solid var(--brand-border); background: var(--ifm-navbar-background-color); box-shadow: 0 2px 4px -2px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.15); backdrop-filter: blur(4px); }
+.navbar { border-bottom:1px solid var(--brand-border); background: var(--ifm-navbar-background-color); box-shadow:0 2px 4px -2px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.15); backdrop-filter:blur(4px); }
 .navbar__item, .navbar__brand { color: var(--brand-text-muted) !important; }
 .navbar__item:hover, .navbar__brand:hover { color: var(--brand-text) !important; }
-html[data-theme='light'] .navbar__item, html[data-theme='light'] .navbar__brand { color:#536675 !important; }
-html[data-theme='light'] .navbar__item:hover, html[data-theme='light'] .navbar__brand:hover { color:#1b2733 !important; }
 
 /* Sidebar */
-/* Sidebar (improved contrast) */
-.theme-doc-sidebar-container { background:#0f151d; }
-html[data-theme='light'] .theme-doc-sidebar-container { background:#ffffff; }
-.menu__link { border-radius:4px; transition:background .15s, color .15s; color: var(--brand-text-muted); }
-html[data-theme='dark'] .menu__link { color: #aab7c1; }
+.theme-doc-sidebar-container { background: var(--brand-bg); }
+.menu__link { border-radius:4px; transition:background .15s, color .15s; color: #aab7c1; }
 .menu__link:hover { background:#132029; color: var(--brand-text); }
-.menu__link--active { background:#132b1d; color: var(--brand-primary) !important; font-weight:600; }
-html[data-theme='light'] .menu__link { color:#4a5b68; }
-html[data-theme='light'] .menu__link:hover { background:#e8eef2; color:#1b2733; }
-html[data-theme='light'] .menu__link--active { background:#e3f7ec; color:var(--brand-primary) !important; }
+.menu__link--active { background:#132b1d; color:var(--brand-primary) !important; font-weight:600; }
 
 /* Links */
 a { transition: color .15s; }
 a:hover { color: var(--brand-primary-hover); }
 
 /* Buttons */
-.button { font-weight: 600; letter-spacing:.3px; }
+.button { font-weight:600; letter-spacing:.3px; }
 .button.button--primary { background: var(--brand-primary); border-color: var(--brand-primary); }
 .button.button--primary:hover { background: var(--brand-primary-hover); border-color: var(--brand-primary-hover); }
 
-/* Code blocks */
-pre, code { border-radius: 6px; }
-pre { border: 1px solid #1d2a33; background:#111b24; }
-html[data-theme='light'] pre { border:1px solid #d8e0e6; background:#f3f5f7; }
-html[data-theme='light'] code { background:#ecf1f4; }
+/* Code */
+pre, code { border-radius:6px; }
+pre { border:1px solid #1d2a33; background:#111b24; }
+code:not(pre code) { padding:2px 4px; }
 
 /* Tables */
 table { border:1px solid var(--brand-border); }
 table th, table td { border:1px solid #1e2b35; }
 thead { background:#132029; }
-html[data-theme='light'] table th, html[data-theme='light'] table td { border:1px solid #d8e0e6; }
-html[data-theme='light'] thead { background:#eef2f5; }
 
 /* Footer */
-footer.footer { border-top:1px solid var(--brand-border); }
+footer.footer { border-top:1px solid var(--brand-border); position:relative; }
+footer.footer::before { content:""; position:absolute; top:-60px; left:0; right:0; height:60px; background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%); pointer-events:none; }
 footer a:hover { color: var(--brand-primary-hover); }
-html[data-theme='light'] footer.footer { background:#f0f4f7; }
 
-/* Redoc fallback page */
-#redoc-container { background: #111b24; border-top:1px solid var(--brand-border); }
-#redoc-container h1, #redoc-container h2, #redoc-container h3 { color: var(--brand-text); }
-#redoc-container, #redoc-container .redoc-wrap { color: #e2e8f0; }
-#redoc-container p, #redoc-container li { color: #b6c2cc; }
-#redoc-container a { color: var(--brand-primary); }
-#redoc-container a:hover { color: var(--brand-primary-hover); }
-#redoc-container code { background:#111b24; color:#f1f5f9; }
-#redoc-container pre, #redoc-container pre code { color:#e5edf2; }
-#redoc-container table { background: #0f1720; }
-#redoc-container table th { background:#132029; color:#e2e8f0; }
-#redoc-container table td { color:#cbd5e1; }
-#redoc-container table td p { color:#cbd5e1; }
-#redoc-container .http-verb { font-weight:600; }
-#redoc-container .operation-type { text-transform:uppercase; font-size:11px; letter-spacing:.5px; }
-/* Authorization / label tweaks for readability */
-#redoc-container .authorization__type, #redoc-container .authorization__value, #redoc-container .scopes__title {
-	color: #d2dbe2;
-}
-html[data-theme='light'] #redoc-container .authorization__type, html[data-theme='light'] #redoc-container .authorization__value, html[data-theme='light'] #redoc-container .scopes__title {
-	color: #3d4f5a;
-}
-
-/* Light mode Redoc adjustments */
-html[data-theme='light'] #redoc-container { background:#ffffff; }
-/* Light mode Redoc container card enhancement */
-html[data-theme='light'] #redoc-container {
-	background: #ffffff;
-	border: 1px solid #d8e0e6;
-	border-radius: 10px;
-	box-shadow: 0 4px 10px -2px rgba(0,0,0,0.06), 0 2px 4px -1px rgba(0,0,0,0.04);
-	padding: 12px 18px;
-}
-html[data-theme='light'] #redoc-container h1, html[data-theme='light'] #redoc-container h2, html[data-theme='light'] #redoc-container h3 { color:#1b2733; }
-html[data-theme='light'] #redoc-container, html[data-theme='light'] #redoc-container .redoc-wrap { color:#24323d; }
-html[data-theme='light'] #redoc-container p, html[data-theme='light'] #redoc-container li { color:#3d4f5a; }
-html[data-theme='light'] #redoc-container code { background:#f3f5f7; color:#1b2733; }
-html[data-theme='light'] #redoc-container pre, html[data-theme='light'] #redoc-container pre code { color:#24323d; }
-html[data-theme='light'] #redoc-container table { background:#f9fafb; }
-html[data-theme='light'] #redoc-container table th { background:#eef2f5; color:#1b2733; }
-html[data-theme='light'] #redoc-container table td { color:#33424d; }
-
-/* Force override any leftover white (#fff) text inside Redoc when in light mode */
-html[data-theme='light'] #redoc-container h1,
-html[data-theme='light'] #redoc-container h2,
-html[data-theme='light'] #redoc-container h3,
-html[data-theme='light'] #redoc-container h4,
-html[data-theme='light'] #redoc-container h5,
-html[data-theme='light'] #redoc-container h6,
-html[data-theme='light'] #redoc-container p,
-html[data-theme='light'] #redoc-container span,
-html[data-theme='light'] #redoc-container li,
-html[data-theme='light'] #redoc-container code,
-html[data-theme='light'] #redoc-container td,
-html[data-theme='light'] #redoc-container th,
-html[data-theme='light'] #redoc-container a,
-html[data-theme='light'] #redoc-container div {
-	color: #1b2733 !important;
-}
-html[data-theme='light'] #redoc-container .param-name { color:#1b2733 !important; }
-html[data-theme='light'] #redoc-container .http-verb { color:#ffffff !important; } /* keep verb badge readable */
-html[data-theme='light'] #redoc-container .sc-badge, /* generic badges */
-html[data-theme='light'] #redoc-container .menu-item-heading {
-	color:#1b2733 !important;
-}
-/* Fallback: any element without explicit color inside Redoc inherits base */
-html[data-theme='light'] #redoc-container *:not(code):not(.http-verb) {
-	color: inherit;
-}
-
-/* Content containerization for readability */
-#redoc-container .api-content { max-width: 1200px; margin: 0 auto; }
-#redoc-container .api-content > div { background: rgba(255,255,255,0.02); }
-html[data-theme='light'] #redoc-container .api-content > div { background:#ffffff; }
-
-/* Add a subtle card feel to method sections */
+/* Redoc */
+#redoc-container { background:#111b24; border-top:1px solid var(--brand-border); }
+#redoc-container, #redoc-container .redoc-wrap { color:#e2e8f0; }
+#redoc-container h1, #redoc-container h2, #redoc-container h3 { color:#ffffff; }
+#redoc-container .api-content { max-width:1200px; margin:0 auto; }
+#redoc-container .api-content > div { background:rgba(255,255,255,0.02); }
 #redoc-container .operation-type, #redoc-container .operation-summary-path, #redoc-container .deprecated { border-radius:4px; }
 #redoc-container .api-content .operation { background:#0f1720; border:1px solid #1e2b35; border-radius:8px; padding:12px 18px; margin-bottom:16px; }
-html[data-theme='light'] #redoc-container .api-content .operation { background:#ffffff; border:1px solid #d8e0e6; }
-
-/* Additional light-mode overrides for previously dark blocks */
-html[data-theme='light'] pre { background:#f3f5f7 !important; }
-html[data-theme='light'] thead { background:#eef2f5 !important; }
-html[data-theme='light'] #redoc-container table { background:#ffffff !important; }
-html[data-theme='light'] #redoc-container table th { background:#f1f4f6 !important; color:#1b2733 !important; }
-html[data-theme='light'] #redoc-container .menu-content { background:#ffffff !important; }
-html[data-theme='light'] .brand-callout { background:#ffffff; border:1px solid #d8e0e6; }
-html[data-theme='light'] .theme-doc-sidebar-container { background:#ffffff; }
-html[data-theme='light'] #redoc-container { background:#ffffff; }
-html[data-theme='light'] #redoc-container code { background:#f3f5f7; }
-html[data-theme='light'] #redoc-container .api-content .operation code { background:#f3f5f7; }
-/* Normal docs (non Redoc): unify code blocks, admonitions, block quotes */
-html[data-theme='light'] .theme-code-block, 
-html[data-theme='light'] .theme-code-block pre,
-html[data-theme='light'] .prism-code,
-html[data-theme='light'] code[class*='language-'],
-html[data-theme='light'] pre code { background:#f3f5f7 !important; }
-html[data-theme='light'] blockquote { background:#ffffff; border-left:4px solid #2ECC71; }
-html[data-theme='light'] .alert { background:#ffffff; border:1px solid #d8e0e6; }
-/* Capture inline-styled dark backgrounds that might slip through */
-html[data-theme='light'] [style*='#0f1720'],
-html[data-theme='light'] [style*='#111b24'],
-html[data-theme='light'] [style*='#132029'] { background:#ffffff !important; color:#1b2733 !important; }
-/* Generic fallback: elements with very dark rgb backgrounds */
-html[data-theme='light'] [style*='background: rgb(15'],
-html[data-theme='light'] [style*='background-color: rgb(15'],
-html[data-theme='light'] [style*='background:rgb(15'],
-html[data-theme='light'] [style*='background-color:rgb(15'] { background:#ffffff !important; color:#1b2733 !important; }
-
-/* Sidebar background consistency */
 #redoc-container .menu-content { background:#0D1117 !important; }
-html[data-theme='light'] #redoc-container .menu-content { background:#f5f7fa !important; }
-
-/* Normalize text across Redoc */
 #redoc-container p, #redoc-container li, #redoc-container td, #redoc-container th, #redoc-container .description { color:#b6c2cc; }
-html[data-theme='dark'] #redoc-container h1, html[data-theme='dark'] #redoc-container h2, html[data-theme='dark'] #redoc-container h3 { color:#ffffff; }
-html[data-theme='light'] #redoc-container p, html[data-theme='light'] #redoc-container li, html[data-theme='light'] #redoc-container td, html[data-theme='light'] #redoc-container th, html[data-theme='light'] #redoc-container .description { color:#3d4f5a; }
-
-/* Emphasize parameter names */
 #redoc-container .param-name { font-weight:600; color:#e2e8f0; }
-html[data-theme='light'] #redoc-container .param-name { color:#1b2733; }
-
-/* Footer blend */
-footer.footer { position: relative; }
-footer.footer::before { content:""; position:absolute; top:-60px; left:0; right:0; height:60px; background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%); pointer-events:none; }
-html[data-theme='light'] footer.footer::before { background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #f0f4f7 100%); }
-
-/* Utility */
 .brand-callout { background:#132029; border:1px solid #1e2b35; padding:1rem 1.25rem; border-radius:6px; }
 
 /* Scrollbar (webkit) */
@@ -250,44 +92,16 @@ html[data-theme='light'] footer.footer::before { background: linear-gradient(to 
 *::-webkit-scrollbar-thumb { background:#1e2b35; border-radius:6px; }
 *::-webkit-scrollbar-thumb:hover { background:#274655; }
 
-/* Legacy white background overrides */
-.redoc-wrap { background: transparent; }
+/* Layered backgrounds transparency */
+#redoc-container .redoc-wrap, #redoc-container .redoc-wrap > div, #redoc-container .menu-content, #redoc-container .api-content { background:transparent !important; }
 
-/* Unify layered backgrounds (sometimes Redoc injects .redoc-wrap > div with its own bg) */
-#redoc-container .redoc-wrap, #redoc-container .redoc-wrap > div, #redoc-container .menu-content, #redoc-container .api-content {
-	background: transparent !important;
-}
-html[data-theme='light'] #redoc-container .redoc-wrap, html[data-theme='light'] #redoc-container .redoc-wrap > div,
-html[data-theme='light'] #redoc-container .menu-content, html[data-theme='light'] #redoc-container .api-content {
-	background: #ffffff !important;
-}
-
-/* Ensure page root containers follow token backgrounds (disabled to allow background layering around docs) */
-/* .main-wrapper, .container, .theme-doc-markdown, .theme-doc-sidebar-container {
-	background: var(--brand-bg) !important;
-}
-html[data-theme='light'] .main-wrapper, html[data-theme='light'] .container,
-html[data-theme='light'] .theme-doc-markdown, html[data-theme='light'] .theme-doc-sidebar-container {
-	background: var(--brand-bg) !important;
-} */
-
-/* Smooth transition for theme switch (optional enhancement) */
-html { transition: background .25s, color .25s; }
-
-/* Generic link & hover adjustments for light mode */
-html[data-theme='light'] a { color:#1b2733; }
-html[data-theme='light'] a:hover { color:#2ECC71; }
-
-/* Improve inline code contrast in dark mode */
-code:not(pre code) { padding:2px 4px; }
-
-/* React Tabs (used for payload/response etc.) */
+/* React Tabs */
 .react-tabs__tab-list { border-bottom:1px solid var(--brand-border); margin:0 0 0.75rem; padding:0; display:flex; gap:.25rem; flex-wrap:wrap; }
 .react-tabs__tab { list-style:none; cursor:pointer; font-size:.8rem; font-weight:500; padding:4px 10px; border:1px solid transparent; border-radius:14px; line-height:1.2; background:rgba(255,255,255,0.05); color:var(--brand-text-muted); transition:.15s background, .15s color, .15s border-color; }
-html[data-theme='light'] .react-tabs__tab { background:#eef2f5; color:#445461; }
 .react-tabs__tab:hover:not(.react-tabs__tab--selected) { background:rgba(255,255,255,0.12); color:var(--brand-text); }
-html[data-theme='light'] .react-tabs__tab:hover:not(.react-tabs__tab--selected) { background:#e2e8ec; color:#1b2733; }
-.react-tabs__tab--selected { background:var(--brand-primary); color:#ffffff; border-color:var(--brand-primary); }
-html[data-theme='light'] .react-tabs__tab--selected { background:#ffffff; color:#1b2733; border:1px solid #d8e0e6; box-shadow:0 1px 2px rgba(0,0,0,0.06); }
+.react-tabs__tab--selected { background:var(--brand-primary); color:#0D1117; border-color:var(--brand-primary); font-weight:600; position:relative; box-shadow:0 0 0 1px rgba(255,255,255,0.05) inset; }
+.react-tabs__tab--selected::after { content:""; position:absolute; left:8px; right:8px; bottom:-4px; height:3px; border-radius:2px; background:linear-gradient(90deg,var(--brand-primary),var(--brand-primary-hover)); }
 .react-tabs__tab:focus-visible { outline:2px solid var(--brand-primary); outline-offset:2px; }
-html[data-theme='light'] .react-tabs__tab:focus-visible { outline:2px solid #27AE60; }
+
+/* Transitions */
+html { transition: background .25s, color .25s; }

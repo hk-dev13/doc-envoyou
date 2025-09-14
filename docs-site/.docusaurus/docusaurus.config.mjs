@@ -10,7 +10,7 @@ export default {
   "url": "https://docs.envoyou.com",
   "baseUrl": "/",
   "organizationName": "hk-dev13",
-  "projectName": "docs-envoyou",
+  "projectName": "doc-envoyou",
   "onBrokenLinks": "warn",
   "onBrokenMarkdownLinks": "warn",
   "i18n": {
