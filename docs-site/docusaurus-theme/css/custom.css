@@ -38,10 +38,15 @@ html[data-theme='light'] body {
 	--brand-bg-alt: #f5f7fa;
 	--brand-text: #1b2733;
 	--brand-text-muted: #4a5b68;
+	--brand-text-faint: #7a8b96;
 	--brand-border: #d8e0e6;
 	--ifm-background-color: var(--brand-bg);
 	--ifm-navbar-background-color: var(--brand-bg-alt);
 	--ifm-footer-background-color: #f0f4f7;
+	--ifm-table-stripe-background: #f2f6f9;
+	--ifm-menu-color: #536675;
+	--ifm-menu-color-active: var(--brand-primary);
+	--docusaurus-highlighted-code-line-bg: #e3eef5;
 	background: var(--brand-bg);
 	color: var(--brand-text);
 }
@@ -52,14 +57,18 @@ small, .footer__copyright, .docItemContainer time { color: var(--brand-text-fain
 h1, h2, h3 { font-weight: 600; letter-spacing: .5px; }
 
 /* Navbar */
-.navbar { border-bottom: 1px solid var(--brand-border); box-shadow: none; }
+.navbar { border-bottom: 1px solid var(--brand-border); box-shadow: none; background: var(--ifm-navbar-background-color); }
 .navbar__item, .navbar__brand { color: var(--brand-text-muted) !important; }
 .navbar__item:hover, .navbar__brand:hover { color: var(--brand-text) !important; }
+html[data-theme='light'] .navbar__item, html[data-theme='light'] .navbar__brand { color:#536675 !important; }
+html[data-theme='light'] .navbar__item:hover, html[data-theme='light'] .navbar__brand:hover { color:#1b2733 !important; }
 
 /* Sidebar */
 .menu__link { border-radius: 4px; transition: background .15s, color .15s; }
 .menu__link:hover { background: #132029; color: var(--brand-text); }
 .menu__link--active { background: #132b1d; color: var(--brand-primary) !important; font-weight: 600; }
+html[data-theme='light'] .menu__link:hover { background:#e8eef2; color:#1b2733; }
+html[data-theme='light'] .menu__link--active { background:#e3f7ec; color:var(--brand-primary) !important; }
 
 /* Links */
 a { transition: color .15s; }
@@ -73,15 +82,20 @@ a:hover { color: var(--brand-primary-hover); }
 /* Code blocks */
 pre, code { border-radius: 6px; }
 pre { border: 1px solid #1d2a33; background:#111b24; }
+html[data-theme='light'] pre { border:1px solid #d8e0e6; background:#f3f5f7; }
+html[data-theme='light'] code { background:#ecf1f4; }
 
 /* Tables */
 table { border:1px solid var(--brand-border); }
 table th, table td { border:1px solid #1e2b35; }
 thead { background:#132029; }
+html[data-theme='light'] table th, html[data-theme='light'] table td { border:1px solid #d8e0e6; }
+html[data-theme='light'] thead { background:#eef2f5; }
 
 /* Footer */
 footer.footer { border-top:1px solid var(--brand-border); }
 footer a:hover { color: var(--brand-primary-hover); }
+html[data-theme='light'] footer.footer { background:#f0f4f7; }
 
 /* Redoc fallback page */
 #redoc-container { background: #111b24; border-top:1px solid var(--brand-border); }
@@ -118,3 +132,10 @@ html[data-theme='light'] #redoc-container table td { color:#33424d; }
 
 /* Legacy white background overrides */
 .redoc-wrap { background: transparent; }
+
+/* Generic link & hover adjustments for light mode */
+html[data-theme='light'] a { color:#1b2733; }
+html[data-theme='light'] a:hover { color:#2ECC71; }
+
+/* Improve inline code contrast in dark mode */
+code:not(pre code) { padding:2px 4px; }
