@@ -49,11 +49,16 @@ export default function ApiSpecPage() {
     function render() {
       if (window.Redoc) {
         const mode = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-        window.Redoc.init(
-          SPEC_URL,
-          { theme: REDOC_THEMES[mode], hideDownloadButton: false, expandResponses: '200,201' },
-          document.getElementById('redoc-container')
-        );
+        const mountEl = document.getElementById('redoc-container');
+        if (mountEl) {
+          /* Clear previous Redoc DOM to avoid mixed theme artifacts */
+          mountEl.innerHTML = '<p style="padding:2rem;text-align:center;">Loading OpenAPI spec...</p>';
+          window.Redoc.init(
+            SPEC_URL,
+            { theme: REDOC_THEMES[mode], hideDownloadButton: false, expandResponses: '200,201' },
+            mountEl
+          );
+        }
       }
     }
 

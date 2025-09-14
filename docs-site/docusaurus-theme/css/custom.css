@@ -148,6 +148,34 @@ html[data-theme='light'] #redoc-container table { background:#f9fafb; }
 html[data-theme='light'] #redoc-container table th { background:#eef2f5; color:#1b2733; }
 html[data-theme='light'] #redoc-container table td { color:#33424d; }
 
+/* Force override any leftover white (#fff) text inside Redoc when in light mode */
+html[data-theme='light'] #redoc-container h1,
+html[data-theme='light'] #redoc-container h2,
+html[data-theme='light'] #redoc-container h3,
+html[data-theme='light'] #redoc-container h4,
+html[data-theme='light'] #redoc-container h5,
+html[data-theme='light'] #redoc-container h6,
+html[data-theme='light'] #redoc-container p,
+html[data-theme='light'] #redoc-container span,
+html[data-theme='light'] #redoc-container li,
+html[data-theme='light'] #redoc-container code,
+html[data-theme='light'] #redoc-container td,
+html[data-theme='light'] #redoc-container th,
+html[data-theme='light'] #redoc-container a,
+html[data-theme='light'] #redoc-container div {
+	color: #1b2733 !important;
+}
+html[data-theme='light'] #redoc-container .param-name { color:#1b2733 !important; }
+html[data-theme='light'] #redoc-container .http-verb { color:#ffffff !important; } /* keep verb badge readable */
+html[data-theme='light'] #redoc-container .sc-badge, /* generic badges */
+html[data-theme='light'] #redoc-container .menu-item-heading {
+	color:#1b2733 !important;
+}
+/* Fallback: any element without explicit color inside Redoc inherits base */
+html[data-theme='light'] #redoc-container *:not(code):not(.http-verb) {
+	color: inherit;
+}
+
 /* Content containerization for readability */
 #redoc-container .api-content { max-width: 1200px; margin: 0 auto; }
 #redoc-container .api-content > div { background: rgba(255,255,255,0.02); }
