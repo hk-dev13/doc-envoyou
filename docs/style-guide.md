@@ -33,9 +33,9 @@ This guide defines the writing and formatting standards for EnvoyOU documentatio
 ## Code Blocks
 Example:
 ```bash
-curl -H "Authorization: Bearer $API_KEY" \
+curl -H "Authorization: Bearer $API_KEY" \\
   "https://api.envoyou.com/v1/air-quality?city=Jakarta"
-```text
+```
 
 ## Authentication Section Structure
 1. Overview
@@ -55,7 +55,7 @@ curl -H "Authorization: Bearer $API_KEY" \
 - New /v1/emissions endpoint
 ### Fixed
 - Corrected unit for PM2.5 concentration
-```text
+```
 
 ## Front Matter
 Each doc page should start with frontmatter when ordering or labeling is needed:
@@ -63,7 +63,7 @@ Each doc page should start with frontmatter when ordering or labeling is needed:
 ---
 sidebar_position: 1
 ---
-```text
+```
 
 ## Prohibited
 - Local slang, idioms
