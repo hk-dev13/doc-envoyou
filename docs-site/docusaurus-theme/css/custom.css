@@ -82,8 +82,8 @@ footer a:hover { color: var(--brand-primary-hover); }
 #redoc-container .operation-type, #redoc-container .operation-summary-path, #redoc-container .deprecated { border-radius:4px; }
 #redoc-container .api-content .operation { background:#0f1720; border:1px solid #1e2b35; border-radius:8px; padding:12px 18px; margin-bottom:16px; }
 #redoc-container .menu-content { background:#0D1117 !important; border-right:1px solid #1e2b35; }
-#redoc-container p, #redoc-container li, #redoc-container td, #redoc-container th, #redoc-container .description { color:#b6c2cc; }
-#redoc-container .param-name { font-weight:600; color:#e2e8f0; }
+#redoc-container p, #redoc-container li, #redoc-container td, #redoc-container th, #redoc-container .description { color:#d3dbe2; }
+#redoc-container .param-name { font-weight:600; color:#ffffff; }
 .brand-callout { background:#132029; border:1px solid #1e2b35; padding:1rem 1.25rem; border-radius:6px; }
 
 /* Redoc specific component refinements */
@@ -153,20 +153,18 @@ html { transition: background .25s, color .25s; }
   background:#0D1117 !important;
 }
 
-/* === Redoc Text (Consolidated) === */
-#redoc-container {
-  /* base text color */
-  --rd-text-color: #ffffff;
-}
-#redoc-container :where(p, li, td, th, span, .description, .menu-item-heading, .operation-type, .operation-summary-path, .deprecated, .title, .error, .warning, .info, .param-name, .hint, .meta){
-  color: var(--rd-text-color);
-}
+/* === Redoc Text Layer (Selective) === */
+/* Base body / menus already styled above. Add selective intensifiers & status blocks. */
+#redoc-container .menu-item-heading { color:#ffffff; }
+#redoc-container .operation-summary-path, #redoc-container .operation-type { color:#ffffff; }
+#redoc-container .deprecated { color:#ffb347; }
+#redoc-container .warning { background:#4d3612; color:#ffd07a; }
+#redoc-container .error { background:#4a1f21; color:#ffb3b8; }
+#redoc-container .info { background:#123247; color:#8bd3ff; }
+#redoc-container .hint, #redoc-container .meta { color:#b6c2cc; }
 /* Sidebar links */
-#redoc-container .menu-content a { color: var(--rd-text-color); }
+#redoc-container .menu-content a { color:#c7d1d8; }
 #redoc-container .menu-content a:hover { color: var(--brand-primary); }
 #redoc-container .menu-content .active > a, #redoc-container .menu-content a.active { color: var(--brand-primary); font-weight:600; }
-/* Search placeholder */
-#redoc-container .menu-content .search-input::placeholder { color: rgba(255,255,255,.55); }
-/* Table header stronger weight */
-#redoc-container table th { font-weight:600; }
-/* Keep verb badges custom colors (no override here) */
+/* Placeholder tweak */
+#redoc-container .menu-content .search-input::placeholder { color:rgba(255,255,255,.55); }
