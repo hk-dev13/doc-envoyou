@@ -57,7 +57,7 @@ small, .footer__copyright, .docItemContainer time { color: var(--brand-text-fain
 h1, h2, h3 { font-weight: 600; letter-spacing: .5px; }
 
 /* Navbar */
-.navbar { border-bottom: 1px solid var(--brand-border); box-shadow: none; background: var(--ifm-navbar-background-color); }
+.navbar { border-bottom: 1px solid var(--brand-border); background: var(--ifm-navbar-background-color); box-shadow: 0 2px 4px -2px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.15); backdrop-filter: blur(4px); }
 .navbar__item, .navbar__brand { color: var(--brand-text-muted) !important; }
 .navbar__item:hover, .navbar__brand:hover { color: var(--brand-text) !important; }
 html[data-theme='light'] .navbar__item, html[data-theme='light'] .navbar__brand { color:#536675 !important; }
@@ -120,6 +120,34 @@ html[data-theme='light'] #redoc-container code { background:#f3f5f7; color:#1b27
 html[data-theme='light'] #redoc-container table { background:#f9fafb; }
 html[data-theme='light'] #redoc-container table th { background:#eef2f5; color:#1b2733; }
 html[data-theme='light'] #redoc-container table td { color:#33424d; }
+
+/* Content containerization for readability */
+#redoc-container .api-content { max-width: 1200px; margin: 0 auto; }
+#redoc-container .api-content > div { background: rgba(255,255,255,0.02); }
+html[data-theme='light'] #redoc-container .api-content > div { background:#ffffff; }
+
+/* Add a subtle card feel to method sections */
+#redoc-container .operation-type, #redoc-container .operation-summary-path, #redoc-container .deprecated { border-radius:4px; }
+#redoc-container .api-content .operation { background:#0f1720; border:1px solid #1e2b35; border-radius:8px; padding:12px 18px; margin-bottom:16px; }
+html[data-theme='light'] #redoc-container .api-content .operation { background:#ffffff; border:1px solid #d8e0e6; }
+
+/* Sidebar background consistency */
+#redoc-container .menu-content { background:#0D1117 !important; }
+html[data-theme='light'] #redoc-container .menu-content { background:#f5f7fa !important; }
+
+/* Normalize text across Redoc */
+#redoc-container p, #redoc-container li, #redoc-container td, #redoc-container th, #redoc-container .description { color:#b6c2cc; }
+html[data-theme='dark'] #redoc-container h1, html[data-theme='dark'] #redoc-container h2, html[data-theme='dark'] #redoc-container h3 { color:#ffffff; }
+html[data-theme='light'] #redoc-container p, html[data-theme='light'] #redoc-container li, html[data-theme='light'] #redoc-container td, html[data-theme='light'] #redoc-container th, html[data-theme='light'] #redoc-container .description { color:#3d4f5a; }
+
+/* Emphasize parameter names */
+#redoc-container .param-name { font-weight:600; color:#e2e8f0; }
+html[data-theme='light'] #redoc-container .param-name { color:#1b2733; }
+
+/* Footer blend */
+footer.footer { position: relative; }
+footer.footer::before { content:""; position:absolute; top:-60px; left:0; right:0; height:60px; background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%); pointer-events:none; }
+html[data-theme='light'] footer.footer::before { background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #f0f4f7 100%); }
 
 /* Utility */
 .brand-callout { background:#132029; border:1px solid #1e2b35; padding:1rem 1.25rem; border-radius:6px; }
