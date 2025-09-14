@@ -197,6 +197,23 @@ html[data-theme='light'] .theme-doc-sidebar-container { background:#ffffff; }
 html[data-theme='light'] #redoc-container { background:#ffffff; }
 html[data-theme='light'] #redoc-container code { background:#f3f5f7; }
 html[data-theme='light'] #redoc-container .api-content .operation code { background:#f3f5f7; }
+/* Normal docs (non Redoc): unify code blocks, admonitions, block quotes */
+html[data-theme='light'] .theme-code-block, 
+html[data-theme='light'] .theme-code-block pre,
+html[data-theme='light'] .prism-code,
+html[data-theme='light'] code[class*='language-'],
+html[data-theme='light'] pre code { background:#f3f5f7 !important; }
+html[data-theme='light'] blockquote { background:#ffffff; border-left:4px solid #2ECC71; }
+html[data-theme='light'] .alert { background:#ffffff; border:1px solid #d8e0e6; }
+/* Capture inline-styled dark backgrounds that might slip through */
+html[data-theme='light'] [style*='#0f1720'],
+html[data-theme='light'] [style*='#111b24'],
+html[data-theme='light'] [style*='#132029'] { background:#ffffff !important; color:#1b2733 !important; }
+/* Generic fallback: elements with very dark rgb backgrounds */
+html[data-theme='light'] [style*='background: rgb(15'],
+html[data-theme='light'] [style*='background-color: rgb(15'],
+html[data-theme='light'] [style*='background:rgb(15'],
+html[data-theme='light'] [style*='background-color:rgb(15'] { background:#ffffff !important; color:#1b2733 !important; }
 
 /* Sidebar background consistency */
 #redoc-container .menu-content { background:#0D1117 !important; }
