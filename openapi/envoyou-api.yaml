@@ -1,24 +1,26 @@
 openapi: 3.0.3
 info:
   title: Envoyou Core API
-  version: 0.1.0
+  version: 1.0.0
   description: >-
-    Early skeleton of the Envoyou public API specification. This is a draft and
-    will evolve. Endpoints and schemas are incomplete.
+    Complete Envoyou API for environmental data verification and compliance checking.
+    Includes authentication, user management, global environmental data, permits,
+    notifications, and administrative functions.
 servers:
   - url: https://api.envoyou.com/v1
     description: Production
   - url: https://api-staging.envoyou.com/v1
     description: Staging
-  - url: http://localhost:8000/v1
-    description: Local Dev
+  - url: http://localhost:10000/v1
+    description: Local Development
 security:
-  - ApiKeyAuth: []
   - BearerAuth: []
+  - ApiKeyAuth: []
 paths:
-  /auth/token:
+  # Authentication Endpoints
+  /auth/login:
     post:
-      summary: Obtain access token
+      summary: User login
       tags: [Authentication]
       requestBody:
         required: true
@@ -28,110 +30,1249 @@ paths:
               type: object
               required: [email, password]
               properties:
-                email:
-                  type: string
-                  format: email
-                password:
-                  type: string
+                email: { type: string, format: email }
+                password: { type: string }
       responses:
         '200':
-          description: Token issued
+          description: Login successful
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  access_token:
-                    type: string
-                  token_type:
-                    type: string
-                    example: bearer
-        '401':
-          description: Invalid credentials
-  /measurements:
-    get:
-      summary: List recent measurements
-      tags: [Measurements]
-      parameters:
-        - in: query
-          name: city
-          schema:
-            type: string
-        - in: query
-          name: limit
-          schema:
-            type: integer
-            default: 50
-            maximum: 500
-      responses:
-        '200':
-          $ref: '#/components/responses/ListMeasurements'
-        '400':
-          description: Bad request
-        '429': { $ref: '#/components/responses/TooManyRequestsError' }
-  /stations:
-    get:
-      summary: List stations
-      tags: [Stations]
-      responses:
-        '200':
-          $ref: '#/components/responses/ListStations'
-        '429': { $ref: '#/components/responses/TooManyRequestsError' }
-  /benchmarks/industry/{code}:
-    get:
-      summary: Get industry benchmark distribution
-      tags: [Benchmarks]
-      parameters:
-        - in: path
-          name: code
-          required: true
-          schema: { type: string }
-        - in: query
-          name: metric
-          schema: { type: string }
-          required: true
-        - in: query
-          name: window
-          schema: { type: string, example: '30d' }
-      responses:
-        '200':
-          description: Benchmark distribution
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BenchmarkDistribution'
-        '400': { $ref: '#/components/responses/ValidationErrorResponse' }
-        '404': { $ref: '#/components/responses/NotFoundError' }
-        '429': { $ref: '#/components/responses/TooManyRequestsError' }
-  /benchmarks/peers:
+                  access_token: { type: string }
+                  token_type: { type: string, example: bearer }
+                  user: { $ref: '#/components/schemas/User' }
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+
+  /auth/register:
     post:
-      summary: Compute peer benchmark for supplied company IDs
-      tags: [Benchmarks]
+      summary: User registration
+      tags: [Authentication]
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              required: [company_ids, metric]
+              required: [email, password, name]
               properties:
-                company_ids:
-                  type: array
-                  items: { type: string }
-                  maxItems: 50
-                metric: { type: string }
-                window: { type: string, example: '90d' }
+                email: { type: string, format: email }
+                password: { type: string, minLength: 8 }
+                name: { type: string }
+                company: { type: string }
       responses:
-        '200':
-          description: Peer benchmark result
+        '201':
+          description: Registration successful
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PeerBenchmark'
+                type: object
+                properties:
+                  message: { type: string }
+                  user: { $ref: '#/components/schemas/User' }
         '400': { $ref: '#/components/responses/ValidationErrorResponse' }
-        '404': { $ref: '#/components/responses/NotFoundError' }
-        '429': { $ref: '#/components/responses/TooManyRequestsError' }
-  /alerts:
+
+  /auth/verify-email:
+    get:
+      summary: Verify email address
+      tags: [Authentication]
+      parameters:
+        - in: query
+          name: token
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Email verified successfully
+        '400': { $ref: '#/components/responses/ValidationErrorResponse' }
+    post:
+      summary: Send email verification
+      tags: [Authentication]
+      responses:
+        '200':
+          description: Verification email sent
+
+  /auth/forgot-password:
+    post:
+      summary: Request password reset
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email: { type: string, format: email }
+      responses:
+        '200':
+          description: Password reset email sent
+
+  /auth/reset-password:
+    post:
+      summary: Reset password with token
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token, password]
+              properties:
+                token: { type: string }
+                password: { type: string, minLength: 8 }
+      responses:
+        '200':
+          description: Password reset successful
+        '400': { $ref: '#/components/responses/ValidationErrorResponse' }
+
+  /auth/refresh:
+    post:
+      summary: Refresh access token
+      tags: [Authentication]
+      responses:
+        '200':
+          description: Token refreshed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token: { type: string }
+                  token_type: { type: string, example: bearer }
+
+  /auth/logout:
+    post:
+      summary: User logout
+      tags: [Authentication]
+      responses:
+        '200':
+          description: Logout successful
+
+  /auth/change-password:
+    post:
+      summary: Change user password
+      tags: [Authentication]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [current_password, new_password]
+              properties:
+                current_password: { type: string }
+                new_password: { type: string, minLength: 8 }
+      responses:
+        '200':
+          description: Password changed successfully
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+
+  /auth/send-verification:
+    post:
+      summary: Send email verification
+      tags: [Authentication]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: Verification email sent
+
+  /auth/set-password:
+    post:
+      summary: Set password for OAuth users
+      tags: [Authentication]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [password]
+              properties:
+                password: { type: string, minLength: 8 }
+      responses:
+        '200':
+          description: Password set successfully
+
+  /auth/set-local-password:
+    post:
+      summary: Set local password
+      tags: [Authentication]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [password]
+              properties:
+                password: { type: string, minLength: 8 }
+      responses:
+        '200':
+          description: Password set successfully
+
+  /auth/request-free-api-key:
+    post:
+      summary: Request free API key
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, name]
+              properties:
+                email: { type: string, format: email }
+                name: { type: string }
+                company: { type: string }
+      responses:
+        '200':
+          description: API key sent to email
+
+  # OAuth Authentication
+  /auth/google/login:
+    get:
+      summary: Google OAuth login URL
+      tags: [Authentication]
+      responses:
+        '200':
+          description: Google OAuth URL
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url: { type: string }
+
+  /auth/google/callback:
+    post:
+      summary: Google OAuth callback
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code: { type: string }
+      responses:
+        '200':
+          description: OAuth successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token: { type: string }
+                  user: { $ref: '#/components/schemas/User' }
+
+  /auth/google/token:
+    post:
+      summary: Exchange Google OAuth code for token
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code: { type: string }
+      responses:
+        '200':
+          description: Token issued
+
+  /auth/github/login:
+    get:
+      summary: GitHub OAuth login URL
+      tags: [Authentication]
+      responses:
+        '200':
+          description: GitHub OAuth URL
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url: { type: string }
+
+  /auth/github/callback:
+    post:
+      summary: GitHub OAuth callback
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code: { type: string }
+      responses:
+        '200':
+          description: OAuth successful
+
+  /auth/github/token:
+    post:
+      summary: Exchange GitHub OAuth code for token
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code: { type: string }
+      responses:
+        '200':
+          description: Token issued
+
+  # Two-Factor Authentication
+  /auth/2fa/setup:
+    post:
+      summary: Setup 2FA
+      tags: [Authentication]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: 2FA setup data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  secret: { type: string }
+                  qr_code: { type: string }
+
+  /auth/2fa/verify:
+    post:
+      summary: Verify 2FA code
+      tags: [Authentication]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code: { type: string }
+      responses:
+        '200':
+          description: 2FA verified
+
+  /auth/2fa/disable:
+    post:
+      summary: Disable 2FA
+      tags: [Authentication]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: 2FA disabled
+
+  # Supabase Authentication
+  /auth/supabase/me:
+    get:
+      summary: Get current Supabase user
+      tags: [Authentication]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: User data
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/User' }
+
+  /auth/supabase/verify:
+    post:
+      summary: Verify Supabase token
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token]
+              properties:
+                token: { type: string }
+      responses:
+        '200':
+          description: Token verified
+
+  # Session Management
+  /auth/sessions/redis/{session_id}:
+    get:
+      summary: Get Redis session
+      tags: [Authentication]
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: session_id
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Session data
+    delete:
+      summary: Delete Redis session
+      tags: [Authentication]
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: session_id
+          required: true
+          schema: { type: string }
+      responses:
+        '204':
+          description: Session deleted
+
+  # User Management Endpoints
+  /user/profile:
+    get:
+      summary: Get user profile
+      tags: [User Management]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: User profile
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UserProfile' }
+    put:
+      summary: Update user profile
+      tags: [User Management]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: { type: string }
+                company: { type: string }
+                job_title: { type: string }
+                timezone: { type: string }
+      responses:
+        '200':
+          description: Profile updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UserProfile' }
+
+  /user/stats:
+    get:
+      summary: Get user statistics
+      tags: [User Management]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: User statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  api_calls: { type: integer }
+                  last_login: { type: string, format: date-time }
+
+  /user/avatar:
+    post:
+      summary: Upload user avatar
+      tags: [User Management]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Avatar uploaded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  avatar_url: { type: string }
+
+  /user/plan:
+    get:
+      summary: Get user subscription plan
+      tags: [User Management]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: User plan
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  plan: { type: string, enum: [FREE, PREMIUM, ENTERPRISE] }
+
+  /user/api-keys:
+    get:
+      summary: List user API keys
+      tags: [User Management]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: API keys list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/APIKey' }
+    post:
+      summary: Create API key
+      tags: [User Management]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name: { type: string }
+                permissions: { type: array, items: { type: string } }
+      responses:
+        '201':
+          description: API key created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/APIKey' }
+
+  /user/api-keys/{key_id}:
+    delete:
+      summary: Delete API key
+      tags: [User Management]
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: key_id
+          required: true
+          schema: { type: string }
+      responses:
+        '204':
+          description: API key deleted
+
+  /user/sessions:
+    get:
+      summary: List user sessions
+      tags: [User Management]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: Sessions list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Session' }
+
+  /user/sessions/{session_id}:
+    delete:
+      summary: Delete user session
+      tags: [User Management]
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: session_id
+          required: true
+          schema: { type: string }
+      responses:
+        '204':
+          description: Session deleted
+
+  # Global Data Endpoints
+  /global/emissions:
+    get:
+      summary: Get global emissions data
+      tags: [Global Data]
+      security: [{ ApiKeyAuth: [] }]
+      parameters:
+        - in: query
+          name: country
+          schema: { type: string }
+        - in: query
+          name: year
+          schema: { type: integer }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 100 }
+      responses:
+        '200':
+          description: Emissions data
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/EmissionData' }
+
+  /global/emissions/stats:
+    get:
+      summary: Get emissions statistics
+      tags: [Global Data]
+      security: [{ ApiKeyAuth: [] }]
+      responses:
+        '200':
+          description: Emissions statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_countries: { type: integer }
+                  total_emissions: { type: number }
+                  avg_emissions: { type: number }
+
+  /global/campd:
+    get:
+      summary: Get CAMPD power plant data
+      tags: [Global Data]
+      security: [{ ApiKeyAuth: [] }]
+      parameters:
+        - in: query
+          name: state
+          schema: { type: string }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 100 }
+      responses:
+        '200':
+          description: Power plant data
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/PowerPlant' }
+
+  /global/eea:
+    get:
+      summary: Get EEA environmental indicators
+      tags: [Global Data]
+      security: [{ ApiKeyAuth: [] }]
+      parameters:
+        - in: query
+          name: indicator
+          schema: { type: string }
+        - in: query
+          name: country
+          schema: { type: string }
+      responses:
+        '200':
+          description: EEA indicators
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/EEAIndicator' }
+
+  /global/edgar:
+    get:
+      summary: Get EDGAR emissions data
+      tags: [Global Data]
+      security: [{ ApiKeyAuth: [] }]
+      parameters:
+        - in: query
+          name: sector
+          schema: { type: string }
+        - in: query
+          name: country
+          schema: { type: string }
+      responses:
+        '200':
+          description: EDGAR emissions data
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/EDGAREmission' }
+
+  /global/iso:
+    get:
+      summary: Get ISO 14001 certifications
+      tags: [Global Data]
+      security: [{ ApiKeyAuth: [] }]
+      parameters:
+        - in: query
+          name: country
+          schema: { type: string }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 100 }
+      responses:
+        '200':
+          description: ISO certifications
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/ISOCertification' }
+
+  /global/cevs/{company_name}:
+    get:
+      summary: Get CEVS score for company
+      tags: [Global Data]
+      security: [{ ApiKeyAuth: [] }]
+      parameters:
+        - in: path
+          name: company_name
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: CEVS score
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  company: { type: string }
+                  cevs_score: { type: number }
+                  last_updated: { type: string, format: date-time }
+
+  # Permits Endpoints
+  /permits/{permit_id}:
+    get:
+      summary: Get permit by ID
+      tags: [Permits]
+      security: [{ ApiKeyAuth: [] }]
+      parameters:
+        - in: path
+          name: permit_id
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Permit data
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Permit' }
+
+  /permits/active:
+    get:
+      summary: Get active permits
+      tags: [Permits]
+      security: [{ ApiKeyAuth: [] }]
+      parameters:
+        - in: query
+          name: limit
+          schema: { type: integer, default: 100 }
+      responses:
+        '200':
+          description: Active permits
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Permit' }
+
+  /permits/search:
+    get:
+      summary: Search permits
+      tags: [Permits]
+      security: [{ ApiKeyAuth: [] }]
+      parameters:
+        - in: query
+          name: query
+          schema: { type: string }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 50 }
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Permit' }
+
+  /permits/stats:
+    get:
+      summary: Get permits statistics
+      tags: [Permits]
+      security: [{ ApiKeyAuth: [] }]
+      responses:
+        '200':
+          description: Permits statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_permits: { type: integer }
+                  active_permits: { type: integer }
+                  expired_permits: { type: integer }
+
+  /permits/type/{permit_type}:
+    get:
+      summary: Get permits by type
+      tags: [Permits]
+      security: [{ ApiKeyAuth: [] }]
+      parameters:
+        - in: path
+          name: permit_type
+          required: true
+          schema: { type: string }
+        - in: query
+          name: limit
+          schema: { type: integer, default: 100 }
+      responses:
+        '200':
+          description: Permits by type
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Permit' }
+
+  /permits/company/{company_name}:
+    get:
+      summary: Get permits by company
+      tags: [Permits]
+      security: [{ ApiKeyAuth: [] }]
+      parameters:
+        - in: path
+          name: company_name
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Company permits
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Permit' }
+
+  # Notifications Endpoints
+  /notifications/:
+    get:
+      summary: List user notifications
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: query
+          name: limit
+          schema: { type: integer, default: 50 }
+        - in: query
+          name: offset
+          schema: { type: integer, default: 0 }
+      responses:
+        '200':
+          description: Notifications list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Notification' }
+    post:
+      summary: Create notification
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [title, message]
+              properties:
+                title: { type: string }
+                message: { type: string }
+                type: { type: string, enum: [info, warning, error, success] }
+      responses:
+        '201':
+          description: Notification created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Notification' }
+
+  /notifications/{notification_id}:
+    delete:
+      summary: Delete notification
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: notification_id
+          required: true
+          schema: { type: string }
+      responses:
+        '204':
+          description: Notification deleted
+
+  /notifications/{notification_id}/read:
+    put:
+      summary: Mark notification as read
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: notification_id
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Notification marked as read
+
+  /notifications/read-all:
+    put:
+      summary: Mark all notifications as read
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: All notifications marked as read
+
+  /notifications/count:
+    get:
+      summary: Get unread notifications count
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: Unread count
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  unread_count: { type: integer }
+
+  /notifications/preferences/{user_id}:
+    get:
+      summary: Get notification preferences
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Notification preferences
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/NotificationPreferences' }
+    put:
+      summary: Update notification preferences
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/NotificationPreferences' }
+      responses:
+        '200':
+          description: Preferences updated
+    delete:
+      summary: Reset notification preferences
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema: { type: string }
+      responses:
+        '204':
+          description: Preferences reset
+
+  /notifications/templates:
+    get:
+      summary: Get notification templates
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: Notification templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/NotificationTemplate' }
+
+  /notifications/send-template:
+    post:
+      summary: Send notification using template
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [template_id, recipient_id]
+              properties:
+                template_id: { type: string }
+                recipient_id: { type: string }
+                variables: { type: object }
+      responses:
+        '200':
+          description: Notification sent
+
+  /notifications/cleanup:
+    post:
+      summary: Cleanup old notifications
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: Cleanup completed
+
+  # Notification Events
+  /notifications/events/welcome:
+    post:
+      summary: Send welcome notification
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [user_id]
+              properties:
+                user_id: { type: string }
+      responses:
+        '200':
+          description: Welcome notification sent
+
+  /notifications/events/verification:
+    post:
+      summary: Send email verification notification
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [user_id]
+              properties:
+                user_id: { type: string }
+      responses:
+        '200':
+          description: Verification notification sent
+
+  /notifications/events/password-reset:
+    post:
+      summary: Send password reset notification
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [user_id]
+              properties:
+                user_id: { type: string }
+      responses:
+        '200':
+          description: Password reset notification sent
+
+  /notifications/events/security-alert:
+    post:
+      summary: Send security alert notification
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [user_id, alert_type]
+              properties:
+                user_id: { type: string }
+                alert_type: { type: string }
+                details: { type: object }
+      responses:
+        '200':
+          description: Security alert sent
+
+  /notifications/events/billing:
+    post:
+      summary: Send billing notification
+      tags: [Notifications]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [user_id, billing_type]
+              properties:
+                user_id: { type: string }
+                billing_type: { type: string, enum: [invoice, payment_failed, subscription_cancelled] }
+                amount: { type: number }
+      responses:
+        '200':
+          description: Billing notification sent
+
+  # Health Check Endpoints
+  /health/ready:
+    get:
+      summary: Readiness check
+      tags: [Health]
+      responses:
+        '200':
+          description: Service is ready
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, example: ready }
+                  timestamp: { type: string, format: date-time }
+
+  # Admin Endpoints
+  /admin/request-demo-key:
+    post:
+      summary: Request demo API key
+      tags: [Admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tier]
+              properties:
+                tier: { type: string, enum: [basic, premium, enterprise] }
+                email: { type: string, format: email }
+      responses:
+        '200':
+          description: Demo key created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  api_key: { type: string }
+                  tier: { type: string }
+                  expires_at: { type: string, format: date-time }
+
+  /admin/api-keys:
+    get:
+      summary: List all API keys
+      tags: [Admin]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: API keys list
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/APIKey' }
+    post:
+      summary: Create API key
+      tags: [Admin]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, tier]
+              properties:
+                name: { type: string }
+                tier: { type: string, enum: [basic, premium, enterprise] }
+                permissions: { type: array, items: { type: string } }
+      responses:
+        '201':
+          description: API key created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/APIKey' }
+
+  /admin/api-keys/{key_prefix}:
+    delete:
+      summary: Delete API key by prefix
+      tags: [Admin]
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: key_prefix
+          required: true
+          schema: { type: string }
+      responses:
+        '204':
+          description: API key deleted
+
+  /admin/stats:
+    get:
+      summary: Get admin statistics
+      tags: [Admin]
+      security: [{ BearerAuth: [] }]
+      responses:
+        '200':
+          description: Admin statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total_users: { type: integer }
+                  total_api_keys: { type: integer }
+                  active_sessions: { type: integer }
+                  api_calls_today: { type: integer }
+
+  # External Services
+  /external/:
+    get:
+      summary: External service status
+      tags: [External]
+      responses:
+        '200':
+          description: External services status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  services: { type: object }
     get:
       summary: List alert rules
       tags: [Alerts]
@@ -355,6 +1496,110 @@ components:
           mean: 77.6
           median: 76.5
           stddev: 7.4
+    APIKey:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        key_prefix: { type: string }
+        tier: { type: string, enum: [basic, premium, enterprise] }
+        permissions: { type: array, items: { type: string } }
+        created_at: { type: string, format: date-time }
+        last_used_at: { type: string, format: date-time, nullable: true }
+        expires_at: { type: string, format: date-time, nullable: true }
+      example:
+        id: key_12345
+        name: Production API Key
+        key_prefix: evo_prod_
+        tier: premium
+        permissions: ["read:emissions", "read:permits"]
+        created_at: 2025-09-13T10:20:11Z
+        last_used_at: 2025-09-13T14:30:22Z
+        expires_at: null
+    User:
+      type: object
+      properties:
+        id: { type: string }
+        email: { type: string, format: email }
+        name: { type: string }
+        tier: { type: string, enum: [basic, premium, enterprise] }
+        created_at: { type: string, format: date-time }
+        last_login_at: { type: string, format: date-time, nullable: true }
+        is_active: { type: boolean }
+        two_factor_enabled: { type: boolean }
+      example:
+        id: user_12345
+        email: user@example.com
+        name: John Doe
+        tier: premium
+        created_at: 2025-09-13T10:20:11Z
+        last_login_at: 2025-09-13T14:30:22Z
+        is_active: true
+        two_factor_enabled: false
+    Notification:
+      type: object
+      properties:
+        id: { type: string }
+        type: { type: string, enum: [billing, alert, system, marketing] }
+        title: { type: string }
+        message: { type: string }
+        read: { type: boolean, default: false }
+        created_at: { type: string, format: date-time }
+        data: { type: object }
+      example:
+        id: notif_12345
+        type: billing
+        title: Payment Due
+        message: Your monthly subscription payment is due
+        read: false
+        created_at: 2025-09-13T10:20:11Z
+        data: { amount: 99.99, due_date: "2025-10-01" }
+    Permit:
+      type: object
+      properties:
+        id: { type: string }
+        company_name: { type: string }
+        permit_number: { type: string }
+        facility_name: { type: string }
+        address: { type: string }
+        latitude: { type: number }
+        longitude: { type: number }
+        permit_type: { type: string }
+        status: { type: string, enum: [active, expired, revoked] }
+        issued_date: { type: string, format: date }
+        expiration_date: { type: string, format: date, nullable: true }
+        source: { type: string }
+      example:
+        id: permit_12345
+        company_name: ABC Manufacturing
+        permit_number: EPA-2025-001
+        facility_name: Main Plant
+        address: 123 Industrial Blvd, Springfield, IL
+        latitude: 39.7817
+        longitude: -89.6501
+        permit_type: Air Quality
+        status: active
+        issued_date: "2025-01-01"
+        expiration_date: "2030-01-01"
+        source: EPA
+    GlobalData:
+      type: object
+      properties:
+        id: { type: string }
+        dataset: { type: string, enum: [emissions, campd, eea, edgar, iso, cevs] }
+        country: { type: string }
+        year: { type: integer }
+        data: { type: object }
+        source: { type: string }
+        last_updated: { type: string, format: date-time }
+      example:
+        id: data_12345
+        dataset: emissions
+        country: US
+        year: 2023
+        data: { co2_total: 5000000, methane: 120000 }
+        source: EDGAR
+        last_updated: 2025-09-13T10:20:11Z
     AlertRuleBase:
       type: object
       properties:
