@@ -133,6 +133,27 @@ html[data-theme='light'] #redoc-container table td { color:#33424d; }
 /* Legacy white background overrides */
 .redoc-wrap { background: transparent; }
 
+/* Unify layered backgrounds (sometimes Redoc injects .redoc-wrap > div with its own bg) */
+#redoc-container .redoc-wrap, #redoc-container .redoc-wrap > div, #redoc-container .menu-content, #redoc-container .api-content {
+	background: transparent !important;
+}
+html[data-theme='light'] #redoc-container .redoc-wrap, html[data-theme='light'] #redoc-container .redoc-wrap > div,
+html[data-theme='light'] #redoc-container .menu-content, html[data-theme='light'] #redoc-container .api-content {
+	background: #ffffff !important;
+}
+
+/* Ensure page root containers follow token backgrounds */
+.main-wrapper, .container, .theme-doc-markdown, .theme-doc-sidebar-container {
+	background: var(--brand-bg) !important;
+}
+html[data-theme='light'] .main-wrapper, html[data-theme='light'] .container,
+html[data-theme='light'] .theme-doc-markdown, html[data-theme='light'] .theme-doc-sidebar-container {
+	background: var(--brand-bg) !important;
+}
+
+/* Smooth transition for theme switch (optional enhancement) */
+html { transition: background .25s, color .25s; }
+
 /* Generic link & hover adjustments for light mode */
 html[data-theme='light'] a { color:#1b2733; }
 html[data-theme='light'] a:hover { color:#2ECC71; }
