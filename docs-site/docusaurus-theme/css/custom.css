@@ -280,3 +280,14 @@ html[data-theme='light'] a:hover { color:#2ECC71; }
 
 /* Improve inline code contrast in dark mode */
 code:not(pre code) { padding:2px 4px; }
+
+/* React Tabs (used for payload/response etc.) */
+.react-tabs__tab-list { border-bottom:1px solid var(--brand-border); margin:0 0 0.75rem; padding:0; display:flex; gap:.25rem; flex-wrap:wrap; }
+.react-tabs__tab { list-style:none; cursor:pointer; font-size:.8rem; font-weight:500; padding:4px 10px; border:1px solid transparent; border-radius:14px; line-height:1.2; background:rgba(255,255,255,0.05); color:var(--brand-text-muted); transition:.15s background, .15s color, .15s border-color; }
+html[data-theme='light'] .react-tabs__tab { background:#eef2f5; color:#445461; }
+.react-tabs__tab:hover:not(.react-tabs__tab--selected) { background:rgba(255,255,255,0.12); color:var(--brand-text); }
+html[data-theme='light'] .react-tabs__tab:hover:not(.react-tabs__tab--selected) { background:#e2e8ec; color:#1b2733; }
+.react-tabs__tab--selected { background:var(--brand-primary); color:#ffffff; border-color:var(--brand-primary); }
+html[data-theme='light'] .react-tabs__tab--selected { background:#ffffff; color:#1b2733; border:1px solid #d8e0e6; box-shadow:0 1px 2px rgba(0,0,0,0.06); }
+.react-tabs__tab:focus-visible { outline:2px solid var(--brand-primary); outline-offset:2px; }
+html[data-theme='light'] .react-tabs__tab:focus-visible { outline:2px solid #27AE60; }
