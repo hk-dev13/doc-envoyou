@@ -153,28 +153,20 @@ html { transition: background .25s, color .25s; }
   background:#0D1117 !important;
 }
 
-/* Redoc text color normalization to white */
-#redoc-container p,
-#redoc-container li,
-#redoc-container td,
-#redoc-container th,
-#redoc-container .description,
-#redoc-container span,
-#redoc-container .sc-badge,
-#redoc-container .menu-item-heading,
-#redoc-container .operation-type,
-#redoc-container .operation-summary-path,
-#redoc-container .deprecated,
-#redoc-container .title,
-#redoc-container .error,
-#redoc-container .warning,
-#redoc-container .info { color:#ffffff !important; }
-#redoc-container .param-name { color:#ffffff !important; }
-#redoc-container table th { color:#ffffff !important; }
-#redoc-container .menu-content a { color:#ffffff !important; }
-#redoc-container .menu-content a:hover { color: var(--brand-primary) !important; }
-#redoc-container .menu-content .active > a, #redoc-container .menu-content a.active { color: var(--brand-primary) !important; }
-#redoc-container .menu-content .search-input { color:#ffffff !important; }
-#redoc-container .menu-content .search-input::placeholder { color:rgba(255,255,255,0.55) !important; }
-/* Slight dim for secondary inline meta if needed */
-#redoc-container .hint, #redoc-container .meta { color:rgba(255,255,255,0.7) !important; }
+/* === Redoc Text (Consolidated) === */
+#redoc-container {
+  /* base text color */
+  --rd-text-color: #ffffff;
+}
+#redoc-container :where(p, li, td, th, span, .description, .menu-item-heading, .operation-type, .operation-summary-path, .deprecated, .title, .error, .warning, .info, .param-name, .hint, .meta){
+  color: var(--rd-text-color);
+}
+/* Sidebar links */
+#redoc-container .menu-content a { color: var(--rd-text-color); }
+#redoc-container .menu-content a:hover { color: var(--brand-primary); }
+#redoc-container .menu-content .active > a, #redoc-container .menu-content a.active { color: var(--brand-primary); font-weight:600; }
+/* Search placeholder */
+#redoc-container .menu-content .search-input::placeholder { color: rgba(255,255,255,.55); }
+/* Table header stronger weight */
+#redoc-container table th { font-weight:600; }
+/* Keep verb badges custom colors (no override here) */
