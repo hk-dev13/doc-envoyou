@@ -160,9 +160,9 @@
       "spec": {
         "openapi": "3.0.3",
         "info": {
-          "title": "EnvoyOU Core API",
+          "title": "Envoyou Core API",
           "version": "0.1.0",
-          "description": "Early skeleton of the EnvoyOU public API specification. This is a draft and will evolve. Endpoints and schemas are incomplete."
+          "description": "Early skeleton of the Envoyou public API specification. This is a draft and will evolve. Endpoints and schemas are incomplete."
         },
         "servers": [
           {

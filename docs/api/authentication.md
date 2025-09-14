@@ -6,7 +6,7 @@ sidebar_position: 4
 
 ## Authentication Scheme
 
-EnvoyOU uses a combination of JWT (JSON Web Token) and API Key for authentication:
+Envoyou uses a combination of JWT (JSON Web Token) and API Key for authentication:
 
 - **JWT**: For user authentication (login/register)
   - Access Token: Valid for 15 minutes

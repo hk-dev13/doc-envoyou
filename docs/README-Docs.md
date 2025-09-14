@@ -1,4 +1,4 @@
-# EnvoyOU Documentation Developer Guide
+# Envoyou Documentation Developer Guide
 
 ## Prerequisites
 - Node.js 18+ (recommended 20)

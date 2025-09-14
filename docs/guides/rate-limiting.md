@@ -1,6 +1,6 @@
 # Rate Limiting Guide
 
-This guide explains how rate limiting works in the EnvoyOU API and best practices for handling rate limits effectively.
+This guide explains how rate limiting works in the Envoyou API and best practices for handling rate limits effectively.
 
 ## Rate Limit Tiers
 

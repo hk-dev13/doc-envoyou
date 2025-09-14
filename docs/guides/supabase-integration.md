@@ -1,6 +1,6 @@
 # Supabase Integration Guide
 
-This guide shows how to pair EnvoyOU API data with Supabase for storage, auth, and real-time features.
+This guide shows how to pair Envoyou API data with Supabase for storage, auth, and real-time features.
 
 ## Use Cases
 - Persist selected measurements for historical analytics.
@@ -9,7 +9,7 @@ This guide shows how to pair EnvoyOU API data with Supabase for storage, auth, a
 
 ## Architecture Overview
 ```text
-EnvoyOU API --> Worker/CRON --> Supabase (tables, auth, functions) --> Dashboard
+Envoyou API --> Worker/CRON --> Supabase (tables, auth, functions) --> Dashboard
 ```text
 
 ## Table Schema Example
@@ -58,7 +58,7 @@ syncLatest();
 
 ## Security Notes
 - Use service role key only in secure server environment (not frontend).
-- Rotate EnvoyOU API keys quarterly.
+- Rotate Envoyou API keys quarterly.
 
 ## Next Steps
 - Add CRON (GitHub Actions / Supabase Scheduled Functions)

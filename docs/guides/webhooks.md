@@ -1,10 +1,10 @@
 # Webhooks Integration Guide
 
-This guide covers how to integrate with EnvoyOU API webhooks for real-time notifications and event-driven workflows.
+This guide covers how to integrate with Envoyou API webhooks for real-time notifications and event-driven workflows.
 
 ## What are Webhooks?
 
-Webhooks are HTTP callbacks that notify your application when specific events occur in the EnvoyOU platform. Instead of polling the API for changes, webhooks push data to your endpoints in real-time.
+Webhooks are HTTP callbacks that notify your application when specific events occur in the Envoyou platform. Instead of polling the API for changes, webhooks push data to your endpoints in real-time.
 
 ## Supported Events
 
@@ -242,7 +242,7 @@ async def receive(request: Request, x_envoyou_signature: str = Header(None), x_e
 
 - Require all security headers present (signature, timestamp, webhook id, event type).
 - Enforce timestamp drift (<= 5 minutes) to mitigate replay.
-- (Optional) Include a nonce header (`X-EnvoyOU-Nonce`) and store recently seen nonces (Redis TTL 10m) for replay rejection.
+- (Optional) Include a nonce header (`X-Envoyou-Nonce`) and store recently seen nonces (Redis TTL 10m) for replay rejection.
 - Reject requests with mismatched `Content-Type` or body reserialization differences.
 - Use constant-time comparison for signature strings.
 
@@ -251,11 +251,11 @@ async def receive(request: Request, x_envoyou_signature: str = Header(None), x_e
 Webhooks include security headers for verification:
 
 ```text
-X-EnvoyOU-Signature: v1,signature_here
-X-EnvoyOU-Timestamp: 1640995200
-X-EnvoyOU-Webhook-ID: wh_1234567890
-X-EnvoyOU-Event-Type: user.created
-X-EnvoyOU-Nonce: 4f2c7a81-bc2a-4c2f-9a3d-91d7fa2d6c55
+X-Envoyou-Signature: v1,signature_here
+X-Envoyou-Timestamp: 1640995200
+X-Envoyou-Webhook-ID: wh_1234567890
+X-Envoyou-Event-Type: user.created
+X-Envoyou-Nonce: 4f2c7a81-bc2a-4c2f-9a3d-91d7fa2d6c55
 ```text
 
 ## Error Handling and Retries
@@ -387,8 +387,8 @@ Test your webhooks using tools like:
 # Using curl to test webhook endpoint
 curl -X POST https://your-app.com/webhooks/envoyou \
   -H "Content-Type: application/json" \
-  -H "X-EnvoyOU-Signature: v1,test_signature" \
-  -H "X-EnvoyOU-Timestamp: 1640995200" \
+  -H "X-Envoyou-Signature: v1,test_signature" \
+  -H "X-Envoyou-Timestamp: 1640995200" \
   -d '{
     "id": "evt_test",
     "type": "user.created",
@@ -472,4 +472,4 @@ Set up alerts for:
 - Unusual event volumes
 - Processing delays
 
-Webhooks are a powerful way to build event-driven integrations with the EnvoyOU platform. Proper implementation ensures reliable, real-time communication between systems.
+Webhooks are a powerful way to build event-driven integrations with the Envoyou platform. Proper implementation ensures reliable, real-time communication between systems.

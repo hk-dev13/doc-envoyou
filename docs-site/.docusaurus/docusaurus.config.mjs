@@ -4,7 +4,7 @@
  * Modify the docusaurus.config.js file at your site's root instead.
  */
 export default {
-  "title": "EnvoyOU API Documentation",
+  "title": "Envoyou API Documentation",
   "tagline": "Comprehensive Environmental Data API Platform",
   "favicon": "img/favicon.ico",
   "url": "https://docs.envoyou.com",
@@ -56,9 +56,9 @@ export default {
   "themeConfig": {
     "image": "img/envoyou-social-card.jpg",
     "navbar": {
-      "title": "EnvoyOU API Docs",
+      "title": "Envoyou API Docs",
       "logo": {
-        "alt": "EnvoyOU Logo",
+        "alt": "Envoyou Logo",
         "src": "https://cdn.envoyou.com/logo-envoyou/svg/logo-icon.nb.svg"
       },
       "items": [
@@ -138,7 +138,7 @@ export default {
           ]
         }
       ],
-      "copyright": "Copyright © 2025 EnvoyOU. Built with Docusaurus."
+      "copyright": "Copyright © 2025 Envoyou. Built with Docusaurus."
     },
     "prism": {
       "theme": {

@@ -1,7 +1,7 @@
 {
   "id": "guides/error-catalog",
   "title": "API Error Catalog",
-  "description": "Centralized reference of standardized error responses exposed by the EnvoyOU API.",
+  "description": "Centralized reference of standardized error responses exposed by the Envoyou API.",
   "source": "@site/../docs/guides/error-catalog.md",
   "sourceDirName": "guides",
   "slug": "/guides/error-catalog",

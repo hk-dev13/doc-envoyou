@@ -1,6 +1,6 @@
 # Data Model Overview
 
-This section describes the core data entities exposed by the EnvoyOU API.
+This section describes the core data entities exposed by the Envoyou API.
 
 ## Core Entities
 | Entity | Description |

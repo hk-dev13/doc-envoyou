@@ -6,7 +6,7 @@ const darkTheme = themes.dracula;
 /** @type {import('@docusaurus/types').Config} */
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'EnvoyOU API Documentation',
+  title: 'Envoyou API Documentation',
   tagline: 'Comprehensive Environmental Data API Platform',
   favicon: 'img/favicon.ico',
   url: 'https://docs.envoyou.com',
@@ -47,8 +47,8 @@ const config = {
   themeConfig: ({
     image: 'img/envoyou-social-card.jpg',
     navbar: {
-      title: 'EnvoyOU API Docs',
-      logo: { alt: 'EnvoyOU Logo', src: 'https://cdn.envoyou.com/logo-envoyou/svg/logo-icon.nb.svg' },
+      title: 'Envoyou API Docs',
+      logo: { alt: 'Envoyou Logo', src: 'https://cdn.envoyou.com/logo-envoyou/svg/logo-icon.nb.svg' },
       items: [
         { type: 'docSidebar', sidebarId: 'tutorialSidebar', position: 'left', label: 'Documentation' },
         { href: '/api-spec/', label: 'API Spec', position: 'left' },
@@ -83,7 +83,7 @@ const config = {
           ]
         }
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} EnvoyOU. Built with Docusaurus.`
+      copyright: `Copyright © ${new Date().getFullYear()} Envoyou. Built with Docusaurus.`
     },
     prism: { theme: lightTheme, darkTheme },
     colorMode: {

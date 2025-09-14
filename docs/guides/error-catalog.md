@@ -1,6 +1,6 @@
 # API Error Catalog
 
-Centralized reference of standardized error responses exposed by the EnvoyOU API.
+Centralized reference of standardized error responses exposed by the Envoyou API.
 
 ## Error Envelope Conventions
 

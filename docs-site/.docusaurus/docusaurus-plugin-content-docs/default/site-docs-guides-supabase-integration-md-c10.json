@@ -1,7 +1,7 @@
 {
   "id": "guides/supabase-integration",
   "title": "Supabase Integration Guide",
-  "description": "This guide shows how to pair EnvoyOU API data with Supabase for storage, auth, and real-time features.",
+  "description": "This guide shows how to pair Envoyou API data with Supabase for storage, auth, and real-time features.",
   "source": "@site/../docs/guides/supabase-integration.md",
   "sourceDirName": "guides",
   "slug": "/guides/supabase-integration",

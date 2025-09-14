@@ -2,13 +2,13 @@
 sidebar_position: 1
 ---
 
-# Welcome to EnvoyOU API Documentation
+# Welcome to Envoyou API Documentation
 
-Welcome to the comprehensive documentation for **EnvoyOU API** - your gateway to global environmental data and verification services.
+Welcome to the comprehensive documentation for **Envoyou API** - your gateway to global environmental data and verification services.
 
-## 🚀 What is EnvoyOU?
+## 🚀 What is Envoyou?
 
-EnvoyOU is a sophisticated API platform for global environmental data aggregation that calculates the **Composite Environmental Verification Score (CEVS)** - a standard metric for corporate environmental performance.
+Envoyou is a sophisticated API platform for global environmental data aggregation that calculates the **Composite Environmental Verification Score (CEVS)** - a standard metric for corporate environmental performance.
 
 ### Key Features
 
@@ -32,7 +32,7 @@ curl -X GET "https://api.envoyou.com/v1/global/emissions?limit=10" \
 
 ## 📚 Documentation Structure
 
-- **[Introduction](./introduction.md)**: Learn about EnvoyOU's purpose and value proposition
+- **[Introduction](./introduction.md)**: Learn about Envoyou's purpose and value proposition
 - **[Getting Started](./getting-started.md)**: Step-by-step guide to get up and running
 - **[Authentication](./api/authentication.md)**: Understand our security and access control
 - **[API Reference](./api/api-reference.md)**: Complete endpoint documentation

@@ -1,6 +1,6 @@
 # Documentation Style Guide
 
-This guide defines the writing and formatting standards for EnvoyOU documentation.
+This guide defines the writing and formatting standards for Envoyou documentation.
 
 ## Tone & Voice
 - Professional, concise, neutral, globally friendly English.
@@ -25,7 +25,7 @@ This guide defines the writing and formatting standards for EnvoyOU documentatio
 
 | Term | Use | Avoid |
 |------|-----|-------|
-| EnvoyOU Platform | Consistent brand reference | The platform, our product |
+| Envoyou Platform | Consistent brand reference | The platform, our product |
 | API key | lowercase unless starting sentence | API Key, Key |
 | Endpoint | Specific API path | URL (unless literal) |
 | Rate limiting |  | throttling (unless context) |

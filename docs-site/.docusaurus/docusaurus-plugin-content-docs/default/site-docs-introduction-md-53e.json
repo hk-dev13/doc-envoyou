@@ -1,7 +1,7 @@
 {
   "id": "introduction",
   "title": "Introduction",
-  "description": "What is EnvoyOU, Purpose, Value",
+  "description": "What is Envoyou, Purpose, Value",
   "source": "@site/../docs/introduction.md",
   "sourceDirName": ".",
   "slug": "/introduction",
@@ -17,7 +17,7 @@
   },
   "sidebar": "tutorialSidebar",
   "previous": {
-    "title": "Welcome to EnvoyOU API Documentation",
+    "title": "Welcome to Envoyou API Documentation",
     "permalink": "/docs/intro"
   },
   "next": {

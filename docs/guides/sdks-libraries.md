@@ -1,12 +1,12 @@
 # SDK and Libraries Guide
 
-This guide covers the official and community SDKs available for integrating with the EnvoyOU API, along with best practices for library usage.
+This guide covers the official and community SDKs available for integrating with the Envoyou API, along with best practices for library usage.
 
 ## Official SDKs
 
 ### JavaScript/TypeScript SDK
 
-The official EnvoyOU JavaScript SDK provides a complete, type-safe interface for the API.
+The official Envoyou JavaScript SDK provides a complete, type-safe interface for the API.
 
 #### Installation
 
@@ -172,7 +172,7 @@ composer require envoyou/php-sdk
 ```text
 
 ```php
-use EnvoyOU\Client;
+use Envoyou\Client;
 
 $client = new Client([
     'api_key' => 'your-api-key',
@@ -198,7 +198,7 @@ gem 'envoyou-sdk'
 # Usage
 require 'envoyou'
 
-client = EnvoyOU::Client.new(api_key: 'your-api-key')
+client = Envoyou::Client.new(api_key: 'your-api-key')
 
 # Authenticate user
 auth_response = client.auth.login(
@@ -213,9 +213,9 @@ user = client.users.get_current_user
 ### .NET SDK
 
 ```csharp
-using EnvoyOU;
+using Envoyou;
 
-// Install via NuGet: Install-Package EnvoyOU.SDK
+// Install via NuGet: Install-Package Envoyou.SDK
 
 var client = new EnvoyOUClient(new EnvoyOUConfig
 {
@@ -490,4 +490,4 @@ For community SDKs:
 - **Community Forum**: Get help from other developers
 - **Status Page**: Check SDK and API status
 
-SDKs provide a convenient, reliable way to integrate with the EnvoyOU API. Choose the SDK that best fits your technology stack and development workflow.
+SDKs provide a convenient, reliable way to integrate with the Envoyou API. Choose the SDK that best fits your technology stack and development workflow.

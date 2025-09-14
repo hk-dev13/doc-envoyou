@@ -1,6 +1,6 @@
 # Error Handling Guide
 
-This guide covers common errors you might encounter when using the EnvoyOU API and how to handle them effectively.
+This guide covers common errors you might encounter when using the Envoyou API and how to handle them effectively.
 
 ## Common HTTP Status Codes
 

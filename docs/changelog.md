@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the EnvoyOU API will be documented in this file.
+All notable changes to the Envoyou API will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -100,7 +100,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Initial release of EnvoyOU API
+- Initial release of Envoyou API
 - User authentication and management
 - JWT token-based authorization
 - Rate limiting and quota management
@@ -251,4 +251,4 @@ For security-related updates and advisories, please visit our [security page](ht
 
 ---
 
-*This changelog is maintained by the EnvoyOU team and is updated with each release. For the latest changes, please check the [GitHub repository](https://github.com/envoyou/api/releases).*
+*This changelog is maintained by the Envoyou team and is updated with each release. For the latest changes, please check the [GitHub repository](https://github.com/envoyou/api/releases).*

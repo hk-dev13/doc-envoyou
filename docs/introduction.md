@@ -4,9 +4,9 @@ sidebar_position: 2
 
 # Introduction
 
-## What is EnvoyOU, Purpose, Value
+## What is Envoyou, Purpose, Value
 
-**EnvoyOU** is a sophisticated API platform for global environmental data aggregation that calculates the **Composite Environmental Verification Score (CEVS)** - a standard metric for corporate environmental performance.
+**Envoyou** is a sophisticated API platform for global environmental data aggregation that calculates the **Composite Environmental Verification Score (CEVS)** - a standard metric for corporate environmental performance.
 
 ### Vision
 To create a dynamic and real-time global environmental verification platform that provides not only static scores but also continuous updates based on the latest data. This enables benchmarking of company and sector performance, and supports global efforts towards sustainable development.

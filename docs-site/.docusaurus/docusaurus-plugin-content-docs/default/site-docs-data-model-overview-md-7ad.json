@@ -1,7 +1,7 @@
 {
   "id": "data-model/overview",
   "title": "Data Model Overview",
-  "description": "This section describes the core data entities exposed by the EnvoyOU API.",
+  "description": "This section describes the core data entities exposed by the Envoyou API.",
   "source": "@site/../docs/data-model/overview.md",
   "sourceDirName": "data-model",
   "slug": "/data-model/overview",

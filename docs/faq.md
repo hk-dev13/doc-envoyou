@@ -1,12 +1,12 @@
 # Frequently Asked Questions (FAQ)
 
-This page contains answers to the most commonly asked questions about the EnvoyOU API.
+This page contains answers to the most commonly asked questions about the Envoyou API.
 
 ## Getting Started
 
-### What is EnvoyOU?
+### What is Envoyou?
 
-EnvoyOU is a comprehensive API platform that provides user authentication, profile management, and data services for modern web applications. It handles the complex aspects of user management so you can focus on building your application's core features.
+Envoyou is a comprehensive API platform that provides user authentication, profile management, and data services for modern web applications. It handles the complex aspects of user management so you can focus on building your application's core features.
 
 ### How do I get started?
 
@@ -120,15 +120,15 @@ Yes, we implement multiple layers of security:
 
 ## Integration
 
-### Can I use EnvoyOU with my existing user database?
+### Can I use Envoyou with my existing user database?
 
-Yes! You can migrate existing users or keep your current system and use EnvoyOU alongside it. We provide migration tools and detailed guides.
+Yes! You can migrate existing users or keep your current system and use Envoyou alongside it. We provide migration tools and detailed guides.
 
 ### How do I migrate existing users?
 
 1. **Export user data** from your current system
 2. **Use our bulk import API** to create users
-3. **Update your application** to use EnvoyOU authentication
+3. **Update your application** to use Envoyou authentication
 4. **Test thoroughly** before going live
 5. **Gradually migrate** users to avoid disruption
 
@@ -216,7 +216,7 @@ Account deletion is permanent and removes all associated data. Contact support t
 
 ## Compliance and Legal
 
-### Is EnvoyOU GDPR compliant?
+### Is Envoyou GDPR compliant?
 
 Yes, we are fully GDPR compliant. We provide:
 - Data processing agreements
@@ -240,7 +240,7 @@ Data is stored in secure, SOC 2 compliant data centers in the US. Enterprise cus
 
 ## Advanced Topics
 
-### Can I use EnvoyOU for single sign-on (SSO)?
+### Can I use Envoyou for single sign-on (SSO)?
 
 Yes! We support SAML and OAuth 2.0 for enterprise SSO integrations. Contact our enterprise team for setup assistance.
 

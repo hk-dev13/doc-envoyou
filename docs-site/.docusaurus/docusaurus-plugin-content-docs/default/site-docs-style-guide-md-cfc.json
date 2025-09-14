@@ -1,7 +1,7 @@
 {
   "id": "style-guide",
   "title": "Documentation Style Guide",
-  "description": "This guide defines the writing and formatting standards for EnvoyOU documentation.",
+  "description": "This guide defines the writing and formatting standards for Envoyou documentation.",
   "source": "@site/../docs/style-guide.md",
   "sourceDirName": ".",
   "slug": "/style-guide",
@@ -18,7 +18,7 @@
     "permalink": "/docs/changelog"
   },
   "next": {
-    "title": "Contributing to EnvoyOU Documentation",
+    "title": "Contributing to Envoyou Documentation",
     "permalink": "/docs/contributing-docs"
   }
 }

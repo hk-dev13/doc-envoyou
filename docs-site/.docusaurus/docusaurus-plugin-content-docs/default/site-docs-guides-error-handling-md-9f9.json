@@ -1,7 +1,7 @@
 {
   "id": "guides/error-handling",
   "title": "Error Handling Guide",
-  "description": "This guide covers common errors you might encounter when using the EnvoyOU API and how to handle them effectively.",
+  "description": "This guide covers common errors you might encounter when using the Envoyou API and how to handle them effectively.",
   "source": "@site/../docs/guides/error-handling.md",
   "sourceDirName": "guides",
   "slug": "/guides/error-handling",

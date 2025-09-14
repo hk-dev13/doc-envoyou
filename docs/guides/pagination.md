@@ -1,6 +1,6 @@
 # Pagination & Cursors
 
-EnvoyOU list endpoints use opaque forward cursor headers for consistent, low-latency traversal of large datasets.
+Envoyou list endpoints use opaque forward cursor headers for consistent, low-latency traversal of large datasets.
 
 ## Headers
 

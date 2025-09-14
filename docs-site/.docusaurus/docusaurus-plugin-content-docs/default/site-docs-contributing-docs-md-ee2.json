@@ -1,6 +1,6 @@
 {
   "id": "contributing-docs",
-  "title": "Contributing to EnvoyOU Documentation",
+  "title": "Contributing to Envoyou Documentation",
   "description": "This guide explains how to add or update documentation content.",
   "source": "@site/../docs/contributing-docs.md",
   "sourceDirName": ".",

@@ -1,4 +1,4 @@
-# Contributing to EnvoyOU Documentation
+# Contributing to Envoyou Documentation
 
 This guide explains how to add or update documentation content.
 

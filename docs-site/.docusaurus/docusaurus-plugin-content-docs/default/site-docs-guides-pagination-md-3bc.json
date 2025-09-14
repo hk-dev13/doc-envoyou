@@ -1,7 +1,7 @@
 {
   "id": "guides/pagination",
   "title": "Pagination & Cursors",
-  "description": "EnvoyOU list endpoints use opaque forward cursor headers for consistent, low-latency traversal of large datasets.",
+  "description": "Envoyou list endpoints use opaque forward cursor headers for consistent, low-latency traversal of large datasets.",
   "source": "@site/../docs/guides/pagination.md",
   "sourceDirName": "guides",
   "slug": "/guides/pagination",
