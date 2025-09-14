@@ -5,7 +5,8 @@
 	--brand-primary: #2ECC71;
 	--brand-primary-hover: #27AE60;
 	--brand-text: #FFFFFF;
-	--brand-text-muted: #95A5A6;
+	--brand-text-muted: #a6b2ba; /* slightly brighter for readability */
+	--brand-text-faint: #6b7a86;
 	--brand-border: #2C3E50;
 	--ifm-color-primary: var(--brand-primary);
 	--ifm-color-primary-dark: var(--brand-primary-hover);
@@ -31,8 +32,23 @@ html[data-theme='dark'] body, body {
 	-webkit-font-smoothing: antialiased;
 }
 
+/* Light theme overrides */
+html[data-theme='light'] body {
+	--brand-bg: #ffffff;
+	--brand-bg-alt: #f5f7fa;
+	--brand-text: #1b2733;
+	--brand-text-muted: #4a5b68;
+	--brand-border: #d8e0e6;
+	--ifm-background-color: var(--brand-bg);
+	--ifm-navbar-background-color: var(--brand-bg-alt);
+	--ifm-footer-background-color: #f0f4f7;
+	background: var(--brand-bg);
+	color: var(--brand-text);
+}
+
 /* Typography tweaks */
 p, li, .markdown h4, .markdown h5, .markdown h6 { color: var(--brand-text-muted); }
+small, .footer__copyright, .docItemContainer time { color: var(--brand-text-faint); }
 h1, h2, h3 { font-weight: 600; letter-spacing: .5px; }
 
 /* Navbar */
@@ -71,7 +87,7 @@ footer a:hover { color: var(--brand-primary-hover); }
 #redoc-container { background: #111b24; border-top:1px solid var(--brand-border); }
 #redoc-container h1, #redoc-container h2, #redoc-container h3 { color: var(--brand-text); }
 #redoc-container, #redoc-container .redoc-wrap { color: #e2e8f0; }
-#redoc-container p, #redoc-container li { color: #94a3b8; }
+#redoc-container p, #redoc-container li { color: #b6c2cc; }
 #redoc-container a { color: var(--brand-primary); }
 #redoc-container a:hover { color: var(--brand-primary-hover); }
 #redoc-container code { background:#111b24; color:#f1f5f9; }
@@ -80,6 +96,16 @@ footer a:hover { color: var(--brand-primary-hover); }
 #redoc-container table td { color:#cbd5e1; }
 #redoc-container .http-verb { font-weight:600; }
 #redoc-container .operation-type { text-transform:uppercase; font-size:11px; letter-spacing:.5px; }
+
+/* Light mode Redoc adjustments */
+html[data-theme='light'] #redoc-container { background:#ffffff; }
+html[data-theme='light'] #redoc-container h1, html[data-theme='light'] #redoc-container h2, html[data-theme='light'] #redoc-container h3 { color:#1b2733; }
+html[data-theme='light'] #redoc-container, html[data-theme='light'] #redoc-container .redoc-wrap { color:#24323d; }
+html[data-theme='light'] #redoc-container p, html[data-theme='light'] #redoc-container li { color:#3d4f5a; }
+html[data-theme='light'] #redoc-container code { background:#f3f5f7; color:#1b2733; }
+html[data-theme='light'] #redoc-container table { background:#f9fafb; }
+html[data-theme='light'] #redoc-container table th { background:#eef2f5; color:#1b2733; }
+html[data-theme='light'] #redoc-container table td { color:#33424d; }
 
 /* Utility */
 .brand-callout { background:#132029; border:1px solid #1e2b35; padding:1rem 1.25rem; border-radius:6px; }
