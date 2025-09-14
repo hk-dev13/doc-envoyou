@@ -81,7 +81,7 @@ footer a:hover { color: var(--brand-primary-hover); }
 #redoc-container .api-content > div { background:rgba(255,255,255,0.02); }
 #redoc-container .operation-type, #redoc-container .operation-summary-path, #redoc-container .deprecated { border-radius:4px; }
 #redoc-container .api-content .operation { background:#0f1720; border:1px solid #1e2b35; border-radius:8px; padding:12px 18px; margin-bottom:16px; }
-#redoc-container .menu-content { background:#0D1117 !important; }
+#redoc-container .menu-content { background:#0D1117 !important; border-right:1px solid #1e2b35; }
 #redoc-container p, #redoc-container li, #redoc-container td, #redoc-container th, #redoc-container .description { color:#b6c2cc; }
 #redoc-container .param-name { font-weight:600; color:#e2e8f0; }
 .brand-callout { background:#132029; border:1px solid #1e2b35; padding:1rem 1.25rem; border-radius:6px; }
@@ -119,7 +119,7 @@ footer a:hover { color: var(--brand-primary-hover); }
 *::-webkit-scrollbar-thumb:hover { background:#274655; }
 
 /* Layered backgrounds transparency */
-#redoc-container .redoc-wrap, #redoc-container .redoc-wrap > div, #redoc-container .menu-content, #redoc-container .api-content { background:transparent !important; }
+#redoc-container .redoc-wrap, #redoc-container .redoc-wrap > div, #redoc-container .api-content { background:transparent !important; }
 
 /* React Tabs */
 .react-tabs__tab-list { border-bottom:1px solid var(--brand-border); margin:0 0 0.75rem; padding:0; display:flex; gap:.25rem; flex-wrap:wrap; }
@@ -131,3 +131,50 @@ footer a:hover { color: var(--brand-primary-hover); }
 
 /* Transitions */
 html { transition: background .25s, color .25s; }
+
+/* Override: ensure Redoc sidebar stays dark (some internal inline styles force white) */
+#redoc-container .menu-content,
+#redoc-container .menu-content .scrollbar-container,
+#redoc-container .menu-content .menu-content,
+#redoc-container .menu-content [class*='sc-'] { background:#0D1117 !important; }
+#redoc-container .menu-content { border-right:1px solid #1e2b35; }
+
+/* Remove previous blanket transparency for menu-content (kept for others) */
+#redoc-container .redoc-wrap, #redoc-container .redoc-wrap > div, #redoc-container .api-content { background:transparent !important; }
+/* Fallback: strip any residual inline white backgrounds inside menu-content */
+#redoc-container .menu-content [style*='background:#fff'],
+#redoc-container .menu-content [style*='background: #fff'],
+#redoc-container .menu-content [style*='background-color:#fff'],
+#redoc-container .menu-content [style*='background-color: #fff'],
+#redoc-container .menu-content [style*='background:#FFFFFF'],
+#redoc-container .menu-content [style*='background: #FFFFFF'],
+#redoc-container .menu-content [style*='background-color:#FFFFFF'],
+#redoc-container .menu-content [style*='background-color: #FFFFFF'] {
+  background:#0D1117 !important;
+}
+
+/* Redoc text color normalization to white */
+#redoc-container p,
+#redoc-container li,
+#redoc-container td,
+#redoc-container th,
+#redoc-container .description,
+#redoc-container span,
+#redoc-container .sc-badge,
+#redoc-container .menu-item-heading,
+#redoc-container .operation-type,
+#redoc-container .operation-summary-path,
+#redoc-container .deprecated,
+#redoc-container .title,
+#redoc-container .error,
+#redoc-container .warning,
+#redoc-container .info { color:#ffffff !important; }
+#redoc-container .param-name { color:#ffffff !important; }
+#redoc-container table th { color:#ffffff !important; }
+#redoc-container .menu-content a { color:#ffffff !important; }
+#redoc-container .menu-content a:hover { color: var(--brand-primary) !important; }
+#redoc-container .menu-content .active > a, #redoc-container .menu-content a.active { color: var(--brand-primary) !important; }
+#redoc-container .menu-content .search-input { color:#ffffff !important; }
+#redoc-container .menu-content .search-input::placeholder { color:rgba(255,255,255,0.55) !important; }
+/* Slight dim for secondary inline meta if needed */
+#redoc-container .hint, #redoc-container .meta { color:rgba(255,255,255,0.7) !important; }
