@@ -1,5 +1,4 @@
 const {themes} = require('prism-react-renderer');
-const redocusaurus = require('redocusaurus');
 const lightTheme = themes.github;
 const darkTheme = themes.dracula;
 
@@ -28,30 +27,16 @@ const config = {
         blog: false,
         theme: { customCss: './docusaurus-theme/css/custom.css' }
       })
-    ],
-    [
-      require.resolve('redocusaurus'),
-      {
-        specs: [
-          {
-            id: 'envoyou-api',
-            spec: './openapi/envoyou-api.yaml',
-            route: '/api-spec/'
-          }
-        ],
-        theme: { primaryColor: '#2ECC71' }
-      }
     ]
   ],
   plugins: [],
   themeConfig: ({
-    image: 'img/envoyou-social-card.jpg',
+    image: 'img/android-chrome-512x512.png',
     navbar: {
       title: 'Envoyou API Docs',
       logo: { alt: 'Envoyou Logo', src: 'https://cdn.envoyou.com/logo-envoyou/svg/logo-icon.nb.svg' },
       items: [
         { type: 'docSidebar', sidebarId: 'tutorialSidebar', position: 'left', label: 'Documentation' },
-        { href: '/api-spec/', label: 'API Spec', position: 'left' },
         { href: 'https://api.envoyou.com/docs', label: 'Interactive API', position: 'left' },
         { href: 'https://app.envoyou.com', label: 'Web App', position: 'right' },
         { href: 'https://github.com/hk-dev13/doc-envoyou', label: 'GitHub', position: 'right' }
@@ -61,35 +46,51 @@ const config = {
       style: 'dark',
       links: [
         {
-          title: 'Documentation',
+          title: 'Navigation',
           items: [
-            { label: 'Getting Started', to: '/docs/introduction' },
-            { label: 'API Reference', to: '/docs/api-reference' },
-            { label: 'Interactive API', href: 'https://api.envoyou.com/docs' }
-          ]
-        },
-        {
-          title: 'Community',
-          items: [
-            { label: 'Support', href: 'mailto:support@envoyou.com' },
-            { label: 'GitHub', href: 'https://github.com/hk-dev13/doc-envoyou' }
-          ]
-        },
-        {
-          title: 'More',
-          items: [
+            { label: 'Documentation', to: '/docs/introduction' },
+            { label: 'Interactive API', href: 'https://api.envoyou.com/docs' },
             { label: 'Web App', href: 'https://app.envoyou.com' },
             { label: 'Landing Page', href: 'https://envoyou.com' }
           ]
+        },
+        {
+          title: 'Legal',
+          items: [
+            { label: 'Terms of Service', href: 'https://envoyou.com/legal/terms' },
+            { label: 'Privacy Policy', href: 'https://envoyou.com/legal/privacy' },
+            { label: 'License', href: 'https://github.com/hk-dev13/ENVOYou-page/blob/main/LICENSE' },
+            { label: 'Contribute', href: 'https://github.com/hk-dev13/project-permit-api' }
+          ]
+        },
+        {
+          title: 'Follow Us',
+          items: [
+            {
+              html: '<a href="https://github.com/hk-dev13" target="_blank" rel="noopener noreferrer"><img src="https://cdn.envoyou.com/github.svg" alt="GitHub" style="width: 24px; height: 24px; filter: brightness(0.6);" class="social-icon" /></a>'
+            },
+            {
+              html: '<a href="https://www.linkedin.com/in/husni-kusuma/" target="_blank" rel="noopener noreferrer"><img src="https://cdn.envoyou.com/linkedin.svg" alt="LinkedIn" style="width: 24px; height: 24px; filter: brightness(0.6);" class="social-icon" /></a>'
+            },
+            {
+              html: '<a href="https://x.com/EnvoyouAPI" target="_blank" rel="noopener noreferrer"><img src="https://cdn.envoyou.com/twitter.svg" alt="X (Twitter)" style="width: 24px; height: 24px; filter: brightness(0.6);" class="social-icon" /></a>'
+            },
+            {
+              html: '<a href="https://www.instagram.com/envoyou/" target="_blank" rel="noopener noreferrer"><img src="https://cdn.envoyou.com/instagram.svg" alt="Instagram" style="width: 24px; height: 24px; filter: brightness(0.6);" class="social-icon" /></a>'
+            }
+          ]
         }
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Envoyou. Built with Docusaurus.`
+      copyright: `© 2025 Husni Kusuma (hk-dev13). All Rights Reserved.`
     },
-    prism: { theme: lightTheme, darkTheme },
+    prism: {
+      theme: lightTheme,
+      darkTheme: darkTheme
+    },
     colorMode: {
-      defaultMode: 'dark',
-      disableSwitch: true,
-      respectPrefersColorScheme: false
+      defaultMode: 'light',
+      disableSwitch: false,
+      respectPrefersColorScheme: true
     }
   })
 };

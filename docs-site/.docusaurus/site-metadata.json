@@ -21,20 +21,10 @@
       "name": "@docusaurus/plugin-svgr",
       "version": "3.8.1"
     },
-    "docusaurus-plugin-redoc": {
-      "type": "package",
-      "name": "docusaurus-plugin-redoc",
-      "version": "2.5.0"
-    },
     "docusaurus-theme-classic": {
       "type": "package",
       "name": "@docusaurus/theme-classic",
       "version": "3.8.1"
-    },
-    "docusaurus-theme-redoc": {
-      "type": "package",
-      "name": "docusaurus-theme-redoc",
-      "version": "2.5.0"
     }
   }
 }

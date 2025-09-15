@@ -38,21 +38,16 @@ export default [
     exact: true
   },
   {
-    path: '/api-spec/',
-    component: ComponentCreator('/api-spec/', '6cc'),
-    exact: true
-  },
-  {
     path: '/docs',
-    component: ComponentCreator('/docs', '77c'),
+    component: ComponentCreator('/docs', 'e65'),
     routes: [
       {
         path: '/docs',
-        component: ComponentCreator('/docs', 'f60'),
+        component: ComponentCreator('/docs', '465'),
         routes: [
           {
             path: '/docs',
-            component: ComponentCreator('/docs', '922'),
+            component: ComponentCreator('/docs', 'c69'),
             routes: [
               {
                 path: '/docs/api-reference',
@@ -110,6 +105,11 @@ export default [
                 component: ComponentCreator('/docs/getting-started', 'db2'),
                 exact: true,
                 sidebar: "tutorialSidebar"
+              },
+              {
+                path: '/docs/guides/',
+                component: ComponentCreator('/docs/guides/', '419'),
+                exact: true
               },
               {
                 path: '/docs/guides/error-catalog',

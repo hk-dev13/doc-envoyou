@@ -42,25 +42,17 @@
       "plugin": "plugin---docusaurus-debugb-38-ad3"
     }
   },
-  "/api-spec/-6cc": {
-    "__comp": "__comp---theme-api-docf-0-a-77e",
-    "__context": {
-      "plugin": "plugin---api-spec-72-e-d7e"
-    },
-    "specProps": "specProps---api-spec-ca-5-4cc",
-    "layoutProps": "layoutProps---api-spec-c-5-a-e75"
-  },
-  "/docs-77c": {
+  "/docs-e65": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
     "__context": {
       "plugin": "plugin---docsaba-d7c"
     }
   },
-  "/docs-f60": {
+  "/docs-465": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
     "__props": "__props---docs-005-788"
   },
-  "/docs-922": {
+  "/docs-c69": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
   "/docs/api-reference-deb": {
@@ -102,6 +94,10 @@
   "/docs/getting-started-db2": {
     "__comp": "__comp---theme-doc-item-178-a40",
     "content": "content---docs-getting-started-8-d-0-4ab"
+  },
+  "/docs/guides/-419": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-guides-bd-7-1e5"
   },
   "/docs/guides/error-catalog-8c6": {
     "__comp": "__comp---theme-doc-item-178-a40",

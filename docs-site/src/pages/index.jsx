@@ -10,7 +10,7 @@ export default function Home() {
         <p>Welcome to the Envoyou documentation portal. Jump into the core resources below:</p>
         <ul>
           <li><Link to="/docs/introduction">Platform Introduction</Link></li>
-          <li><Link to="/api-spec/">OpenAPI Specification</Link></li>
+          <li><a href="https://api.envoyou.com/docs" target="_blank" rel="noreferrer">Interactive API Documentation</a></li>
           <li><Link to="/docs/guides/user-applications">Application Patterns</Link></li>
         </ul>
         <p>Looking for real-time interactive testing? Visit <a href="https://api.envoyou.com/docs" target="_blank" rel="noreferrer">Interactive API Console</a>.</p>

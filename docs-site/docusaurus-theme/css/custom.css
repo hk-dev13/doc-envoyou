@@ -1,8 +1,8 @@
 /**
- * Docusaurus custom CSS :: Template Tema Gelap (Dark Mode Only)
+ * Docusaurus custom CSS :: Template Tema Terang & Gelap (Light & Dark Mode)
  *
- * Catatan: Template ini mengasumsikan Anda sudah mengatur
- * 'defaultMode: "dark"' dan 'disableSwitch: true' di docusaurus.config.js
+ * Catatan: Template ini mendukung mode terang dan gelap dengan toggle
+ * 'defaultMode: "light"', 'disableSwitch: false', 'respectPrefersColorScheme: true'
  */
 
 :root {
@@ -16,22 +16,22 @@
   --brand-primary-light: #4ccaa8;
   --brand-primary-lighter: #72d4b6;
   --brand-primary-lightest: #99e0c4;
-  --brand-success: #3ddc84;
-  --brand-warning: #ffcf56;
-  --brand-danger: #ff6961;
-  --brand-info: #52c8ff;
+  --brand-success: #27ae60;
+  --brand-warning: #f39c12;
+  --brand-danger: #e74c3c;
+  --brand-info: #3498db;
 
   /* Warna dasar untuk Teks & Latar Belakang */
-  --brand-deep-dark: #0f0f0f;   /* Paling gelap, untuk bg utama */
-  --brand-dark: #121212;
-  --brand-mid-dark: #161617;    /* Sedikit lebih terang, untuk bg elemen */
-  --brand-light: #282828;
-  --brand-border: #2c2c2e;     /* Warna border/garis pemisah */
+  --brand-deep-dark: #2c3e50;   /* Paling gelap, untuk teks utama */
+  --brand-dark: #34495e;
+  --brand-mid-dark: #7f8c8d;    /* Sedikit lebih terang, untuk teks sekunder */
+  --brand-light: #ecf0f1;
+  --brand-border: #bdc3c7;     /* Warna border/garis pemisah */
 
   /* Warna dasar untuk Teks */
-  --brand-text: #f5f5f7;          /* Teks utama, putih gading */
-  --brand-text-light: #a1a1a6;    /* Teks sekunder/abu-abu */
-  --brand-text-inverse: #000000;  /* Teks untuk di atas background terang */
+  --brand-text: #2c3e50;          /* Teks utama, gelap */
+  --brand-text-light: #7f8c8d;    /* Teks sekunder/abu-abu */
+  --brand-text-inverse: #ffffff;  /* Teks untuk di atas background gelap */
 
 
   /* ========================================================================== */
@@ -48,44 +48,73 @@
   /* Warna Teks */
   --ifm-font-color-base: var(--brand-text);
   --ifm-font-color-secondary: var(--brand-text-light);
-  --ifm-link-color: var(--brand-primary-light);
+
+
+  /* ========================================================================== */
+  /* === 2. PENGATURAN UMUM DOCUSAURUS (Menggunakan variabel di atas) === */
+  /* ========================================================================== */
+  --ifm-color-primary: var(--brand-primary);
+  --ifm-color-primary-dark: var(--brand-primary-dark);
+  --ifm-color-primary-darker: var(--brand-primary-darker);
+  --ifm-color-primary-darkest: var(--brand-primary-darkest);
+  --ifm-color-primary-light: var(--brand-primary-light);
+  --ifm-color-primary-lighter: var(--brand-primary-lighter);
+  --ifm-color-primary-lightest: var(--brand-primary-lightest);
+
+  /* Warna Teks */
+  --ifm-font-color-base: var(--brand-text);
+  --ifm-font-color-secondary: var(--brand-text-light);
+  --ifm-link-color: var(--brand-primary);
 
   /* Warna Latar Belakang */
-  --ifm-background-color: var(--brand-deep-dark);
-  --ifm-background-surface-color: var(--brand-mid-dark);
+  --ifm-background-color: #ffffff;
+  --ifm-background-surface-color: #f8f9fa;
 
   /* Warna Blok Kode */
-  --ifm-code-background: var(--brand-mid-dark);
-  --ifm-pre-background: var(--brand-mid-dark);
+  --ifm-code-background: #f8f9fa;
+  --ifm-pre-background: #f8f9fa;
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 
   /* Lainnya */
   --ifm-hr-border-color: var(--brand-border);
   --ifm-table-border-color: var(--brand-border);
+  --ifm-table-stripe-background: rgba(0, 0, 0, 0.05);
+}
+
+/* ========================================================================== */
+/* === DARK MODE STYLES === */
+/* ========================================================================== */
+
+[data-theme='dark'] {
+  /* Warna Latar Belakang untuk Dark Mode */
+  --ifm-background-color: #1a1a1a;
+  --ifm-background-surface-color: #2a2a2a;
+
+  /* Warna Teks untuk Dark Mode */
+  --ifm-font-color-base: #e6e6e6;
+  --ifm-font-color-secondary: #b8b8b8;
+
+  /* Warna Blok Kode untuk Dark Mode */
+  --ifm-code-background: #2a2a2a;
+  --ifm-pre-background: #2a2a2a;
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+
+  /* Border dan elemen lainnya */
+  --ifm-hr-border-color: #404040;
+  --ifm-table-border-color: #404040;
   --ifm-table-stripe-background: rgba(255, 255, 255, 0.05);
 
+  /* Navbar dark mode */
+  --ifm-navbar-background-color: #1a1a1a;
+  --ifm-navbar-link-color: #e6e6e6;
+  --ifm-navbar-link-hover-color: var(--brand-primary);
 
-  /* ========================================================================== */
-  /* === 3. PENGATURAN KHUSUS REDOCUSARUS (Paling Penting!) === */
-  /* ========================================================================== */
-  --redoc-theme-background-color: var(--brand-dark) !important;
-  --redoc-theme-sidebar-background-color: var(--brand-deep-dark) !important;
-  --redoc-theme-text-color: var(--brand-text) !important;
-  --redoc-theme-secondary-text-color: var(--brand-text-light) !important;
-  --redoc-theme-code-block-background-color: var(--brand-deep-dark) !important;
-  --redoc-theme-border-color: var(--brand-border) !important;
-  --redoc-theme-link-color: var(--brand-primary-light) !important;
-  --redoc-theme-link-hover-color: var(--brand-primary) !important;
-  --redoc-theme-code-color: var(--brand-text) !important;
-  --redoc-theme-color-main: var(--brand-primary) !important;
-  --redoc-theme-color-success: var(--brand-success) !important;
-  --redoc-theme-color-warning: var(--brand-warning) !important;
-  --redoc-theme-color-error: var(--brand-danger) !important;
-  --redoc-theme-code-sample-background: var(--brand-deep-dark) !important;
-  --redoc-theme-response-area-background-color: #1a1a1a !important;
-  --redoc-theme-menu-item-active-background-color: var(--brand-mid-dark) !important;
-  --redoc-theme-menu-item-active-text-color: var(--brand-primary) !important;
+  /* Footer dark mode */
+  --ifm-footer-background-color: #1a1a1a;
+  --ifm-footer-color: #b8b8b8;
+  --ifm-footer-link-color: #e6e6e6;
+  --ifm-footer-link-hover-color: var(--brand-primary);
 }
 
 
@@ -93,8 +122,8 @@
 /* === 4. STYLE KOMPONEN KUSTOM ANDA (Opsional) === */
 /* ========================================================================== */
 html {
-  /* Scrollbar lebih gelap agar sesuai tema */
-  scrollbar-color: var(--brand-light) var(--brand-dark);
+  /* Scrollbar styling - adapts to theme */
+  scrollbar-color: var(--ifm-font-color-secondary) var(--ifm-background-surface-color);
   scrollbar-width: thin;
 }
 
@@ -103,43 +132,79 @@ html {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--brand-dark);
+  background: var(--ifm-background-surface-color);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--brand-light);
+  background: var(--ifm-table-border-color);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--ifm-font-color-secondary);
 }
 
-/* Style Navbar dari file Anda sebelumnya */
+/* Style Navbar - theme aware */
 .navbar {
-  border-bottom: 1px solid var(--brand-border);
-  background: rgba(15, 15, 15, 0.85); /* Background transparan dengan blur */
-  box-shadow: 0 2px 4px -2px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.15);
+  border-bottom: 1px solid var(--ifm-table-border-color);
+  background: rgba(255, 255, 255, 0.95); /* Light mode background */
+  box-shadow: 0 2px 4px -2px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.05);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
 
-/* Style Footer dari file Anda sebelumnya */
+/* Dark mode navbar */
+[data-theme='dark'] .navbar {
+  background: rgba(26, 26, 26, 0.95); /* Dark mode background */
+  box-shadow: 0 2px 4px -2px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Style Footer - theme aware */
 .footer {
-  border-top: 1px solid var(--brand-border);
+  border-top: 1px solid var(--ifm-table-border-color);
+  background: #0f172a; /* slate-900 */
+  color: #e2e8f0; /* slate-200 */
 }
 
-/* Pastikan ini ada di custom.css kamu */
-.redoc-wrap .security-schemes,
-.redoc-wrap .security-definition {
-  background: #1a1a1a !important;
-  color: #f5f5f7 !important;
-  border: 1px solid #2c2c2e !important;
-  border-radius: 6px;
-  padding: 8px 12px;
-  margin-bottom: 10px;
+/* Footer links styling */
+.footer__link-item a {
+  color: #94a3b8; /* slate-400 */
+  transition: color 0.2s ease;
 }
 
-.redoc-wrap .security-definition i {
-  color: #25c2a0 !important; /* warna hijau brand */
-  font-style: normal;        /* biar gak italic kalau perlu */
+.footer__link-item a:hover {
+  color: #ffffff; /* white */
+  text-decoration: none;
+}
+
+/* Footer title styling */
+.footer__title {
+  color: #ffffff; /* white */
   font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Footer copyright */
+.footer__copyright {
+  color: #64748b; /* slate-500 */
+  font-size: 0.875rem;
+  text-align: center;
+  border-top: 1px solid #1e293b; /* slate-800 */
+  margin-top: 2rem;
+  padding-top: 1rem;
+}
+
+/* Social media icons styling */
+.social-icon {
+  transition: filter 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.footer__link-item a:hover .social-icon {
+  filter: brightness(1) !important;
+  transform: scale(1.1);
+}
+
+/* Dark mode footer (same as light mode for consistency) */
+[data-theme='dark'] .footer {
+  background: #0f172a; /* slate-900 */
+  color: #e2e8f0; /* slate-200 */
 }

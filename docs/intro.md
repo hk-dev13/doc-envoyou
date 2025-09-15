@@ -21,8 +21,8 @@ Envoyou is a sophisticated API platform for global environmental data aggregatio
 ## 📋 Quick Start
 
 1. **Sign Up**: Create your account at [app.envoyou.com](https://app.envoyou.com)
-2. **Get API Key**: Generate your API key in the developer dashboard
-3. **Make Your First Request**: Start with our emissions data endpoint
+1. **Get API Key**: Generate your API key in the developer dashboard
+1. **Make Your First Request**: Start with our emissions data endpoint
 
 ```bash
 curl -X GET "https://api.envoyou.com/v1/global/emissions?limit=10" \
@@ -36,7 +36,7 @@ curl -X GET "https://api.envoyou.com/v1/global/emissions?limit=10" \
 - **[Getting Started](./getting-started.md)**: Step-by-step guide to get up and running
 - **[Authentication](./api/authentication.md)**: Understand our security and access control
 - **[API Reference](./api/api-reference.md)**: Complete endpoint documentation
-- **[Guides](./guides/)**: Tutorials and integration examples
+- **[Guides](/docs/guides/)**: Tutorials and integration examples
 - **[FAQ](./faq.md)**: Common questions and troubleshooting
 
 ## 🔗 Useful Links

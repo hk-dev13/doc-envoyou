@@ -9,7 +9,7 @@ aliases:
 
 This page serves as a quick index and gateway to the full OpenAPI spec rendering.
 
-**Primary Specification:** See the embedded Redoc experience at [/api-spec/](/api-spec/).
+**Primary Specification:** See the interactive Swagger UI at [https://api.envoyou.com/docs](https://api.envoyou.com/docs).
 
 If you need an interactive console (try requests, auth flows), use the live environment:
 

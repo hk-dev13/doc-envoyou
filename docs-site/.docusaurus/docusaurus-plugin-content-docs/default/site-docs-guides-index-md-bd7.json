@@ -1,0 +1,18 @@
+{
+  "id": "guides/index",
+  "title": "Guides & Tutorials",
+  "description": "Welcome to the Envoyou API Guides section! Here you'll find comprehensive tutorials, integration examples, and best practices to help you get the most out of our environmental data platform.",
+  "source": "@site/../docs/guides/index.md",
+  "sourceDirName": "guides",
+  "slug": "/guides/",
+  "permalink": "/docs/guides/",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/hk-dev13/doc-envoyou/tree/main/../docs/guides/index.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  }
+}
