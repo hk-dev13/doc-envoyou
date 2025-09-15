@@ -44,6 +44,7 @@ curl -H "Authorization: Bearer $API_KEY" \\
 4. Security best practices
 
 ## Parameter Tables
+
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `city` | string | No | City name filter |

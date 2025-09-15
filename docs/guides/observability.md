@@ -14,7 +14,7 @@ This guide explains how to correlate API calls with logs, metrics, and traces fo
 
 ## Request Correlation
 
-Each response includes `X-Request-ID` (also present inside error bodies). Always log this value client-side:
+**Each response includes `X-Request-ID` (also present inside error bodies). Always log this value client-side:**
 
 ```ts
 function logWithRequestId(response: Response) {
@@ -24,7 +24,7 @@ function logWithRequestId(response: Response) {
 }
 ```
 
-When opening a support ticket, include:
+**When opening a support ticket, include:**
 
 - `X-Request-ID`
 - HTTP method & path
@@ -107,10 +107,10 @@ async function tracedCall(url: string, init?: RequestInit) {
 | `rate_remaining` | 842 | From header |
 | `error` | validation_error | Only on failure |
 
-Consistent structured logs + standardized headers enable rapid root cause isolation and capacity planning.
+**Consistent structured logs + standardized headers enable rapid root cause isolation and capacity planning.**
 
 ## Related Documents
 
-- Error Catalog: `guides/error-catalog.md`
-- Rate Limiting: `guides/rate-limiting.md`
-- Pagination: `guides/pagination.md`
+- Error Catalog: [error-catalog](https://docs.envoyou.com/docs/guides/error-catalog)
+- Rate Limiting: [rate-limiting](https://docs.envoyou.com/docs/guides/rate-limiting)
+- Pagination: [pagination](https://docs.envoyou.com/docs/guides/pagination)

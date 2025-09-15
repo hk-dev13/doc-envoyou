@@ -24,7 +24,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 npx swagger-cli validate openapi/envoyou-api.yaml
-```text
+```
 
 `scripts/lint-markdown.sh`
 
@@ -32,7 +32,7 @@ npx swagger-cli validate openapi/envoyou-api.yaml
 #!/usr/bin/env bash
 set -euo pipefail
 npx remark . --frail
-```text
+```
 
 ## GitHub Actions Outline
 
@@ -50,7 +50,7 @@ jobs:
       - run: npm ci
       - run: bash scripts/validate-openapi.sh
       - run: npm run docs:build
-```text
+```
 
 ## Future
 
@@ -58,4 +58,4 @@ jobs:
 - Publish package to npm (optional)
 
 ---
-Last updated: 2025-09-13
+Last updated: 2025-09-15

@@ -7,8 +7,8 @@ sidebar_position: 3
 ## How to Register, Login, Get API Key
 
 ### 1. Register Account
-- Visit `https://app.envoyou.com`
-- Click "Sign Up"
+- Visit [app.envoyou.com](https://app.envoyou.com/)
+- Click [Sign Up](https://app.envoyou.com/auth/register)
 - Enter email, password (min 8 characters with uppercase, lowercase, numbers), name, company (optional)
 - Verify email via sent link
 
@@ -35,7 +35,7 @@ curl -X POST https://api.envoyou.com/v1/auth/register \
     "name": "John Doe",
     "company": "Example Corp"
   }'
-```text
+```
 
 **Login**:
 ```bash
@@ -45,14 +45,14 @@ curl -X POST https://api.envoyou.com/v1/auth/login \
     "email": "user@example.com",
     "password": "Password123"
   }'
-```text
+```
 
 **Get Data**:
 ```bash
 curl -X GET "https://api.envoyou.com/v1/global/emissions?limit=10" \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "X-API-Key: YOUR_API_KEY"
-```text
+```
 
 ### Using Python
 
@@ -73,7 +73,7 @@ headers = {
 }
 data = requests.get('https://api.envoyou.com/v1/global/emissions', headers=headers)
 print(data.json())
-```text
+```
 
 ### Using JavaScript
 
@@ -98,4 +98,4 @@ const dataResponse = await fetch('https://api.envoyou.com/v1/global/emissions', 
 });
 const data = await dataResponse.json();
 console.log(data);
-```text
+```

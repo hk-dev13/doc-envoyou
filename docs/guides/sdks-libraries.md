@@ -1,53 +1,208 @@
 # SDK and Libraries Guide
 
-This guide covers the official and community SDKs available for integrating with the Envoyou API, along with best practices for library usage.
+This guide covers integration methods for the Envoyou API, including HTTP client libraries and best practices. **Official SDKs are planned for future releases.**
 
-## Official SDKs
+## Integration Methods
 
-### JavaScript/TypeScript SDK
+### Direct API Integration
 
-The official Envoyou JavaScript SDK provides a complete, type-safe interface for the API.
+The Envoyou API is a RESTful API that can be integrated using any HTTP client library. All endpoints return JSON responses with consistent error handling.
 
-#### Installation
+#### Authentication
+
+The API supports two authentication methods:
+
+**API Key Authentication:**
+```bash
+curl -X GET "https://api.envoyou.com/v1/users/me" \
+  -H "X-API-Key: your_api_key_here"
+```
+
+**JWT Bearer Token:**
+```bash
+curl -X GET "https://api.envoyou.com/v1/users/me" \
+  -H "Authorization: Bearer your_jwt_token_here"
+```
+
+### JavaScript/TypeScript Integration
+
+#### Using Fetch API (Modern Browsers)
+
+```javascript
+class EnvoyouAPI {
+  constructor(apiKey) {
+    this.apiKey = apiKey;
+    this.baseURL = 'https://api.envoyou.com/v1';
+  }
+
+  async request(endpoint, options = {}) {
+    const url = `${this.baseURL}${endpoint}`;
+    const config = {
+      headers: {
+        'X-API-Key': this.apiKey,
+        'Content-Type': 'application/json',
+        ...options.headers
+      },
+      ...options
+    };
+
+    const response = await fetch(url, config);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status} - ${data.error || 'Unknown error'}`);
+    }
+
+    return data;
+  }
+
+  // Authentication endpoints
+  async register(userData) {
+    return this.request('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(userData)
+    });
+  }
+
+  async login(credentials) {
+    return this.request('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(credentials)
+    });
+  }
+
+  // User management
+  async getCurrentUser() {
+    return this.request('/users/me');
+  }
+
+  async updateProfile(userData) {
+    return this.request('/users/me', {
+      method: 'PUT',
+      body: JSON.stringify(userData)
+    });
+  }
+
+  // Environmental data
+  async getEmissions(params = {}) {
+    const queryString = new URLSearchParams(params).toString();
+    return this.request(`/global/emissions${queryString ? '?' + queryString : ''}`);
+  }
+
+  async searchPermits(params = {}) {
+    const queryString = new URLSearchParams(params).toString();
+    return this.request(`/permits/search${queryString ? '?' + queryString : ''}`);
+  }
+
+  async getNotifications() {
+    return this.request('/notifications');
+  }
+}
+
+// Usage example
+const api = new EnvoyouAPI('your_api_key_here');
+
+// Register new user
+try {
+  const result = await api.register({
+    email: 'john.doe@example.com',
+    password: 'SecurePass123!',
+    name: 'John Doe',
+    company: 'GreenTech Solutions'
+  });
+  console.log('Registration successful:', result);
+} catch (error) {
+  console.error('Registration failed:', error.message);
+}
+
+// Login
+try {
+  const auth = await api.login({
+    email: 'john.doe@example.com',
+    password: 'SecurePass123!'
+  });
+  console.log('Login successful, token:', auth.data.access_token);
+
+  // Use JWT token for subsequent requests
+  api = new EnvoyouAPI(auth.data.access_token);
+} catch (error) {
+  console.error('Login failed:', error.message);
+}
+
+// Get emissions data
+try {
+  const emissions = await api.getEmissions({
+    state: 'CA',
+    year: 2023,
+    pollutant: 'CO2',
+    limit: 10
+  });
+  console.log('Emissions data:', emissions.data);
+} catch (error) {
+  console.error('Failed to get emissions:', error.message);
+}
+```
+
+#### Using Axios Library
 
 ```bash
-npm install @envoyou/sdk
-# or
-yarn add @envoyou/sdk
-```text
-
-#### Basic Usage
+npm install axios
+```
 
 ```javascript
-import { EnvoyOUClient } from '@envoyou/sdk';
+import axios from 'axios';
 
-const client = new EnvoyOUClient({
-  apiKey: 'your-api-key',
-  baseURL: 'https://api.envoyou.com/v1'
-});
-
-// Authenticate user
-const authResponse = await client.auth.login({
-  email: 'user@example.com',
-  password: 'password'
-});
-
-// Get user profile
-const user = await client.users.getCurrentUser();
-
-// Update user profile
-const updatedUser = await client.users.update({
-  name: 'New Name',
-  metadata: { customField: 'value' }
-});
-```text
-
-#### Advanced Configuration
-
-```javascript
-const client = new EnvoyOUClient({
-  apiKey: 'your-api-key',
+const envoyouClient = axios.create({
   baseURL: 'https://api.envoyou.com/v1',
+  headers: {
+    'X-API-Key': 'your_api_key_here',
+    'Content-Type': 'application/json'
+  }
+});
+
+// Add response interceptor for error handling
+envoyouClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      const message = error.response.data?.error || error.response.statusText;
+      throw new Error(`API Error ${error.response.status}: ${message}`);
+    }
+    throw error;
+  }
+);
+
+// Usage
+async function getUserProfile() {
+  try {
+    const response = await envoyouClient.get('/users/me');
+    return response.data;
+  } catch (error) {
+    console.error('Failed to get user profile:', error.message);
+    throw error;
+  }
+}
+
+async function updateUserProfile(updates) {
+  try {
+    const response = await envoyouClient.put('/users/me', updates);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to update profile:', error.message);
+    throw error;
+  }
+}
+
+// Example usage
+const user = await getUserProfile();
+console.log('Current user:', user.data);
+
+const updated = await updateUserProfile({
+  name: 'Updated Name',
+  company: 'New Company'
+});
+console.log('Updated user:', updated.data);
+
   timeout: 30000,
   retryConfig: {
     maxRetries: 3,
@@ -58,278 +213,608 @@ const client = new EnvoyOUClient({
     requestsPerSecond: 10,
     burstLimit: 20
   }
-});
-```text
+  ```
 
-### Python SDK
+### Python Integration
 
-Official Python SDK with async support and comprehensive error handling.
-
-#### Installation
-
-```bash
-pip install envoyou-sdk
-```text
-
-#### Basic Usage
+#### Using Requests Library
 
 ```python
-from envoyou import EnvoyOUClient
+import requests
+from typing import Dict, Any, Optional
 
-client = EnvoyOUClient(api_key='your-api-key')
+class EnvoyouAPI:
+    def __init__(self, api_key: str, base_url: str = 'https://api.envoyou.com/v1'):
+        self.api_key = api_key
+        self.base_url = base_url
+        self.session = requests.Session()
+        self.session.headers.update({
+            'X-API-Key': api_key,
+            'Content-Type': 'application/json'
+        })
 
-# Authenticate user
-auth_response = client.auth.login(
-    email='user@example.com',
-    password='password'
-)
+    def _request(self, method: str, endpoint: str, **kwargs) -> Dict[str, Any]:
+        url = f"{self.base_url}{endpoint}"
+        response = self.session.request(method, url, **kwargs)
+        response.raise_for_status()
+        return response.json()
 
-# Get user profile
-user = client.users.get_current_user()
+    def register(self, email: str, password: str, name: str, **kwargs) -> Dict[str, Any]:
+        data = {
+            'email': email,
+            'password': password,
+            'name': name,
+            **kwargs
+        }
+        return self._request('POST', '/auth/register', json=data)
 
-# Update user profile
-updated_user = client.users.update(
-    name='New Name',
-    metadata={'custom_field': 'value'}
-)
-```text
+    def login(self, email: str, password: str) -> Dict[str, Any]:
+        data = {'email': email, 'password': password}
+        return self._request('POST', '/auth/login', json=data)
 
-#### Async Usage
+    def get_current_user(self) -> Dict[str, Any]:
+        return self._request('GET', '/users/me')
 
-```python
-import asyncio
-from envoyou import AsyncEnvoyOUClient
+    def update_profile(self, updates: Dict[str, Any]) -> Dict[str, Any]:
+        return self._request('PUT', '/users/me', json=updates)
 
-async def main():
-    client = AsyncEnvoyOUClient(api_key='your-api-key')
+    def get_emissions(self, **params) -> Dict[str, Any]:
+        return self._request('GET', '/global/emissions', params=params)
 
-    # Authenticate user
-    auth_response = await client.auth.login(
-        email='user@example.com',
-        password='password'
+    def search_permits(self, **params) -> Dict[str, Any]:
+        return self._request('GET', '/permits/search', params=params)
+
+    def get_notifications(self) -> Dict[str, Any]:
+        return self._request('GET', '/notifications')
+
+# Usage example
+api = EnvoyouAPI('your_api_key_here')
+
+# Register user
+try:
+    result = api.register(
+        email='john.doe@example.com',
+        password='SecurePass123!',
+        name='John Doe',
+        company='GreenTech Solutions'
     )
+    print('Registration successful:', result)
+except requests.exceptions.RequestException as e:
+    print('Registration failed:', str(e))
 
-    # Get user profile
-    user = await client.users.get_current_user()
+# Login
+try:
+    auth = api.login('john.doe@example.com', 'SecurePass123!')
+    print('Login successful, token:', auth['data']['access_token'])
+
+    # Switch to JWT authentication for subsequent requests
+    api.session.headers.update({
+        'Authorization': f"Bearer {auth['data']['access_token']}",
+        'X-API-Key': None  # Remove API key header
+    })
+except requests.exceptions.RequestException as e:
+    print('Login failed:', str(e))
+
+# Get emissions data
+try:
+    emissions = api.get_emissions(state='CA', year=2023, pollutant='CO2', limit=10)
+    print('Emissions data:', emissions['data'])
+except requests.exceptions.RequestException as e:
+    print('Failed to get emissions:', str(e))
+```
+
+#### Using httpx (Async Support)
+
+```python
+import httpx
+import asyncio
+from typing import Dict, Any, Optional
+
+class AsyncEnvoyouAPI:
+    def __init__(self, api_key: str, base_url: str = 'https://api.envoyou.com/v1'):
+        self.api_key = api_key
+        self.base_url = base_url
+
+    async def _request(self, method: str, endpoint: str, **kwargs) -> Dict[str, Any]:
+        async with httpx.AsyncClient() as client:
+            headers = {
+                'X-API-Key': self.api_key,
+                'Content-Type': 'application/json'
+            }
+            if 'headers' in kwargs:
+                headers.update(kwargs['headers'])
+                del kwargs['headers']
+
+            response = await client.request(
+                method,
+                f"{self.base_url}{endpoint}",
+                headers=headers,
+                **kwargs
+            )
+            response.raise_for_status()
+            return response.json()
+
+    async def get_emissions(self, **params) -> Dict[str, Any]:
+        return await self._request('GET', '/global/emissions', params=params)
+
+    async def search_permits(self, **params) -> Dict[str, Any]:
+        return await self._request('GET', '/permits/search', params=params)
+
+# Async usage
+async def main():
+    api = AsyncEnvoyouAPI('your_api_key_here')
+
+    try:
+        emissions = await api.get_emissions(state='CA', year=2023, limit=5)
+        print('Emissions:', emissions['data'])
+
+        permits = await api.search_permits(province='DKI Jakarta', limit=5)
+        print('Permits:', permits['data'])
+    except httpx.HTTPError as e:
+        print('API request failed:', str(e))
 
 asyncio.run(main())
-```text
+```
 
-### Go SDK
+### Go Integration
 
-High-performance Go SDK optimized for concurrent requests.
-
-#### Installation
-
-```bash
-go get github.com/envoyou/go-sdk
-```text
-
-#### Basic Usage
+#### Using net/http Package
 
 ```go
 package main
 
 import (
-    "context"
+    "bytes"
+    "encoding/json"
     "fmt"
-    "log"
-
-    "github.com/envoyou/go-sdk/envoyou"
+    "io"
+    "net/http"
+    "time"
 )
+
+type EnvoyouAPI struct {
+    apiKey   string
+    baseURL  string
+    client   *http.Client
+}
+
+type APIResponse struct {
+    Success bool        `json:"success"`
+    Message string      `json:"message,omitempty"`
+    Data    interface{} `json:"data,omitempty"`
+    Error   string      `json:"error,omitempty"`
+}
+
+func NewEnvoyouAPI(apiKey string) *EnvoyouAPI {
+    return &EnvoyouAPI{
+        apiKey:  apiKey,
+        baseURL: "https://api.envoyou.com/v1",
+        client: &http.Client{
+            Timeout: 30 * time.Second,
+        },
+    }
+}
+
+func (api *EnvoyouAPI) request(method, endpoint string, data interface{}) (*APIResponse, error) {
+    var body io.Reader
+    if data != nil {
+        jsonData, err := json.Marshal(data)
+        if err != nil {
+            return nil, err
+        }
+        body = bytes.NewBuffer(jsonData)
+    }
+
+    req, err := http.NewRequest(method, api.baseURL+endpoint, body)
+    if err != nil {
+        return nil, err
+    }
+
+    req.Header.Set("X-API-Key", api.apiKey)
+    req.Header.Set("Content-Type", "application/json")
+
+    resp, err := api.client.Do(req)
+    if err != nil {
+        return nil, err
+    }
+    defer resp.Body.Close()
+
+    var result APIResponse
+    if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
+        return nil, err
+    }
+
+    if resp.StatusCode >= 400 {
+        return nil, fmt.Errorf("API error %d: %s", resp.StatusCode, result.Error)
+    }
+
+    return &result, nil
+}
+
+func (api *EnvoyouAPI) Register(email, password, name string) (*APIResponse, error) {
+    data := map[string]string{
+        "email":    email,
+        "password": password,
+        "name":     name,
+    }
+    return api.request("POST", "/auth/register", data)
+}
+
+func (api *EnvoyouAPI) Login(email, password string) (*APIResponse, error) {
+    data := map[string]string{
+        "email":    email,
+        "password": password,
+    }
+    return api.request("POST", "/auth/login", data)
+}
+
+func (api *EnvoyouAPI) GetCurrentUser() (*APIResponse, error) {
+    return api.request("GET", "/users/me", nil)
+}
 
 func main() {
-    client := envoyou.NewClient(&envoyou.Config{
-        APIKey: "your-api-key",
-        BaseURL: "https://api.envoyou.com/v1",
-    })
+    api := NewEnvoyouAPI("your_api_key_here")
 
-    // Authenticate user
-    authResp, err := client.Auth.Login(context.Background(), &envoyou.LoginRequest{
-        Email:    "user@example.com",
-        Password: "password",
-    })
+    // Register user
+    registerResp, err := api.Register("john.doe@example.com", "SecurePass123!", "John Doe")
     if err != nil {
-        log.Fatal(err)
+        fmt.Printf("Registration failed: %v\n", err)
+        return
     }
+    fmt.Printf("Registration successful: %+v\n", registerResp)
 
-    // Get user profile
-    user, err := client.Users.GetCurrentUser(context.Background())
+    // Login
+    loginResp, err := api.Login("john.doe@example.com", "SecurePass123!")
     if err != nil {
-        log.Fatal(err)
+        fmt.Printf("Login failed: %v\n", err)
+        return
     }
+    fmt.Printf("Login successful: %+v\n", loginResp)
 
-    fmt.Printf("User: %+v\n", user)
+    // Get current user
+    userResp, err := api.GetCurrentUser()
+    if err != nil {
+        fmt.Printf("Get user failed: %v\n", err)
+        return
+    }
+    fmt.Printf("Current user: %+v\n", userResp)
 }
-```text
+```
 
-## Community SDKs
+### PHP Integration
 
-### PHP SDK
-
-```bash
-composer require envoyou/php-sdk
-```text
+#### Using cURL
 
 ```php
-use Envoyou\Client;
+<?php
 
-$client = new Client([
-    'api_key' => 'your-api-key',
-    'base_url' => 'https://api.envoyou.com/v1'
-]);
+class EnvoyouAPI {
+    private $apiKey;
+    private $baseURL;
 
-// Authenticate user
-$authResponse = $client->auth()->login([
-    'email' => 'user@example.com',
-    'password' => 'password'
-]);
+    public function __construct($apiKey, $baseURL = 'https://api.envoyou.com/v1') {
+        $this->apiKey = $apiKey;
+        $this->baseURL = $baseURL;
+    }
 
-// Get user profile
-$user = $client->users()->getCurrentUser();
-```text
+    private function request($method, $endpoint, $data = null) {
+        $url = $this->baseURL . $endpoint;
 
-### Ruby SDK
+        $ch = curl_init();
 
-```ruby
-# Gemfile
-gem 'envoyou-sdk'
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'X-API-Key: ' . $this->apiKey,
+            'Content-Type: application/json'
+        ]);
 
-# Usage
-require 'envoyou'
+        if ($data) {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        }
 
-client = Envoyou::Client.new(api_key: 'your-api-key')
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-# Authenticate user
-auth_response = client.auth.login(
-  email: 'user@example.com',
-  password: 'password'
-)
+        if (curl_errno($ch)) {
+            throw new Exception('cURL Error: ' . curl_error($ch));
+        }
 
-# Get user profile
-user = client.users.get_current_user
-```text
+        curl_close($ch);
 
-### .NET SDK
+        $result = json_decode($response, true);
 
-```csharp
-using Envoyou;
+        if ($httpCode >= 400) {
+            throw new Exception('API Error ' . $httpCode . ': ' . ($result['error'] ?? 'Unknown error'));
+        }
 
-// Install via NuGet: Install-Package Envoyou.SDK
+        return $result;
+    }
 
-var client = new EnvoyOUClient(new EnvoyOUConfig
-{
-    ApiKey = "your-api-key",
-    BaseUrl = "https://api.envoyou.com/v1"
-});
+    public function register($email, $password, $name, $company = null) {
+        $data = [
+            'email' => $email,
+            'password' => $password,
+            'name' => $name
+        ];
 
-// Authenticate user
-var authResponse = await client.Auth.LoginAsync(new LoginRequest
-{
-    Email = "user@example.com",
-    Password = "password"
-});
+        if ($company) {
+            $data['company'] = $company;
+        }
 
-// Get user profile
-var user = await client.Users.GetCurrentUserAsync();
-```text
+        return $this->request('POST', '/auth/register', $data);
+    }
+
+    public function login($email, $password) {
+        return $this->request('POST', '/auth/login', [
+            'email' => $email,
+            'password' => $password
+        ]);
+    }
+
+    public function getCurrentUser() {
+        return $this->request('GET', '/users/me');
+    }
+
+    public function getEmissions($params = []) {
+        $query = http_build_query($params);
+        $endpoint = '/global/emissions' . ($query ? '?' . $query : '');
+        return $this->request('GET', $endpoint);
+    }
+}
+
+// Usage example
+try {
+    $api = new EnvoyouAPI('your_api_key_here');
+
+    // Register user
+    $registerResult = $api->register(
+        'john.doe@example.com',
+        'SecurePass123!',
+        'John Doe',
+        'GreenTech Solutions'
+    );
+    echo "Registration successful: " . json_encode($registerResult) . "\n";
+
+    // Login
+    $loginResult = $api->login('john.doe@example.com', 'SecurePass123!');
+    echo "Login successful: " . json_encode($loginResult) . "\n";
+
+    // Get emissions data
+    $emissions = $api->getEmissions([
+        'state' => 'CA',
+        'year' => 2023,
+        'limit' => 5
+    ]);
+    echo "Emissions data: " . json_encode($emissions) . "\n";
+
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage() . "\n";
+}
+
+?>
+```
 
 ## HTTP Client Libraries
 
-For languages without official SDKs, use standard HTTP clients with proper authentication.
+For languages without specific examples above, use standard HTTP clients with proper authentication headers.
 
 ### cURL Examples
 
-#### Authentication
+#### Authentication & User Management
 ```bash
-# Login
-curl -X POST https://api.envoyou.com/v1/auth/login \
+# Register new user
+curl -X POST "https://api.envoyou.com/v1/auth/register" \
   -H "Content-Type: application/json" \
-  -d '{"email":"user@example.com","password":"password"}'
+  -d '{
+    "email": "john.doe@example.com",
+    "password": "SecurePass123!",
+    "name": "John Doe",
+    "company": "GreenTech Solutions"
+  }'
 
-# Get user profile (using API key)
-curl -X GET https://api.envoyou.com/v1/users/me \
-  -H "Authorization: Bearer YOUR_API_KEY"
-```text
+# Login
+curl -X POST "https://api.envoyou.com/v1/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "john.doe@example.com",
+    "password": "SecurePass123!"
+  }'
 
-### Python Requests
+# Get current user profile
+curl -X GET "https://api.envoyou.com/v1/users/me" \
+  -H "X-API-Key: your_api_key_here"
 
-```python
-import requests
+# Update user profile
+curl -X PUT "https://api.envoyou.com/v1/users/me" \
+  -H "X-API-Key: your_api_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Updated Name",
+    "company": "New Company Name"
+  }'
+```
 
-class EnvoyOUAPI:
-    def __init__(self, api_key):
-        self.api_key = api_key
-        self.base_url = 'https://api.envoyou.com/v1'
-        self.session = requests.Session()
-        self.session.headers.update({
-            'Authorization': f'Bearer {api_key}',
-            'Content-Type': 'application/json'
-        })
+#### Environmental Data Endpoints
+```bash
+# Get US emissions data
+curl -X GET "https://api.envoyou.com/v1/global/emissions?state=CA&year=2023&pollutant=CO2&limit=10" \
+  -H "X-API-Key: your_api_key_here"
 
-    def login(self, email, password):
-        response = self.session.post(f'{self.base_url}/auth/login', json={
-            'email': email,
-            'password': password
-        })
-        return response.json()
+# Get EEA renewable energy data
+curl -X GET "https://api.envoyou.com/v1/global/eea/renewables?country=DE&year=2023&limit=5" \
+  -H "X-API-Key: your_api_key_here"
 
-    def get_user(self, user_id=None):
-        endpoint = f'{self.base_url}/users/me' if user_id is None else f'{self.base_url}/users/{user_id}'
-        response = self.session.get(endpoint)
-        return response.json()
+# Get ISO certifications
+curl -X GET "https://api.envoyou.com/v1/global/iso/certifications?country=US&year=2023" \
+  -H "X-API-Key: your_api_key_here"
+
+# Search Indonesian permits
+curl -X GET "https://api.envoyou.com/v1/permits/search?province=DKI%20Jakarta&permit_type=AMDAL&limit=5" \
+  -H "X-API-Key: your_api_key_here"
+```
+
+#### Notifications
+```bash
+# Get user notifications
+curl -X GET "https://api.envoyou.com/v1/notifications" \
+  -H "X-API-Key: your_api_key_here"
+
+# Mark notification as read
+curl -X PUT "https://api.envoyou.com/v1/notifications/notif_12345" \
+  -H "X-API-Key: your_api_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{"read": true}'
+```
+
+### Ruby Integration
+
+#### Using net/http
+
+```ruby
+require 'net/http'
+require 'json'
+require 'uri'
+
+class EnvoyouAPI
+  def initialize(api_key, base_url = 'https://api.envoyou.com/v1')
+    @api_key = api_key
+    @base_url = base_url
+  end
+
+  def request(method, endpoint, data = nil)
+    uri = URI("#{@base_url}#{endpoint}")
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+
+    case method
+    when 'GET'
+      request = Net::HTTP::Get.new(uri)
+    when 'POST'
+      request = Net::HTTP::Post.new(uri)
+      request.body = data.to_json if data
+    when 'PUT'
+      request = Net::HTTP::Put.new(uri)
+      request.body = data.to_json if data
+    end
+
+    request['X-API-Key'] = @api_key
+    request['Content-Type'] = 'application/json'
+
+    response = http.request(request)
+    JSON.parse(response.body)
+  end
+
+  def login(email, password)
+    request('POST', '/auth/login', {
+      email: email,
+      password: password
+    })
+  end
+
+  def get_emissions(params = {})
+    query = URI.encode_www_form(params)
+    endpoint = "/global/emissions#{query.empty? ? '' : '?' + query}"
+    request('GET', endpoint)
+  end
+end
 
 # Usage
-api = EnvoyOUAPI('your-api-key')
-user = api.get_user()
-```text
+api = EnvoyouAPI.new('your_api_key_here')
+result = api.login('john.doe@example.com', 'SecurePass123!')
+puts result
 
-### JavaScript Fetch
+emissions = api.get_emissions(state: 'CA', year: 2023, limit: 5)
+puts emissions
+```
 
-```javascript
-class EnvoyOUAPI {
-  constructor(apiKey) {
-    this.apiKey = apiKey;
-    this.baseURL = 'https://api.envoyou.com/v1';
-  }
+### .NET Integration
 
-  async request(endpoint, options = {}) {
-    const url = `${this.baseURL}${endpoint}`;
-    const config = {
-      headers: {
-        'Authorization': `Bearer ${this.apiKey}`,
-        'Content-Type': 'application/json',
-        ...options.headers
-      },
-      ...options
-    };
+#### Using HttpClient
 
-    const response = await fetch(url, config);
+```csharp
+using System;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
-    if (!response.ok) {
-      throw new Error(`API Error: ${response.status} ${response.statusText}`);
+public class EnvoyouAPI
+{
+    private readonly HttpClient _client;
+    private readonly string _apiKey;
+
+    public EnvoyouAPI(string apiKey)
+    {
+        _apiKey = apiKey;
+        _client = new HttpClient();
+        _client.BaseAddress = new Uri("https://api.envoyou.com/v1");
+        _client.DefaultRequestHeaders.Add("X-API-Key", apiKey);
+        _client.DefaultRequestHeaders.Add("Accept", "application/json");
     }
 
-    return response.json();
-  }
+    private async Task<T> RequestAsync<T>(HttpMethod method, string endpoint, object data = null)
+    {
+        var request = new HttpRequestMessage(method, endpoint);
 
-  async login(email, password) {
-    return this.request('/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password })
-    });
-  }
+        if (data != null)
+        {
+            var json = JsonConvert.SerializeObject(data);
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+        }
 
-  async getUser(userId = null) {
-    const endpoint = userId ? `/users/${userId}` : '/users/me';
-    return this.request(endpoint);
-  }
+        var response = await _client.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+
+        var content = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<T>(content);
+    }
+
+    public async Task<dynamic> LoginAsync(string email, string password)
+    {
+        return await RequestAsync<dynamic>(HttpMethod.Post, "/auth/login", new {
+            email = email,
+            password = password
+        });
+    }
+
+    public async Task<dynamic> GetEmissionsAsync(string state = null, int? year = null, int? limit = 50)
+    {
+        var query = new List<string>();
+        if (!string.IsNullOrEmpty(state)) query.Add($"state={state}");
+        if (year.HasValue) query.Add($"year={year}");
+        if (limit.HasValue) query.Add($"limit={limit}");
+
+        var endpoint = "/global/emissions";
+        if (query.Any()) endpoint += "?" + string.Join("&", query);
+
+        return await RequestAsync<dynamic>(HttpMethod.Get, endpoint);
+    }
 }
 
 // Usage
-const api = new EnvoyOUAPI('your-api-key');
-const user = await api.getUser();
-```text
+class Program
+{
+    static async Task Main()
+    {
+        var api = new EnvoyouAPI("your_api_key_here");
+
+        try
+        {
+            var loginResult = await api.LoginAsync("john.doe@example.com", "SecurePass123!");
+            Console.WriteLine($"Login successful: {loginResult}");
+
+            var emissions = await api.GetEmissionsAsync("CA", 2023, 5);
+            Console.WriteLine($"Emissions: {emissions}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+}
+```
 
 ## Best Practices
 
@@ -350,15 +835,15 @@ try {
     throw error;
   }
 }
-```text
+```
 
 ### 2. Rate Limiting
 
 ```python
-from envoyou import EnvoyOUClient
+from envoyou import EnvoyouClient
 import time
 
-client = EnvoyOUClient(
+client = EnvoyouClient(
     api_key='your-api-key',
     rate_limit_requests_per_second=10
 )
@@ -373,7 +858,7 @@ for user_id in user_ids:
         time.sleep(e.retry_after)
         user = client.users.get(user_id)
         users.append(user)
-```text
+```
 
 ### 3. Connection Pooling
 
@@ -390,13 +875,13 @@ client := envoyou.NewClient(&envoyou.Config{
         Timeout: 30 * time.Second,
     },
 })
-```text
+```
 
 ### 4. Logging and Monitoring
 
 ```javascript
 // Enable detailed logging
-const client = new EnvoyOUClient({
+const client = new EnvoyouClient({
   apiKey: 'your-api-key',
   logger: {
     debug: (message, meta) => console.debug(message, meta),
@@ -405,7 +890,7 @@ const client = new EnvoyOUClient({
     error: (message, meta) => console.error(message, meta)
   }
 });
-```text
+```
 
 ### 5. Testing
 
@@ -428,66 +913,31 @@ describe('UserService', () => {
     expect(user.name).toBe('Test User');
   });
 });
-```text
+```
 
-## SDK Maintenance and Updates
+## Future SDK Development
 
-### Version Management
+**Official SDKs are planned for Q2 2025.** The roadmap includes:
 
-- **Major versions**: Breaking changes, API updates
-- **Minor versions**: New features, backwards compatible
-- **Patch versions**: Bug fixes, security updates
+- **JavaScript/TypeScript SDK** - Complete type-safe client
+- **Python SDK** - Async support with comprehensive error handling
+- **Go SDK** - High-performance concurrent requests
+- **Java SDK** - Enterprise-grade integration
 
-### Changelog Monitoring
+### Contributing to Future SDKs
 
-```javascript
-// Check SDK version
-console.log('SDK Version:', EnvoyOUClient.VERSION);
+When SDKs are released, contributions will be welcome through:
 
-// Check API compatibility
-const compatibility = client.checkCompatibility();
-if (!compatibility.supported) {
-  console.warn('SDK version may not be compatible with API version');
-}
-```text
-
-### Migration Guides
-
-When upgrading SDK versions:
-
-1. Check the changelog for breaking changes
-2. Update dependencies
-3. Run test suite
-4. Update configuration if needed
-5. Deploy gradually with feature flags
-
-## Contributing to SDKs
-
-### Official SDKs
-
-Contribute to official SDKs through GitHub:
-
-1. Fork the repository
-2. Create a feature branch
-3. Write tests for new functionality
-4. Implement the feature
-5. Submit a pull request
-
-### Community SDKs
-
-For community SDKs:
-
-1. Follow language-specific best practices
-2. Include comprehensive documentation
-3. Provide examples and test coverage
-4. Keep the SDK up-to-date with API changes
+1. **GitHub Issues**: Report bugs and request features
+1. **Pull Requests**: Submit code improvements
+1. **Community Forum**: Discuss integration patterns
 
 ## Support and Resources
 
-- **Documentation**: https://docs.envoyou.com/sdk
-- **API Reference**: https://api.envoyou.com/docs
-- **GitHub Issues**: Report bugs and request features
-- **Community Forum**: Get help from other developers
-- **Status Page**: Check SDK and API status
+- [**API Reference**](https://docs.envoyou.com/docs/api/api-reference) - Complete endpoint documentation
+- [**Authentication Guide**](https://docs.envoyou.com/docs/guides/authentication) - Detailed auth setup
+- [**Rate Limiting**](https://docs.envoyou.com/docs/guides/rate-limiting) - Understanding limits and quotas
+- [**Status Page**](https://status.envoyou.com/) - API uptime and incident reports
+- [**GitHub Issues**](https://github.com/hk-dev13/app-envoyou/issues) - Report bugs and request features
 
-SDKs provide a convenient, reliable way to integrate with the Envoyou API. Choose the SDK that best fits your technology stack and development workflow.
+**Direct HTTP integration provides the most flexibility and control. Use the examples above as starting points for your implementation.**

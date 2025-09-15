@@ -7,24 +7,25 @@
 ## Install
 ```bash
 npm ci
-```text
+```
 
 ## Run Local Docs
 ```bash
 npm run docs:start
-```text
-Open: http://localhost:3000
+```
+
+Open: [http://localhost:3000](http://localhost:3000)
 
 ## Build Production Docs
 ```bash
 npm run docs:build
-```text
+```
 Output: `docs-site/build`
 
 ## Serve Build (Preview)
 ```bash
 npm run docs:serve
-```text
+```
 
 ## OpenAPI Spec
 Location: `openapi/envoyou-api.yaml`
@@ -32,11 +33,11 @@ Location: `openapi/envoyou-api.yaml`
 Validate:
 ```bash
 npm run openapi:validate
-```text
+```
 Generate Types (TypeScript declarations):
 ```bash
 npm run openapi:types
-```text
+```
 Output: `src/lib/generated-api-types.d.ts`
 
 ## Redocusaurus API Spec Page
@@ -45,9 +46,9 @@ Source: plugin config in `docusaurus.config.js` referencing `../openapi/envoyou-
 
 ## Adding Endpoints
 1. Update `openapi/envoyou-api.yaml` paths.
-2. Run validation.
-3. (Optional) Regenerate types.
-4. Commit changes with message: `docs(openapi): add <endpoint>`
+1. Run validation.
+1. (Optional) Regenerate types.
+1. Commit changes with message: `docs(openapi): add <endpoint>`
 
 ## Docs Content Location
 Markdown root: `docs/`
@@ -61,4 +62,4 @@ Follow `docs/style-guide.md`.
 GitHub Action `docs-ci.yml` validates spec and builds docs on PRs & main branch pushes.
 
 ---
-Last updated: 2025-09-13
+Last updated: 2025-09-15

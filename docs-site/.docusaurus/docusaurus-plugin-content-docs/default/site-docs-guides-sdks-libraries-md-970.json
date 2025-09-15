@@ -1,7 +1,7 @@
 {
   "id": "guides/sdks-libraries",
   "title": "SDK and Libraries Guide",
-  "description": "This guide covers the official and community SDKs available for integrating with the Envoyou API, along with best practices for library usage.",
+  "description": "This guide covers integration methods for the Envoyou API, including HTTP client libraries and best practices. Official SDKs are planned for future releases.",
   "source": "@site/../docs/guides/sdks-libraries.md",
   "sourceDirName": "guides",
   "slug": "/guides/sdks-libraries",

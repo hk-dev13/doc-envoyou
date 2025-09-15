@@ -20,7 +20,7 @@ B --> C[Client Stores Cursor]
 C --> D[Client Requests Page 2 with header? No – cursor is implicit in headers]
 ```
 
-Currently, the next page is requested by repeating the same endpoint with an added query parameter `cursor` (planned) OR (current draft) by using the `X-Pagination-Next` value in a `cursor` query param:
+**Currently, the next page is requested by repeating the same endpoint with an added query parameter `cursor` (planned) OR (current draft) by using the `X-Pagination-Next` value in a `cursor` query param:**
 
 ```http
 GET /v1/measurements?limit=50&cursor=eyJvZmZzZXQiOjE1MH0
@@ -71,6 +71,6 @@ async function fetchAll<T>(baseUrl: string, limit = 50): Promise<T[]> {
 
 ## Related Docs
 
-- Error Catalog: `guides/error-catalog.md`
-- Rate Limiting: `guides/rate-limiting.md`
-- Observability: `guides/observability.md`
+- Error Catalog: [error-catalog](https://docs.envoyou.com/docs/guides/error-catalog)
+- Rate Limiting: [rate-limiting](https://docs.envoyou.com/docs/guides/rate-limiting)
+- Observability: [observability](https://docs.envoyou.com/docs/guides/observability)

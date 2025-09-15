@@ -23,7 +23,7 @@ Exit Criteria: < 10 residual MD031/MD032 errors across untouched legacy pages.
 ## Phase 3 – Headings Spacing
 Re-enable: MD022.
 Actions:
-1. Bulk insert blank lines before/after `^#{1,6} ` where missing (skip first line if H1).
+1. Bulk insert blank lines before/after `^#{1,6}` where missing (skip first line if H1).
 2. Confirm no accidental code block breaks.
 Exit Criteria: 0 MD022 errors.
 
@@ -42,6 +42,7 @@ Decision point: keep disabled (long tables, URLs) or enforce with higher limit (
 - CI Delta Mode: Lint only changed files on PR using `git diff --name-only origin/main...HEAD | grep '^docs/'`.
 
 ## Risk Mitigation
+
 | Risk | Mitigation |
 |------|------------|
 | Large diff noise | Apply automated fixes in grouped commits per phase. |
@@ -49,6 +50,7 @@ Decision point: keep disabled (long tables, URLs) or enforce with higher limit (
 | Merge conflicts | Sequence phases after major content merges. |
 
 ## Metrics Tracking
+
 | Metric | Baseline | Target |
 |--------|----------|--------|
 | MD040 violations | (initial count) | 0 (Phase 1) |

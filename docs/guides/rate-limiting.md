@@ -25,7 +25,7 @@ X-RateLimit-Retry-After: 3600         # Seconds until retry (429 responses only)
 X-Request-ID: req_8f3a92              # Unique request correlation ID
 X-Pagination-Limit: 50                # Effective page size (list endpoints)
 X-Pagination-Next: eyJvZmZzZXQiOjE1MH0  # Opaque cursor for next page (if present)
-```text
+```
 
 ### Header Reference
 
@@ -73,7 +73,7 @@ class RateLimitHandler {
     await new Promise(resolve => setTimeout(resolve, delay));
   }
 }
-```text
+```
 
 ### 2. Monitor Rate Limit Usage
 
@@ -112,7 +112,7 @@ class ApiClient {
     return response;
   }
 }
-```text
+```
 
 ### 3. Implement Request Queuing
 
@@ -162,7 +162,7 @@ class RequestQueue {
     this.processing = false;
   }
 }
-```text
+```
 
 ### 4. Use Request Batching
 
@@ -176,7 +176,7 @@ const user3 = await api.getUser(3);
 
 // Use batch endpoint:
 const users = await api.getUsers([1, 2, 3]);
-```text
+```
 
 ## Rate Limit Exceeded Response
 
@@ -199,23 +199,23 @@ When you exceed the rate limit, you'll receive:
     }
   }
 }
-```text
+```
 
 ## Upgrading Your Plan
 
 If you're consistently hitting rate limits, consider upgrading:
 
 1. **Basic Tier**: 10x the free tier limits
-2. **Pro Tier**: 100x the free tier limits
-3. **Enterprise Tier**: Custom limits based on your needs
+1. **Premium Tier**: 100x the free tier limits
+1. **Enterprise Tier**: Custom limits based on your needs
 
-Contact our sales team for enterprise pricing and custom rate limits.
+**Contact our [sales team](https://envoyou.com/contact) for enterprise pricing and custom rate limits.**
 
 ## Monitoring Rate Limits
 
 ### Dashboard Metrics
 
-Monitor your API usage through the developer dashboard:
+**Monitor your API usage through the developer dashboard:**
 
 - Current usage vs. limits
 - Historical usage patterns
@@ -224,7 +224,7 @@ Monitor your API usage through the developer dashboard:
 
 ### Alerts
 
-Set up alerts for:
+**Set up alerts for:**
 
 - 80% of rate limit reached
 - Rate limit exceeded
@@ -232,7 +232,7 @@ Set up alerts for:
 
 ### Logging
 
-Log rate limit information for analysis:
+**Log rate limit information for analysis:**
 
 ```javascript
 function logRateLimitInfo(headers, requestContext) {
@@ -251,35 +251,35 @@ function logRateLimitInfo(headers, requestContext) {
 
   analytics.track('api_rate_limit', rateLimitData);
 }
-```text
+```
 
 ## Common Rate Limiting Mistakes
 
 ### 1. Not Handling 429 Responses
 
-Many developers don't properly handle rate limit responses, leading to failed requests.
+*Many developers don't properly handle rate limit responses, leading to failed requests.*
 
 ### 2. Hammering the API
 
-Making requests as fast as possible without respecting rate limits.
+*Making requests as fast as possible without respecting rate limits.*
 
 ### 3. Not Monitoring Usage
 
-Not tracking your API usage can lead to unexpected rate limit hits.
+*Not tracking your API usage can lead to unexpected rate limit hits.*
 
 ### 4. Ignoring Retry-After Headers
 
-The `Retry-After` header provides the exact time to wait before retrying.
+*The `Retry-After` header provides the exact time to wait before retrying.*
 
 ## Testing Rate Limits
 
 ### Development Environment
 
-Use the development environment to test rate limiting behavior without affecting production limits.
+*Use the development environment to test rate limiting behavior without affecting production limits.*
 
 ### Load Testing
 
-When load testing, ensure your tests respect rate limits:
+**When load testing, ensure your tests respect rate limits:**
 
 ```javascript
 // Example load test with rate limiting
@@ -301,6 +301,6 @@ async function loadTest(apiEndpoint, totalRequests = 1000, concurrent = 10) {
   await queue.waitForCompletion();
   return results;
 }
-```text
+```
 
-Remember: Rate limiting is designed to protect the API and ensure fair access for all users. Proper implementation will result in more reliable integrations.
+**Remember:** Rate limiting is designed to protect the API and ensure fair access for all users. Proper implementation will result in more reliable integrations.

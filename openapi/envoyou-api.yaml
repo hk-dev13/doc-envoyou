@@ -441,6 +441,46 @@ paths:
         '204':
           description: Session deleted
 
+  # Alerts
+  /alerts:
+    get:
+      summary: List alert rules
+      tags: [Alerts]
+      responses:
+        '200':
+          $ref: '#/components/responses/ListAlertRules'
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '429': { $ref: '#/components/responses/TooManyRequestsError' }
+    post:
+      summary: Create alert rule
+      tags: [Alerts]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AlertRuleCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AlertRule' }
+        '400': { $ref: '#/components/responses/ValidationErrorResponse' }
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+  /alerts/{id}:
+    delete:
+      summary: Delete alert rule
+      tags: [Alerts]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '204': { description: Deleted }
+        '401': { $ref: '#/components/responses/UnauthorizedError' }
+        '404': { $ref: '#/components/responses/NotFoundError' }
+
   # User Management Endpoints
   /user/profile:
     get:
@@ -452,7 +492,7 @@ paths:
           description: User profile
           content:
             application/json:
-              schema: { $ref: '#/components/schemas/UserProfile' }
+              schema: { $ref: '#/components/schemas/User' }
     put:
       summary: Update user profile
       tags: [User Management]
@@ -473,7 +513,7 @@ paths:
           description: Profile updated
           content:
             application/json:
-              schema: { $ref: '#/components/schemas/UserProfile' }
+              schema: { $ref: '#/components/schemas/User' }
 
   /user/stats:
     get:
@@ -1273,43 +1313,6 @@ paths:
                 type: object
                 properties:
                   services: { type: object }
-    get:
-      summary: List alert rules
-      tags: [Alerts]
-      responses:
-        '200':
-          $ref: '#/components/responses/ListAlertRules'
-        '401': { $ref: '#/components/responses/UnauthorizedError' }
-        '429': { $ref: '#/components/responses/TooManyRequestsError' }
-    post:
-      summary: Create alert rule
-      tags: [Alerts]
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema: { $ref: '#/components/schemas/AlertRuleCreate' }
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema: { $ref: '#/components/schemas/AlertRule' }
-        '400': { $ref: '#/components/responses/ValidationErrorResponse' }
-        '401': { $ref: '#/components/responses/UnauthorizedError' }
-  /alerts/{id}:
-    delete:
-      summary: Delete alert rule
-      tags: [Alerts]
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema: { type: string }
-      responses:
-        '204': { description: Deleted }
-        '401': { $ref: '#/components/responses/UnauthorizedError' }
-        '404': { $ref: '#/components/responses/NotFoundError' }
   /scenarios/run:
     post:
       summary: Run scenario analysis over a portfolio or company set
@@ -1536,6 +1539,24 @@ components:
         last_login_at: 2025-09-13T14:30:22Z
         is_active: true
         two_factor_enabled: false
+    Session:
+      type: object
+      properties:
+        id: { type: string }
+        user_id: { type: string }
+        created_at: { type: string, format: date-time }
+        last_activity_at: { type: string, format: date-time }
+        ip_address: { type: string }
+        user_agent: { type: string }
+        is_active: { type: boolean }
+      example:
+        id: sess_abc123
+        user_id: user_12345
+        created_at: 2025-09-13T10:20:11Z
+        last_activity_at: 2025-09-13T14:30:22Z
+        ip_address: 192.168.1.100
+        user_agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+        is_active: true
     Notification:
       type: object
       properties:
@@ -1554,6 +1575,52 @@ components:
         read: false
         created_at: 2025-09-13T10:20:11Z
         data: { amount: 99.99, due_date: "2025-10-01" }
+    NotificationPreferences:
+      type: object
+      properties:
+        email_enabled: { type: boolean, default: true }
+        push_enabled: { type: boolean, default: true }
+        sms_enabled: { type: boolean, default: false }
+        billing_notifications: { type: boolean, default: true }
+        alert_notifications: { type: boolean, default: true }
+        system_notifications: { type: boolean, default: true }
+        marketing_notifications: { type: boolean, default: false }
+        quiet_hours_start: { type: string, format: time, nullable: true }
+        quiet_hours_end: { type: string, format: time, nullable: true }
+        timezone: { type: string, default: "UTC" }
+      example:
+        email_enabled: true
+        push_enabled: true
+        sms_enabled: false
+        billing_notifications: true
+        alert_notifications: true
+        system_notifications: true
+        marketing_notifications: false
+        quiet_hours_start: "22:00"
+        quiet_hours_end: "08:00"
+        timezone: "America/New_York"
+    NotificationTemplate:
+      type: object
+      properties:
+        id: { type: string }
+        name: { type: string }
+        type: { type: string, enum: [email, push, sms] }
+        subject: { type: string }
+        body: { type: string }
+        variables: { type: array, items: { type: string } }
+        language: { type: string, default: "en" }
+        created_at: { type: string, format: date-time }
+        updated_at: { type: string, format: date-time }
+      example:
+        id: template_12345
+        name: Payment Reminder
+        type: email
+        subject: "Payment Due: {{amount}}"
+        body: "Dear {{name}}, your payment of {{amount}} is due on {{due_date}}."
+        variables: [name, amount, due_date]
+        language: en
+        created_at: 2025-09-13T10:20:11Z
+        updated_at: 2025-09-13T10:20:11Z
     Permit:
       type: object
       properties:
@@ -1599,6 +1666,134 @@ components:
         year: 2023
         data: { co2_total: 5000000, methane: 120000 }
         source: EDGAR
+        last_updated: 2025-09-13T10:20:11Z
+    EmissionData:
+      type: object
+      properties:
+        country: { type: string }
+        country_code: { type: string }
+        year: { type: integer }
+        pollutant: { type: string, enum: [co2, ch4, n2o, so2, nox, pm25, pm10] }
+        value: { type: number }
+        unit: { type: string, example: "kt" }
+        sector: { type: string }
+        source: { type: string, enum: [edgar, epa, eea] }
+        last_updated: { type: string, format: date-time }
+      example:
+        country: United States
+        country_code: US
+        year: 2023
+        pollutant: co2
+        value: 5000000
+        unit: kt
+        sector: energy
+        source: edgar
+        last_updated: 2025-09-13T10:20:11Z
+    PowerPlant:
+      type: object
+      properties:
+        plant_id: { type: string }
+        plant_name: { type: string }
+        owner: { type: string }
+        operator: { type: string }
+        state: { type: string }
+        county: { type: string }
+        latitude: { type: number }
+        longitude: { type: number }
+        primary_fuel: { type: string, enum: [coal, gas, nuclear, hydro, wind, solar, biomass] }
+        capacity_mw: { type: number }
+        generation_mwh: { type: number }
+        emissions_co2: { type: number }
+        emissions_so2: { type: number }
+        emissions_nox: { type: number }
+        year: { type: integer }
+        source: { type: string, example: EPA CAMPD }
+      example:
+        plant_id: 12345
+        plant_name: Springfield Power Plant
+        owner: Utility Corp
+        operator: Utility Corp
+        state: IL
+        county: Sangamon
+        latitude: 39.7817
+        longitude: -89.6501
+        primary_fuel: coal
+        capacity_mw: 1200
+        generation_mwh: 8500000
+        emissions_co2: 8500000
+        emissions_so2: 12000
+        emissions_nox: 8000
+        year: 2023
+        source: EPA CAMPD
+    EEAIndicator:
+      type: object
+      properties:
+        indicator_code: { type: string }
+        indicator_name: { type: string }
+        country: { type: string }
+        country_code: { type: string }
+        year: { type: integer }
+        value: { type: number }
+        unit: { type: string }
+        category: { type: string, enum: [air, water, waste, biodiversity, climate] }
+        last_updated: { type: string, format: date-time }
+      example:
+        indicator_code: GHG_1001
+        indicator_name: Greenhouse Gas Emissions
+        country: Germany
+        country_code: DE
+        year: 2023
+        value: 750000
+        unit: kt CO2-eq
+        category: climate
+        last_updated: 2025-09-13T10:20:11Z
+    EDGAREmission:
+      type: object
+      properties:
+        country: { type: string }
+        country_code: { type: string }
+        sector: { type: string }
+        subsector: { type: string }
+        pollutant: { type: string, enum: [co2, ch4, n2o, so2, nox, pm25, pm10] }
+        year: { type: integer }
+        value: { type: number }
+        unit: { type: string, example: "kt" }
+        uncertainty: { type: number }
+        last_updated: { type: string, format: date-time }
+      example:
+        country: United States
+        country_code: US
+        sector: energy
+        subsector: electricity
+        pollutant: co2
+        year: 2023
+        value: 1200000
+        unit: kt
+        uncertainty: 0.05
+        last_updated: 2025-09-13T10:20:11Z
+    ISOCertification:
+      type: object
+      properties:
+        organization_name: { type: string }
+        registration_number: { type: string }
+        standard: { type: string, example: "ISO 14001:2015" }
+        certification_body: { type: string }
+        country: { type: string }
+        issue_date: { type: string, format: date }
+        expiry_date: { type: string, format: date }
+        status: { type: string, enum: [active, expired, suspended] }
+        scope: { type: string }
+        last_updated: { type: string, format: date-time }
+      example:
+        organization_name: ABC Manufacturing Ltd
+        registration_number: ISO14001-2023-001
+        standard: ISO 14001:2015
+        certification_body: BSI
+        country: United Kingdom
+        issue_date: "2023-01-15"
+        expiry_date: "2026-01-14"
+        status: active
+        scope: Manufacturing of industrial equipment
         last_updated: 2025-09-13T10:20:11Z
     AlertRuleBase:
       type: object

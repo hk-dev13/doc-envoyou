@@ -17,14 +17,14 @@ Envoyou uses a combination of JWT (JSON Web Token) and API Key for authenticatio
 
 ## Request + Response Examples
 
-**Login Request**:
+**Login Request**:  
+**POST** `/v1/auth/login`
 ```json
-POST /v1/auth/login
 {
   "email": "user@example.com",
   "password": "Password123"
 }
-```text
+```
 
 **Login Response**:
 ```json
@@ -39,4 +39,4 @@ POST /v1/auth/login
     "company": "Example Corp"
   }
 }
-```text
+```

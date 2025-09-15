@@ -137,7 +137,7 @@ query PortfolioMetrics($ids: [ID!]!, $window: String!) {
     riskOutliers(limit: 5) { id name score industry }
   }
 }
-```text
+```
 
 ---
 
@@ -158,7 +158,7 @@ report_export_<framework>_<YYYYMMDD>/
   facilities.csv     # facility dimensional data
   methodology.md     # narrative / assumptions
   mappings.json      # internal key -> framework code
-```text
+```
 
 ### Example `manifest.json`
 ```json
@@ -333,6 +333,7 @@ Tokenless browser usage should proxy through your server; never embed full serve
 ---
 
 ## 9. Troubleshooting
+
 | Symptom | Possible Cause | Resolution |
 | ------- | -------------- | ---------- |
 | 401 Unauthorized | Missing/invalid header | Ensure `Authorization: ApiKey <key>` sent |
@@ -360,6 +361,7 @@ Tokenless browser usage should proxy through your server; never embed full serve
 ---
 
 ## Build Roadmap (Indicative)
+
 | Phase | Scope | Outcomes |
 | ----- | ----- | -------- |
 | 0 | Foundations | Metric catalog, baseline CEVS scoring, ingestion MVP |

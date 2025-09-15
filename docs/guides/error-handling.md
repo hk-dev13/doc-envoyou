@@ -6,36 +6,36 @@ This guide covers common errors you might encounter when using the Envoyou API a
 
 ### 4xx Client Errors
 
-#### 400 Bad Request
-**Cause**: Invalid or missing parameters in your request.
+#### `400 Bad Request`
+**Cause**: *Invalid or missing parameters in your request.*  
 **Solution**:
 - Check all required parameters are included
 - Verify parameter types match API specifications
 - Ensure JSON payload is properly formatted
 
-#### 401 Unauthorized
-**Cause**: Invalid, expired, or missing authentication credentials.
+#### `401 Unauthorized`
+**Cause**: *Invalid, expired, or missing authentication credentials.*  
 **Solution**:
 - Verify your API key is correct and active
 - Check JWT token hasn't expired
 - Ensure proper `Authorization: Bearer <token>` header format
 
-#### 403 Forbidden
-**Cause**: Access denied due to insufficient permissions or unverified account.
+#### `403 Forbidden`
+**Cause**: *Access denied due to insufficient permissions or unverified account.*  
 **Solution**:
 - Verify your email address is confirmed
 - Check your account has appropriate permissions
 - Contact support if you believe this is an error
 
-#### 404 Not Found
-**Cause**: The requested endpoint or resource doesn't exist.
+#### `404 Not Found`
+**Cause**: *The requested endpoint or resource doesn't exist.*  
 **Solution**:
 - Verify the endpoint URL is correct
 - Check HTTP method (GET, POST, etc.) matches the API
 - Ensure resource IDs are valid
 
-#### 429 Too Many Requests
-**Cause**: Rate limit exceeded for your account tier.
+#### `429 Too Many Requests`
+**Cause**: *Rate limit exceeded for your account tier.*  
 **Solution**:
 - Implement exponential backoff retry logic
 - Upgrade to a higher tier for increased limits
@@ -43,8 +43,8 @@ This guide covers common errors you might encounter when using the Envoyou API a
 
 ### 5xx Server Errors
 
-#### 500 Internal Server Error
-**Cause**: Unexpected server-side error.
+#### `500 Internal Server Error`
+**Cause**: *Unexpected server-side error.*  
 **Solution**:
 - Retry the request after a short delay
 - Check API status page for outages
@@ -52,7 +52,7 @@ This guide covers common errors you might encounter when using the Envoyou API a
 
 ## Error Response Format
 
-All API errors follow a consistent format:
+**All API errors follow a consistent format:**
 
 ```json
 {
@@ -67,7 +67,7 @@ All API errors follow a consistent format:
   "timestamp": "2024-01-01T00:00:00Z",
   "request_id": "unique-request-identifier"
 }
-```text
+```
 
 ## Best Practices for Error Handling
 
@@ -106,7 +106,7 @@ async function apiRequest(url, options, maxRetries = 3) {
     }
   }
 }
-```text
+```
 
 ### 2. Log Errors Appropriately
 
@@ -125,7 +125,7 @@ function handleApiError(error, context) {
     extra: context
   });
 }
-```text
+```
 
 ### 3. Provide User-Friendly Messages
 
@@ -142,28 +142,27 @@ function getUserFriendlyErrorMessage(statusCode, errorCode) {
 
   return errorMessages[statusCode] || 'An unexpected error occurred. Please try again.';
 }
-```text
+```
 
 ## Rate Limiting
 
-The API implements rate limiting to ensure fair usage:
+**The API implements rate limiting to ensure fair usage:**
 
 - **Free Tier**: 100 requests per hour
-- **Basic Tier**: 1,000 requests per hour
-- **Pro Tier**: 10,000 requests per hour
+- **Premium Tier**: 1,000 requests per hour
 - **Enterprise Tier**: Custom limits
 
-Rate limit headers are included in all responses:
+**Rate limit headers are included in all responses:**
 - `X-RateLimit-Limit`: Maximum requests per hour
 - `X-RateLimit-Remaining`: Remaining requests in current window
 - `X-RateLimit-Reset`: Time when the limit resets (Unix timestamp)
 
 ## Monitoring and Alerts
 
-Set up monitoring for:
+**Set up monitoring for:**
 - Increased error rates
 - Rate limit hits
 - Authentication failures
 - Slow response times
 
-Consider implementing health checks to monitor API availability.
+**Consider implementing health checks to monitor API availability.**

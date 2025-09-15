@@ -38,7 +38,7 @@ Webhooks are HTTP callbacks that notify your application when specific events oc
 
 ### 1. Create Webhook Endpoint
 
-Create an HTTPS endpoint in your application to receive webhook payloads:
+**Create an HTTPS endpoint in your application to receive webhook payloads:**
 
 ```javascript
 // Express.js example
@@ -62,11 +62,11 @@ app.post('/webhooks/envoyou', express.json(), async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-```text
+```
 
 ### 2. Register Webhook URL
 
-Register your webhook endpoint through the API or dashboard:
+**Register your webhook endpoint through the API or dashboard:**
 
 ```bash
 curl -X POST https://api.envoyou.com/v1/webhooks \
@@ -78,7 +78,7 @@ curl -X POST https://api.envoyou.com/v1/webhooks \
     "secret": "your-webhook-secret",
     "active": true
   }'
-```text
+```
 
 ### 3. Configure Webhook Settings
 
@@ -102,11 +102,11 @@ curl -X POST https://api.envoyou.com/v1/webhooks \
     "X-Custom-Header": "your-custom-value"
   }
 }
-```text
+```
 
 ## Webhook Payload Structure
 
-All webhook payloads follow a consistent structure:
+**All webhook payloads follow a consistent structure:**
 
 ```json
 {
@@ -124,7 +124,7 @@ All webhook payloads follow a consistent structure:
   },
   "webhook_id": "wh_1234567890"
 }
-```text
+```
 
 ### Event Types and Payloads
 
@@ -146,7 +146,7 @@ All webhook payloads follow a consistent structure:
     }
   }
 }
-```text
+```
 
 #### Authentication Events
 
@@ -168,13 +168,13 @@ All webhook payloads follow a consistent structure:
     }
   }
 }
-```text
+```
 
 ## Security and Verification
 
 ### Webhook Signature Verification
 
-Always verify webhook signatures to ensure authenticity:
+**Always verify webhook signatures to ensure authenticity:**
 
 ```javascript
 const crypto = require('crypto');
@@ -198,7 +198,7 @@ const isValid = verifySignature(
   req.headers['x-envoyou-timestamp'],
   process.env.ENVOYOU_WEBHOOK_SECRET
 );
-```text
+```
 
 #### Python Example
 
@@ -236,12 +236,12 @@ async def receive(request: Request, x_envoyou_signature: str = Header(None), x_e
     raise HTTPException(status_code=401, detail='Invalid signature')
   # enqueue task for async processing here
   return {"received": True}
-```text
+```
 
 #### Recommended Validation Steps
 
 - Require all security headers present (signature, timestamp, webhook id, event type).
-- Enforce timestamp drift (<= 5 minutes) to mitigate replay.
+- Enforce timestamp drift (`<= 5 minutes`) to mitigate replay.
 - (Optional) Include a nonce header (`X-Envoyou-Nonce`) and store recently seen nonces (Redis TTL 10m) for replay rejection.
 - Reject requests with mismatched `Content-Type` or body reserialization differences.
 - Use constant-time comparison for signature strings.
@@ -256,7 +256,7 @@ X-Envoyou-Timestamp: 1640995200
 X-Envoyou-Webhook-ID: wh_1234567890
 X-Envoyou-Event-Type: user.created
 X-Envoyou-Nonce: 4f2c7a81-bc2a-4c2f-9a3d-91d7fa2d6c55
-```text
+```
 
 ## Error Handling and Retries
 
@@ -304,13 +304,13 @@ async function processWebhookEvent(event) {
     }
   }
 }
-```text
+```
 
 ## Best Practices
 
 ### 1. Idempotency
 
-Ensure your webhook handlers are idempotent:
+**Ensure your webhook handlers are idempotent:**
 
 ```javascript
 const processedEvents = new Set();
@@ -330,11 +330,11 @@ async function processEvent(event) {
   // Persist processed event IDs to database
   await saveProcessedEventId(event.id);
 }
-```text
+```
 
 ### 2. Response Time
 
-Respond quickly to webhook requests:
+**Respond quickly to webhook requests:**
 
 ```javascript
 app.post('/webhooks/envoyou', async (req, res) => {
@@ -348,11 +348,11 @@ app.post('/webhooks/envoyou', async (req, res) => {
     });
   });
 });
-```text
+```
 
 ### 3. Logging and Monitoring
 
-Implement comprehensive logging:
+**Implement comprehensive logging:**
 
 ```javascript
 function logWebhookEvent(event, status, error = null) {
@@ -377,11 +377,11 @@ function logWebhookEvent(event, status, error = null) {
     status: status
   });
 }
-```text
+```
 
 ### 4. Testing Webhooks
 
-Test your webhooks using tools like:
+**Test your webhooks using tools like:**
 
 ```bash
 # Using curl to test webhook endpoint
@@ -400,7 +400,7 @@ curl -X POST https://your-app.com/webhooks/envoyou \
       }
     }
   }'
-```text
+```
 
 ### 5. Webhook Management
 
@@ -409,7 +409,7 @@ curl -X POST https://your-app.com/webhooks/envoyou \
 ```bash
 curl -X GET https://api.envoyou.com/v1/webhooks \
   -H "Authorization: Bearer YOUR_API_KEY"
-```text
+```
 
 #### Update Webhook
 
@@ -421,14 +421,14 @@ curl -X PUT https://api.envoyou.com/v1/webhooks/wh_1234567890 \
     "events": ["user.created", "user.updated", "auth.login", "api.rate_limit_exceeded"],
     "active": true
   }'
-```text
+```
 
 #### Delete Webhook
 
 ```bash
 curl -X DELETE https://api.envoyou.com/v1/webhooks/wh_1234567890 \
   -H "Authorization: Bearer YOUR_API_KEY"
-```text
+```
 
 ## Common Issues and Solutions
 
@@ -472,4 +472,4 @@ Set up alerts for:
 - Unusual event volumes
 - Processing delays
 
-Webhooks are a powerful way to build event-driven integrations with the Envoyou platform. Proper implementation ensures reliable, real-time communication between systems.
+**Webhooks are a powerful way to build event-driven integrations with the Envoyou platform. Proper implementation ensures reliable, real-time communication between systems.**

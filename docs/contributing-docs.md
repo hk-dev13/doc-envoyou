@@ -16,7 +16,7 @@ docs/
   changelog.md
   style-guide.md
   contributing-docs.md
-```text
+```
 
 ## Prerequisites
 
@@ -26,18 +26,17 @@ docs/
 ## Adding a New Page
 
 1. Decide the correct category (Guides, API, Data Model, etc.).
-2. Create the Markdown file inside its folder.
-3. Follow the style guide (`style-guide.md`).
-4. If ordering needed, add frontmatter:
+1. Create the Markdown file inside its folder.
+1. Follow the style guide (`style-guide.md`).
+1. If ordering needed, add frontmatter:
 
-```text
----
-sidebar_label: Air Quality Endpoint
-sidebar_position: 2
----
-```text
-
-5. Run locally and verify sidebar + links.
+    ```text
+    ---
+    sidebar_label: Air Quality Endpoint
+    sidebar_position: 2
+    ---
+    ```
+1. Run locally and verify sidebar + links.
 
 ## Linking
 
@@ -45,7 +44,7 @@ Use relative links:
 
 ```text
 See [Authentication](../authentication.md)
-```text
+```
 
 ## API Reference
 
@@ -59,8 +58,8 @@ See [Authentication](../authentication.md)
 ## Review Process
 
 1. Self-review (lint headings, test code examples)
-2. Build: `npm run docs:build`
-3. Open PR with concise description.
+1. Build: `npm run docs:build`
+1. Open PR with concise description.
 
 ## Do / Don't
 
@@ -76,4 +75,4 @@ See [Authentication](../authentication.md)
 - Changelog from GitHub Releases
 
 ---
-Last updated: 2025-09-13
+Last updated: 2025-09-15

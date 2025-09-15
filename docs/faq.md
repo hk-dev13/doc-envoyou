@@ -11,19 +11,19 @@ Envoyou is a comprehensive API platform that provides user authentication, profi
 ### How do I get started?
 
 1. **Sign up** for an account at [envoyou.com](https://envoyou.com)
-2. **Verify** your email address
-3. **Generate** an API key from your dashboard
-4. **Choose** your preferred SDK or use direct HTTP requests
-5. **Start** integrating with your application
+1. **Verify** your email address
+1. **Generate** an API key from your dashboard
+1. **Choose** your preferred SDK or use direct HTTP requests
+1. **Start** integrating with your application
 
 ### What programming languages are supported?
 
-We provide official SDKs for:
+*We provide official SDKs for:*
 - JavaScript/TypeScript
 - Python
 - Go
 
-Community SDKs are available for:
+*Community SDKs are available for:*
 - PHP
 - Ruby
 - .NET
@@ -52,22 +52,22 @@ Yes! Use API keys for general API access and JWT tokens for user-specific operat
 
 ### What are the rate limits?
 
-Rate limits vary by your subscription tier:
+*Rate limits vary by your subscription tier:*
 
 | Tier | Requests per Hour | Requests per Minute |
 |------|------------------|-------------------|
 | Free | 100 | 10 |
 | Basic | 1,000 | 100 |
-| Pro | 10,000 | 1,000 |
+| Premium | 10,000 | 1,000 |
 | Enterprise | Custom | Custom |
 
 ### How do I handle rate limiting?
 
 1. **Check response headers** for rate limit information
-2. **Implement exponential backoff** for retries
-3. **Use request queuing** to smooth out traffic
-4. **Monitor your usage** through the dashboard
-5. **Upgrade your plan** if you need higher limits
+1. **Implement exponential backoff** for retries
+1. **Use request queuing** to smooth out traffic
+1. **Monitor your usage** through the dashboard
+1. **Upgrade your plan** if you need higher limits
 
 ### What happens when I exceed rate limits?
 
@@ -114,9 +114,9 @@ Yes, we implement multiple layers of security:
 ### What should I do if I suspect a security breach?
 
 1. **Immediately rotate** your API keys
-2. **Contact support** with details
-3. **Review access logs** for suspicious activity
-4. **Update all client applications** with new keys
+1. **Contact support** with details
+1. **Review access logs** for suspicious activity
+1. **Update all client applications** with new keys
 
 ## Integration
 
@@ -127,10 +127,10 @@ Yes! You can migrate existing users or keep your current system and use Envoyou 
 ### How do I migrate existing users?
 
 1. **Export user data** from your current system
-2. **Use our bulk import API** to create users
-3. **Update your application** to use Envoyou authentication
-4. **Test thoroughly** before going live
-5. **Gradually migrate** users to avoid disruption
+1. **Use our bulk import API** to create users
+1. **Update your application** to use Envoyou authentication
+1. **Test thoroughly** before going live
+1. **Gradually migrate** users to avoid disruption
 
 ### What webhooks are available?
 
@@ -169,14 +169,14 @@ Possible causes:
 ### How do I reset my password?
 
 1. Go to the login page
-2. Click "Forgot Password"
-3. Enter your email address
-4. Check your email for reset instructions
-5. Follow the link to set a new password
+1. Click "Forgot Password"
+1. Enter your email address
+1. Check your email for reset instructions
+1. Follow the link to set a new password
 
 ### How do I update my account information?
 
-You can update your account details through the dashboard:
+**You can update your account details through the dashboard:**
 - Email address
 - Password
 - Billing information
@@ -200,7 +200,7 @@ Account deletion is permanent and removes all associated data. Contact support t
 ### How do I report a bug?
 
 1. **Check existing issues** in our GitHub repository
-2. **Create a new issue** with detailed information:
+1. **Create a new issue** with detailed information:
    - Steps to reproduce
    - Expected vs actual behavior
    - API endpoint and request details
@@ -210,15 +210,15 @@ Account deletion is permanent and removes all associated data. Contact support t
 ### How do I request a new feature?
 
 1. **Check our roadmap** to see if it's already planned
-2. **Create a feature request** on GitHub
-3. **Provide detailed requirements** and use cases
-4. **Engage with the community** to gauge interest
+1. **Create a feature request** on GitHub
+1. **Provide detailed requirements** and use cases
+1. **Engage with the community** to gauge interest
 
 ## Compliance and Legal
 
 ### Is Envoyou GDPR compliant?
 
-Yes, we are fully GDPR compliant. We provide:
+**Yes, we are fully GDPR compliant. We provide:**
 - Data processing agreements
 - Right to erasure (data deletion)
 - Data portability
@@ -242,7 +242,7 @@ Data is stored in secure, SOC 2 compliant data centers in the US. Enterprise cus
 
 ### Can I use Envoyou for single sign-on (SSO)?
 
-Yes! We support SAML and OAuth 2.0 for enterprise SSO integrations. Contact our enterprise team for setup assistance.
+Yes! We support SAML and OAuth 2.0 for enterprise SSO integrations. [Contact](https:envoyou.com/contact) our enterprise team for setup assistance.
 
 ### Do you support multi-tenant applications?
 
@@ -250,7 +250,7 @@ Yes, our API is designed to support multi-tenant applications with proper tenant
 
 ### Can I customize the authentication flow?
 
-Yes, we offer extensive customization options:
+**Yes, we offer extensive customization options:**
 - Custom login pages
 - Additional user fields
 - Custom validation rules
@@ -258,10 +258,10 @@ Yes, we offer extensive customization options:
 
 ### What about mobile applications?
 
-Our API works seamlessly with mobile apps. We provide:
+**Our API works seamlessly with mobile apps. We provide:**
 - Mobile-optimized SDKs
 - Offline token storage
 - Biometric authentication support
 - Push notification integration
 
-If you don't find your question answered here, please check our [documentation](https://docs.envoyou.com) or contact our support team.
+If you don't find your question answered here, please check our [documentation](https://docs.envoyou.com) or [contact](https:envoyou.com/contact) our support team.

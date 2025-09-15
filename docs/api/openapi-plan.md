@@ -18,36 +18,40 @@ Option B: `docusaurus-plugin-openapi-docs` -> generate MD -> commit.
 Chosen Initial: Option A (faster to bootstrap).
 
 ## redocusaurus Setup (Planned)
+
 1. Install dependencies:
+
 ```bash
 npm install --save @docusaurus/plugin-content-docs @docusaurus/preset-classic redocusaurus
-```text
-2. Create `openapi/envoyou-api.yaml`.
-3. Add to `docusaurus.config.js`:
-```js
-presets: [/* existing */],
-plugins: [
-  [
-    'redocusaurus',
-    {
-      specs: [
-        { id: 'core-api', spec: 'openapi/envoyou-api.yaml', route: '/api-spec/' }
-      ],
-      theme: { primaryColor: '#0B5CCC' }
-    }
-  ]
-]
-```text
-4. Add sidebar link under API Reference pointing to `/api-spec/`.
+```
+1. Create `openapi/envoyou-api.yaml`.
+1. Add to `docusaurus.config.js`:
+
+    ```js
+    presets: [/* existing */],
+    plugins: [
+    [
+        'redocusaurus',
+        {
+        specs: [
+            { id: 'core-api', spec: 'openapi/envoyou-api.yaml', route: '/api-spec/' }
+        ],
+        theme: { primaryColor: '#0B5CCC' }
+        }
+    ]
+    ]
+    ```
+1. Add sidebar link under API Reference pointing to `/api-spec/`.
 
 ## Phase 3 (Automation)
+
 Add script:
 ```text
 #!/usr/bin/env bash
 set -euo pipefail
 npx swagger-cli validate openapi/envoyou-api.yaml
 cp openapi/envoyou-api.yaml app-envoyou/docs/static/ # if needed
-```text
+```
 Optional GitHub Action: validate spec on PR.
 
 ## Phase 4 (Future)
@@ -55,4 +59,4 @@ Optional GitHub Action: validate spec on PR.
 - Autopublish versioned API docs.
 
 ---
-Last updated: 2025-09-13
+Last updated: 2025-09-15

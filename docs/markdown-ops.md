@@ -13,10 +13,10 @@ These helper scripts reduce noise and enable incremental cleanup without breakin
 
 ## Workflow Suggestions
 
-First While editing docs, run: `npm run md:lint:changed` for fast feedback.  
-2. Before PR merge, run full: `npm run md:lint`.  
-3. Phase 1 goal: Drive `md:fences:check` output to zero, then re-enable MD040.  
-4. Use `md:lint:fix`, then manually adjust any remaining complex cases.  
+1. While editing docs, run: `npm run md:lint:changed` for fast feedback.  
+1. Before PR merge, run full: `npm run md:lint`.  
+1. Phase 1 goal: Drive `md:fences:check` output to zero, then re-enable MD040.  
+1. Use `md:lint:fix`, then manually adjust any remaining complex cases.  
 
 ## FAQ
 **Why relaxed rules?** Large import created many spacing issues; phased approach prevents blocking feature work.

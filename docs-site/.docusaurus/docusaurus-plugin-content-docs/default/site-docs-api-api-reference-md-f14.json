@@ -1,7 +1,7 @@
 {
   "id": "api/api-reference",
   "title": "API Reference",
-  "description": "Endpoint /v1/auth/register",
+  "description": "Base URLs",
   "source": "@site/../docs/api/api-reference.md",
   "sourceDirName": "api",
   "slug": "/api/api-reference",

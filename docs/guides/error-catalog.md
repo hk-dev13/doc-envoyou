@@ -25,7 +25,7 @@ All errors also include the tracing header `X-Request-ID` and (when rate limitin
   "request_id": "req_8f3a92",
   "status": 400
 }
-```text
+```
 
 ### Validation Error (`ValidationError`)
 
@@ -39,7 +39,7 @@ All errors also include the tracing header `X-Request-ID` and (when rate limitin
   ],
   "request_id": "req_5310de"
 }
-```text
+```
 
 ### Rate Limit Exceeded (`TooManyRequestsError`)
 
@@ -53,7 +53,7 @@ X-RateLimit-Remaining: 0
 X-RateLimit-Reset: 1731532800
 X-RateLimit-Retry-After: 42
 X-Request-ID: req_912ab3
-```text
+```
 
 Example body (shares `ErrorResponse` schema):
 
@@ -64,7 +64,7 @@ Example body (shares `ErrorResponse` schema):
   "status": 429,
   "request_id": "req_912ab3"
 }
-```text
+```
 
 ## Error Response Components
 
@@ -93,7 +93,7 @@ interface ValidationError extends BaseError { fields?: ValidationIssue[]; }
 function parseError(res: Response, body: any): ValidationError | BaseError {
   return body && body.error ? body : { error: 'unknown_error', message: `HTTP ${res.status}`, status: res.status };
 }
-```text
+```
 
 ### 2. Retry Logic (429)
 
@@ -103,7 +103,7 @@ if (err.error === 'rate_limit_exceeded') {
   await new Promise(r => setTimeout(r, retryAfter * 1000));
   // retry request...
 }
-```text
+```
 
 ### 3. Validation Rendering
 
@@ -111,15 +111,15 @@ if (err.error === 'rate_limit_exceeded') {
 for (const issue of (err.fields || [])) {
   highlightField(issue.field, issue.issue);
 }
-```text
+```
 
 ## Evolution & Extension
 
 When adding a new error type:
 
 1. Prefer extending existing schemas unless a fundamentally different structure is needed.
-2. Add a reusable response component if widely reused (e.g., authentication, throttling).
-3. Update this catalog & OpenAPI examples.
+1. Add a reusable response component if widely reused (e.g., authentication, throttling).
+1. Update this catalog & OpenAPI examples.
 
 ## Related Documents
 

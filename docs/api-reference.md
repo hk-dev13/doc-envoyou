@@ -19,4 +19,3 @@ Additional Resources:
 - Error Handling Guide: [/docs/guides/error-handling](/docs/guides/error-handling)
 - Pagination Rules: [/docs/guides/pagination](/docs/guides/pagination)
 - Rate Limiting: [/docs/guides/rate-limiting](/docs/guides/rate-limiting)
-
