@@ -70,13 +70,13 @@ const config = {
               html: '<a href="https://github.com/hk-dev13" target="_blank" rel="noopener noreferrer"><img src="https://cdn.envoyou.com/icon-sosmed/github.svg" alt="GitHub" style="width: 24px; height: 24px; filter: brightness(0.6);" class="social-icon" /></a>'
             },
             {
-              html: '<a href="https://www.linkedin.com/in/husni-kusuma/" target="_blank" rel="noopener noreferrer"><img src="https://cdn.envoyou.com/icon-sosmed/linkedin.svg" alt="LinkedIn" style="width: 24px; height: 24px; filter: brightness(0.6);" class="social-icon" /></a>'
+              html: '<a href="https://www.linkedin.com/in/husni-kusuma/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><img src="https://cdn.envoyou.com/icon-sosmed/linkedin.svg" alt="LinkedIn" style="width: 24px; height: 24px; filter: brightness(0.6);" class="social-icon" /></a>'
             },
             {
-              html: '<a href="https://x.com/EnvoyouAPI" target="_blank" rel="noopener noreferrer"><img src="https://cdn.envoyou.com/icon-sosmed/twitter.svg" alt="X (Twitter)" style="width: 24px; height: 24px; filter: brightness(0.6);" class="social-icon" /></a>'
+              html: '<a href="https://x.com/EnvoyouAPI" target="_blank" rel="noopener noreferrer" title="X"><img src="https://cdn.envoyou.com/icon-sosmed/twitter.svg" alt="X (Twitter)" style="width: 24px; height: 24px; filter: brightness(0.6);" class="social-icon" /></a>'
             },
             {
-              html: '<a href="https://www.instagram.com/envoyou/" target="_blank" rel="noopener noreferrer"><img src="https://cdn.envoyou.com/icon-sosmed/instagram.svg" alt="Instagram" style="width: 24px; height: 24px; filter: brightness(0.6);" class="social-icon" /></a>'
+              html: '<a href="https://www.instagram.com/envoyou/" target="_blank" rel="noopener noreferrer" title="Instagram"><img src="https://cdn.envoyou.com/icon-sosmed/instagram.svg" alt="Instagram" style="width: 24px; height: 24px; filter: brightness(0.6);" class="social-icon" /></a>'
             }
           ]
         }
