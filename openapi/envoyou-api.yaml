@@ -17,6 +17,525 @@ security:
   - BearerAuth: []
   - ApiKeyAuth: []
 paths:
+  # Notifications (clean prefixes)
+  /notifications/:
+    get:
+      summary: Get user notifications
+      tags: [Notifications]
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema: { type: string }
+        - in: query
+          name: limit
+          required: false
+          schema: { type: integer, default: 50 }
+        - in: query
+          name: offset
+          required: false
+          schema: { type: integer, default: 0 }
+        - in: query
+          name: unread_only
+          required: false
+          schema: { type: boolean, default: false }
+        - in: query
+          name: category
+          required: false
+          schema: { type: string, enum: [account, security, billing, system, marketing, support] }
+      responses:
+        '200': { description: Successful Response }
+    post:
+      summary: Create notification
+      tags: [Notifications]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [user_id, title, message]
+              properties:
+                user_id: { type: string }
+                title: { type: string }
+                message: { type: string }
+                type: { type: string, enum: [email, in_app, push, sms], default: in_app }
+                category: { type: string, enum: [account, security, billing, system, marketing, support], default: system }
+                priority: { type: string, enum: [low, medium, high, urgent], default: medium }
+      responses:
+        '200': { description: Successful Response }
+
+  /notifications/count:
+    get:
+      summary: Get notification count
+      tags: [Notifications]
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema: { type: string }
+        - in: query
+          name: unread_only
+          required: false
+          schema: { type: boolean, default: false }
+      responses:
+        '200': { description: Successful Response }
+
+  /notifications/{notification_id}/read:
+    put:
+      summary: Mark notification as read
+      tags: [Notifications]
+      parameters:
+        - in: path
+          name: notification_id
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Successful Response }
+
+  /notifications/read-all:
+    put:
+      summary: Mark all notifications as read
+      tags: [Notifications]
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Successful Response }
+
+  /notifications/{notification_id}:
+    delete:
+      summary: Delete notification
+      tags: [Notifications]
+      parameters:
+        - in: path
+          name: notification_id
+          required: true
+          schema: { type: integer }
+      responses:
+        '200': { description: Successful Response }
+
+  /notifications/templates:
+    get:
+      summary: Get notification templates
+      tags: [Notifications]
+      responses:
+        '200': { description: Successful Response }
+
+  /notifications/send-template:
+    post:
+      summary: Send template notification
+      tags: [Notifications]
+      parameters:
+        - in: query
+          name: template_key
+          required: true
+          schema: { type: string }
+        - in: query
+          name: user_id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema: { type: object, additionalProperties: true }
+      responses:
+        '200': { description: Successful Response }
+
+  /notifications/preferences/{user_id}:
+    get:
+      summary: Get user notification preferences
+      tags: [Notifications]
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Successful Response }
+    put:
+      summary: Update user notification preferences
+      tags: [Notifications]
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, additionalProperties: { type: boolean } }
+      responses:
+        '200': { description: Successful Response }
+    delete:
+      summary: Delete user notification preferences
+      tags: [Notifications]
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Successful Response }
+
+  /notifications/events/welcome:
+    post:
+      summary: Send welcome notification event
+      tags: [Notifications]
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Successful Response }
+
+  /notifications/events/verification:
+    post:
+      summary: Send verification notification event
+      tags: [Notifications]
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema: { type: string }
+        - in: query
+          name: verification_code
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Successful Response }
+
+  /notifications/events/password-reset:
+    post:
+      summary: Send password reset notification event
+      tags: [Notifications]
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema: { type: string }
+        - in: query
+          name: reset_token
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Successful Response }
+
+  /notifications/events/security-alert:
+    post:
+      summary: Send security alert notification event
+      tags: [Notifications]
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema: { type: string }
+        - in: query
+          name: alert_type
+          required: true
+          schema: { type: string }
+        - in: query
+          name: details
+          required: false
+          schema: { type: string }
+      responses:
+        '200': { description: Successful Response }
+
+  /notifications/events/billing:
+    post:
+      summary: Send billing notification event
+      tags: [Notifications]
+      parameters:
+        - in: query
+          name: user_id
+          required: true
+          schema: { type: string }
+        - in: query
+          name: billing_type
+          required: true
+          schema: { type: string }
+        - in: query
+          name: amount
+          required: false
+          schema: { type: number }
+      responses:
+        '200': { description: Successful Response }
+
+  /notifications/cleanup:
+    post:
+      summary: Cleanup expired notifications
+      tags: [Notifications]
+      responses:
+        '200': { description: Successful Response }
+
+  # Payments (clean prefixes)
+  /payments/create-subscription:
+    post:
+      summary: Create subscription
+      tags: [Payments]
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [price_id]
+              properties:
+                price_id: { type: string }
+                custom_data: { type: object, additionalProperties: true }
+      responses:
+        '200': { description: Successful Response }
+
+  /payments/subscription/{subscription_id}:
+    get:
+      summary: Get subscription
+      tags: [Payments]
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - in: path
+          name: subscription_id
+          required: true
+          schema: { type: string }
+      responses:
+        '200': { description: Successful Response }
+
+  /payments/webhook:
+    post:
+      summary: Paddle webhook
+      tags: [Payments]
+      responses:
+        '200': { description: Successful Response }
+
+  # Cloudflare
+  /cloudflare/health:
+    get:
+      summary: Cloudflare API health check
+      tags: [Cloudflare]
+      responses:
+        '200': { description: Successful Response }
+
+  /cloudflare/analytics:
+    get:
+      summary: Zone analytics
+      tags: [Cloudflare]
+      parameters:
+        - in: query
+          name: domain
+          required: false
+          schema: { type: string, default: envoyou.com }
+        - in: query
+          name: hours
+          required: false
+          schema: { type: integer, default: 24 }
+      responses:
+        '200': { description: Successful Response }
+
+  /cloudflare/dns:
+    get:
+      summary: DNS records
+      tags: [Cloudflare]
+      parameters:
+        - in: query
+          name: domain
+          required: false
+          schema: { type: string, default: envoyou.com }
+      responses:
+        '200': { description: Successful Response }
+    post:
+      summary: Create DNS record
+      tags: [Cloudflare]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain: { type: string, default: envoyou.com }
+                record_type: { type: string, default: A }
+                name: { type: string }
+                content: { type: string }
+                ttl: { type: integer, default: 1 }
+                proxied: { type: boolean, default: true }
+      responses:
+        '200': { description: Successful Response }
+
+  /cloudflare/dns/{record_id}:
+    put:
+      summary: Update DNS record
+      tags: [Cloudflare]
+      parameters:
+        - in: path
+          name: record_id
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain: { type: string, default: envoyou.com }
+                record_type: { type: string, default: A }
+                name: { type: string }
+                content: { type: string }
+                ttl: { type: integer, default: 1 }
+                proxied: { type: boolean, default: true }
+      responses:
+        '200': { description: Successful Response }
+    delete:
+      summary: Delete DNS record
+      tags: [Cloudflare]
+      parameters:
+        - in: path
+          name: record_id
+          required: true
+          schema: { type: string }
+        - in: query
+          name: domain
+          required: false
+          schema: { type: string, default: envoyou.com }
+      responses:
+        '200': { description: Successful Response }
+
+  /cloudflare/firewall:
+    get:
+      summary: Firewall rules
+      tags: [Cloudflare]
+      parameters:
+        - in: query
+          name: domain
+          required: false
+          schema: { type: string, default: envoyou.com }
+      responses:
+        '200': { description: Successful Response }
+    post:
+      summary: Create firewall rule
+      tags: [Cloudflare]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description: { type: string }
+                expression: { type: string }
+                action: { type: string, default: block }
+                domain: { type: string, default: envoyou.com }
+      responses:
+        '200': { description: Successful Response }
+
+  /cloudflare/rate-limits:
+    get:
+      summary: Rate limiting rules
+      tags: [Cloudflare]
+      parameters:
+        - in: query
+          name: domain
+          required: false
+          schema: { type: string, default: envoyou.com }
+      responses:
+        '200': { description: Successful Response }
+    post:
+      summary: Create rate limit
+      tags: [Cloudflare]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url_pattern: { type: string }
+                requests_per_period: { type: integer, default: 100 }
+                period: { type: integer, default: 60 }
+                action: { type: string, default: block }
+                domain: { type: string, default: envoyou.com }
+      responses:
+        '200': { description: Successful Response }
+
+  /cloudflare/cache/purge:
+    post:
+      summary: Purge cache
+      tags: [Cloudflare]
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                urls:
+                  type: array
+                  items: { type: string }
+                domain: { type: string, default: envoyou.com }
+      responses:
+        '200': { description: Successful Response }
+
+  /cloudflare/ssl:
+    get:
+      summary: SSL/TLS status
+      tags: [Cloudflare]
+      parameters:
+        - in: query
+          name: domain
+          required: false
+          schema: { type: string, default: envoyou.com }
+      responses:
+        '200': { description: Successful Response }
+
+  /cloudflare/page-rules:
+    get:
+      summary: Page rules
+      tags: [Cloudflare]
+      parameters:
+        - in: query
+          name: domain
+          required: false
+          schema: { type: string, default: envoyou.com }
+      responses:
+        '200': { description: Successful Response }
+    post:
+      summary: Create page rule
+      tags: [Cloudflare]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url_pattern: { type: string }
+                actions: { type: array, items: { type: object } }
+                priority: { type: integer, default: 1 }
+                domain: { type: string, default: envoyou.com }
+      responses:
+        '200': { description: Successful Response }
+
+  # Environmental
+  /environmental/us/facilities/{facility_name}:
+    get:
+      summary: Search US facilities (EPA→EIA fallback)
+      tags: [Environmental Data]
+      parameters:
+        - in: path
+          name: facility_name
+          required: true
+          schema: { type: string }
+        - in: query
+          name: source
+          required: false
+          schema: { type: string, enum: [epa, eia] }
+      responses:
+        '200': { description: Successful Response }
   # Authentication Endpoints
   /auth/login:
     post:
