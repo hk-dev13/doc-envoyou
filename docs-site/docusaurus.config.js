@@ -34,7 +34,7 @@ const config = {
     image: 'img/android-chrome-512x512.png',
     navbar: {
       title: 'Envoyou API Docs',
-      logo: { alt: 'Envoyou Logo', src: 'https://cdn.envoyou.com/logo-envoyou/svg/logo-icon.nb.svg' },
+      logo: { alt: 'Envoyou Logo', src: 'https://cdn.envoyou.com/logo-envoyou/dark-theme.svg', srcDark: 'https://cdn.envoyou.com/logo-envoyou/light-theme.svg' },
       items: [
         { type: 'docSidebar', sidebarId: 'tutorialSidebar', position: 'left', label: 'Documentation' },
         { href: 'https://api.envoyou.com/docs', label: 'Interactive API', position: 'left' },
